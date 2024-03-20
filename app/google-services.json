@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "249411638439",
+    "firebase_url": "https://que-vemos-h-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "que-vemos-h",
+    "storage_bucket": "que-vemos-h.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:249411638439:android:753cbab7c24afc021cf782",
+        "android_client_info": {
+          "package_name": "com.example.quevemoshoy"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "249411638439-ajfd4e6mp70heln1jbhoum1s4al8rg5r.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB1s4YDNPuVJlWpMfknoeXyBzH05uSbxDA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "249411638439-ajfd4e6mp70heln1jbhoum1s4al8rg5r.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

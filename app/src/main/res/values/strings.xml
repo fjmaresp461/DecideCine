@@ -1,0 +1,62 @@
+<resources>
+    <string name="app_name">No se que ver hoy</string>
+    <string name="welcome">¿que vemos hoy?</string>
+    <string name="user_cancelled">El usuario canceló</string>
+    <string name="recommended">Películas recomendadas para tí</string>
+    <string name="surprise_me">Películas que podrian interesarte</string>
+    <string name="coming_soon">Próximamente</string>
+    <string name="btn_recommended">Veamos</string>
+    <string name="btn_surprise">Adelante</string>
+    <string name="btn_coming_soon">En desarrollo...</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="gen_action">⚔️ Acción</string>
+    <string name="gen_adventure">🧭 Aventura</string>
+    <string name="gen_animation">🥸 Animación</string>
+    <string name="gen_comedy">😂 Comedia</string>
+    <string name="gen_crime">🗡️ Crimen</string>
+    <string name="gen_documentary">📖 Documental</string>
+    <string name="gen_drama">🎭 Drama</string>
+    <string name="gen_family">👨‍👩‍👧‍👦 Familia</string>
+    <string name="gen_fantasy">🧙‍♂️ Fantasía</string>
+    <string name="gen_history">🗿 Historia</string>
+    <string name="gen_horror">👻 Terror</string>
+    <string name="gen_music">🎵 Música</string>
+    <string name="gen_mystery">🕵️ Misterio</string>
+    <string name="gen_romance">💞 Romance</string>
+    <string name="gen_scifi">🛸 Ciencia ficción</string>
+    <string name="gen_tv_movie">📺 Película de TV</string>
+    <string name="gen_thriller">😶 Suspense</string>
+    <string name="gen_war">💣 Bélica</string>
+    <string name="gen_western">🌵 Western</string>
+    <string name="btn_start">Comencemos</string>
+    <string name="edit_preferences">Edita tus preferencias</string>
+    <string name="exit">Salir</string>
+    <string name="restore">Resetear preferencias</string>
+    <string name="logout">Cerrar sesión</string>
+    <string name="about_this">Acerca de la app</string>
+    <string name="about_app">Sobre la app</string>
+    <string name="movie_not_found">Película no encontrada</string>
+    <string name="error_fetching">Error encontrando película</string>
+    <string name="error_providers">Error encontrando proveedores</string>
+    <string name="preferences_saved">Se han guardado tus gustos</string>
+    <string name="add_favorites">Película vista</string>
+    <string name="favorites_saved">Película añadida a tus favoritos</string>
+    <string name="error_updating_data">Error al resetear preferencias</string>
+    <string name="movie_dont_available">No disponible en plataformas actualmente</string>
+    <string name="no_matching_movies">No se han encontrado peliculas coincidentes.</string>
+    <string name="error_getting_data">Error recibiendo los datos</string>
+    <string name="about_app_text">
+        Esta aplicación te ayuda a encontrar las mejores películas para ti.
+        Te ofrece recomendaciones personalizadas basadas en tus gustos y preferencias.
+        La idea es que no te compliques buscando.
+</string>
+
+    <string name="welcome_mesaage">
+        Hola.\n\n\n\n\nAhora podrás realizar un breve cuestionario, serán sólo unos minutos😊\nAsí podremos conocer mejor tus
+        preferencias y así poder ofrecerte una experiencia personalizada.
+    </string>
+    <string name="favorite">Película favorita</string>
+    <string name="delete_from_favorite">Película eliminada de favoritos</string>
+    <string name="map">¿Te apetece  cine?</string>
+    <string name="dark_mode">Modo oscuro?</string>
+</resources>

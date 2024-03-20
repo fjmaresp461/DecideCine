@@ -1,0 +1,22 @@
+<resources>
+    <style name="Theme.QueVemosHoy" parent="Theme.MaterialComponents.DayNight">
+    </style>
+
+    <style name="Theme.QueVemosHoy.Light" parent="Theme.QueVemosHoy">
+        <item name="android:colorBackground">@color/colorBackground_light</item>
+        <item name="colorOnPrimary">@color/textColorPrimary_light</item>
+        <item name="colorPrimary">@color/colorPrimary_light</item>
+        <item name="actionBarStyle">@style/MyActionBar.Light</item>
+    </style>
+
+    <style name="MyActionBar.Light" parent="Widget.AppCompat.ActionBar">
+        <item name="android:height">10dp</item>
+        <item name="android:background">@color/colorPrimary_light</item>
+        <item name="titleTextStyle">@style/MyActionBarTitleText.Light</item>
+    </style>
+
+    <style name="MyActionBarTitleText.Light" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="android:textColor">@color/colorOnPrimary_light</item>
+    </style>
+
+</resources>

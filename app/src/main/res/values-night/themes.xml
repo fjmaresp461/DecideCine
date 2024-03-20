@@ -1,0 +1,24 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.QueVemosHoy" parent="Theme.Material3.DayNight">
+        <!-- Customize your dark theme here. -->
+        <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+    </style>
+
+    <style name="Theme.QueVemosHoy.Dark" parent="Theme.QueVemosHoy">
+        <item name="android:colorBackground">@color/colorBackground_dark</item>
+        <item name="colorOnPrimary">@color/textColorPrimary_dark</item>
+        <item name="colorPrimary">@color/colorPrimary_dark</item>
+        <item name="actionBarStyle">@style/MyActionBar.Dark</item>
+    </style>
+
+    <style name="MyActionBar.Dark" parent="Widget.AppCompat.ActionBar">
+        <item name="android:height">10dp</item>
+        <item name="android:background">@color/colorPrimary_dark</item>
+        <item name="titleTextStyle">@style/MyActionBarTitleText.Dark</item>
+    </style>
+
+    <style name="MyActionBarTitleText.Dark" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="android:textColor">@color/colorOnPrimary_dark</item>
+    </style>
+</resources>

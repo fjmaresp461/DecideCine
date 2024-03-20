@@ -1,0 +1,398 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:backgroundTint="?attr/colorSurface"
+    android:scrollbarStyle="outsideInset">
+
+    <ScrollView
+        android:id="@+id/frame"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:backgroundTint="?attr/colorSurface">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="5dp"
+                android:text="@string/gen_action"
+                android:textSize="20sp" />
+
+            <SeekBar
+                android:id="@+id/actionSeekBar"
+                style="@style/Widget.AppCompat.SeekBar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:max="10"
+                android:progress="5"
+                android:progressTint="#09ACF1"
+                android:scrollbarStyle="outsideInset"
+                android:thumb="?android:attr/listChoiceIndicatorSingle" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="5dp"
+                android:text="@string/gen_adventure"
+                android:textSize="20sp" />
+
+            <SeekBar
+                android:id="@+id/adventureSeekBar"
+                style="@style/Widget.AppCompat.SeekBar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:max="10"
+                android:progress="5"
+                android:progressTint="#09ACF1"
+                android:scrollbarStyle="outsideInset"
+                android:thumb="?android:attr/listChoiceIndicatorSingle" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="5dp"
+                android:text="@string/gen_animation"
+                android:textSize="20sp" />
+
+            <SeekBar
+                android:id="@+id/animationSeekBar"
+                style="@style/Widget.AppCompat.SeekBar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:max="10"
+                android:progress="5"
+                android:progressTint="#09ACF1"
+                android:scrollbarStyle="outsideInset"
+                android:thumb="?android:attr/listChoiceIndicatorSingle" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="5dp"
+                android:text="@string/gen_comedy"
+                android:textSize="20sp" />
+
+            <SeekBar
+                android:id="@+id/comedySeekBar"
+                style="@style/Widget.AppCompat.SeekBar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:max="10"
+                android:progress="5"
+                android:progressTint="#09ACF1"
+                android:scrollbarStyle="outsideInset"
+                android:thumb="?android:attr/listChoiceIndicatorSingle" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="5dp"
+                android:text="@string/gen_crime"
+                android:textSize="20sp" />
+
+            <SeekBar
+                android:id="@+id/crimeSeekBar"
+                style="@style/Widget.AppCompat.SeekBar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:max="10"
+                android:progress="5"
+                android:progressTint="#09ACF1"
+                android:scrollbarStyle="outsideInset"
+                android:thumb="?android:attr/listChoiceIndicatorSingle" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="5dp"
+                android:text="@string/gen_documentary"
+                android:textSize="20sp" />
+
+            <SeekBar
+                android:id="@+id/documentarySeekBar"
+                style="@style/Widget.AppCompat.SeekBar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:max="10"
+                android:progress="5"
+                android:progressTint="#09ACF1"
+                android:scrollbarStyle="outsideInset"
+                android:thumb="?android:attr/listChoiceIndicatorSingle" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="5dp"
+                android:text="@string/gen_drama"
+                android:textSize="20sp" />
+
+            <SeekBar
+                android:id="@+id/dramaSeekBar"
+                style="@style/Widget.AppCompat.SeekBar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:max="10"
+                android:progress="5"
+                android:progressTint="#09ACF1"
+                android:scrollbarStyle="outsideInset"
+                android:thumb="?android:attr/listChoiceIndicatorSingle" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="5dp"
+                android:text="@string/gen_family"
+                android:textSize="20sp" />
+
+            <SeekBar
+                android:id="@+id/familySeekBar"
+                style="@style/Widget.AppCompat.SeekBar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:max="10"
+                android:progress="5"
+                android:progressTint="#09ACF1"
+                android:scrollbarStyle="outsideInset"
+                android:thumb="?android:attr/listChoiceIndicatorSingle" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="5dp"
+                android:text="@string/gen_fantasy"
+                android:textSize="20sp" />
+
+            <SeekBar
+                android:id="@+id/fantasySeekBar"
+                style="@style/Widget.AppCompat.SeekBar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:max="10"
+                android:progress="5"
+                android:progressTint="#09ACF1"
+                android:scrollbarStyle="outsideInset"
+                android:thumb="?android:attr/listChoiceIndicatorSingle" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="5dp"
+                android:text="@string/gen_history"
+                android:textSize="20sp" />
+
+            <SeekBar
+                android:id="@+id/historySeekBar"
+                style="@style/Widget.AppCompat.SeekBar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:max="10"
+                android:progress="5"
+                android:progressTint="#09ACF1"
+                android:scrollbarStyle="outsideInset"
+                android:thumb="?android:attr/listChoiceIndicatorSingle" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="5dp"
+                android:text="@string/gen_horror"
+                android:textSize="20sp" />
+
+            <SeekBar
+                android:id="@+id/horrorSeekBar"
+                style="@style/Widget.AppCompat.SeekBar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:max="10"
+                android:progress="5"
+                android:progressTint="#09ACF1"
+                android:scrollbarStyle="outsideInset"
+                android:thumb="?android:attr/listChoiceIndicatorSingle" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="5dp"
+                android:text="@string/gen_music"
+                android:textSize="20sp" />
+
+            <SeekBar
+                android:id="@+id/musicSeekBar"
+                style="@style/Widget.AppCompat.SeekBar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:max="10"
+                android:progress="5"
+                android:progressTint="#09ACF1"
+                android:scrollbarStyle="outsideInset"
+                android:thumb="?android:attr/listChoiceIndicatorSingle" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="5dp"
+                android:text="@string/gen_mystery"
+                android:textSize="20sp" />
+
+            <SeekBar
+                android:id="@+id/mysterySeekBar"
+                style="@style/Widget.AppCompat.SeekBar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:max="10"
+                android:progress="5"
+                android:progressTint="#09ACF1"
+                android:scrollbarStyle="outsideInset"
+                android:thumb="?android:attr/listChoiceIndicatorSingle" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="5dp"
+                android:text="@string/gen_romance"
+                android:textSize="20sp" />
+
+            <SeekBar
+                android:id="@+id/romanceSeekBar"
+                style="@style/Widget.AppCompat.SeekBar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:max="10"
+                android:progress="5"
+                android:progressTint="#09ACF1"
+                android:scrollbarStyle="outsideInset"
+                android:thumb="?android:attr/listChoiceIndicatorSingle" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="5dp"
+                android:text="@string/gen_scifi"
+                android:textSize="20sp" />
+
+            <SeekBar
+                android:id="@+id/scifiSeekBar"
+                style="@style/Widget.AppCompat.SeekBar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:max="10"
+                android:progress="5"
+                android:progressTint="#09ACF1"
+                android:scrollbarStyle="outsideInset"
+                android:thumb="?android:attr/listChoiceIndicatorSingle" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="5dp"
+                android:text="@string/gen_tv_movie"
+                android:textSize="20sp" />
+
+            <SeekBar
+                android:id="@+id/tvMovieSeekBar"
+                style="@style/Widget.AppCompat.SeekBar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:max="10"
+                android:progress="5"
+                android:progressTint="#09ACF1"
+                android:scrollbarStyle="outsideInset"
+                android:thumb="?android:attr/listChoiceIndicatorSingle" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="5dp"
+                android:text="@string/gen_thriller"
+                android:textSize="20sp" />
+
+            <SeekBar
+                android:id="@+id/thrillerSeekBar"
+                style="@style/Widget.AppCompat.SeekBar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:max="10"
+                android:progress="5"
+                android:progressTint="#09ACF1"
+                android:scrollbarStyle="outsideInset"
+                android:thumb="?android:attr/listChoiceIndicatorSingle" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="5dp"
+                android:text="@string/gen_war"
+                android:textSize="20sp" />
+
+            <SeekBar
+                android:id="@+id/warSeekBar"
+                style="@style/Widget.AppCompat.SeekBar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:max="10"
+                android:progress="5"
+                android:progressTint="#09ACF1"
+                android:scrollbarStyle="outsideInset"
+                android:thumb="?android:attr/listChoiceIndicatorSingle" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="5dp"
+                android:text="@string/gen_western"
+                android:textSize="20sp" />
+
+            <SeekBar
+                android:id="@+id/westernSeekBar"
+                style="@style/Widget.AppCompat.SeekBar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:max="10"
+                android:progress="5"
+                android:progressTint="#09ACF1"
+                android:scrollbarStyle="outsideInset"
+                android:thumb="?android:attr/listChoiceIndicatorSingle" />
+
+            <ImageButton
+                android:id="@+id/btnSave"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#00FFFFFF"
+                android:src="@android:drawable/ic_menu_save" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <fragment
+        android:id="@+id/welcome_fragment"
+        android:name="com.example.quevemoshoy.WelcomeFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+       />
+</FrameLayout>
