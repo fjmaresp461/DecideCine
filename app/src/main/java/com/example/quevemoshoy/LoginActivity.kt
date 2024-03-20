@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatDelegate
+import com.example.quevemoshoy.authentication.RegisterActivity1
 import com.example.quevemoshoy.databinding.ActivityLoginBinding
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -39,7 +40,7 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        setupThemeSwitch()
+
         auth = Firebase.auth
         setListeners()
     }
@@ -53,8 +54,33 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun setListeners() {
-        binding.ibLogin.setOnClickListener {
+        binding.btnGoogleSignIn.setOnClickListener {
             loginGoogle()
+        }
+        binding.btnLogin.setOnClickListener{
+            val email=binding.etEmail.text.toString().trim()
+            val pass=binding.etPassword.text.toString().trim()
+            auth.signInWithEmailAndPassword(email, pass).addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    val user = auth.currentUser
+                    checkPreferences(user)
+                } else {
+                    Toast.makeText(this, "Authentication failed.", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+
+        binding.tvForgottenPass.setOnClickListener{
+            val email=binding.etEmail.text.toString().trim()
+            auth.sendPasswordResetEmail(email).addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    Toast.makeText(this, "Email sent.", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+
+        binding.tvRegister.setOnClickListener{
+            startActivity(Intent(this, RegisterActivity1::class.java))
         }
     }
 
@@ -90,33 +116,19 @@ class LoginActivity : AppCompatActivity() {
             if (it.exists()) {
                 goToMainActivity()
             } else {
-                goToPreferencesActivity()
+                goToRegisterActivity()
             }
         }
     }
 
-    private fun goToPreferencesActivity() {
-        val intent = Intent(this, PreferencesActivity::class.java)
-        intent.putExtra("skipFragment", true)
+    private fun goToRegisterActivity() {
+        val intent = Intent(this, RegisterActivity1::class.java)
+        intent.putExtra("googleSignIn", true)
         startActivity(intent)
     }
 
     private fun goToMainActivity() {
         startActivity(Intent(this, MainActivity2::class.java))
     }
-    private fun setupThemeSwitch() {
-        val sharedPref = getSharedPreferences("AppPreferences", Context.MODE_PRIVATE)
-        binding.swDarkMode.isChecked = sharedPref.getBoolean("DarkMode", false)
 
-        binding.swDarkMode.setOnCheckedChangeListener { _, isChecked ->
-            if (isChecked) {
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-                sharedPref.edit().putBoolean("DarkMode", true).apply()
-            } else {
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-                sharedPref.edit().putBoolean("DarkMode", false).apply()
-            }
-        }
-
-    }
 }

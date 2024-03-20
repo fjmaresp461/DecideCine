@@ -35,7 +35,7 @@
             android:padding="5dp"
             android:text="La historia interminable"
             android:textAlignment="center"
-            android:textColor="?attr/colorOnPrimary"
+
             android:textSize="30sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"

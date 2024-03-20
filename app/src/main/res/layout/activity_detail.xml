@@ -5,7 +5,7 @@
     android:id="@+id/ib_favorites"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?attr/colorSurface"
+
     android:orientation="vertical">
 
     <TextView
@@ -29,7 +29,7 @@
         android:layout_marginTop="44dp"
         android:padding="5dp"
         android:text="2h 49min  "
-        android:textColor="?attr/colorOnSurface"
+
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="@+id/movie_title"
         app:layout_constraintTop_toBottomOf="@+id/movie_title" />
@@ -76,7 +76,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="Adventure, Drama, Sci-Fi,"
-        android:textColor="?attr/colorOnSurface"
+
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="@+id/movie_title"
         app:layout_constraintTop_toBottomOf="@+id/movie_title" />
@@ -87,7 +87,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="9dp"
         android:padding="5dp"
-        android:textColor="?attr/colorOnSurface"
+
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="@+id/summary"
         app:layout_constraintTop_toBottomOf="@+id/summary" />
@@ -119,7 +119,7 @@
         android:layout_marginTop="13dp"
         android:layout_marginEnd="7dp"
         android:text="Me encanta"
-        android:textColor="?attr/colorOnSurface"
+
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_genres" />
 

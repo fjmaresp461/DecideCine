@@ -14,7 +14,7 @@ class MoviesManager {
 
     private val database = FirebaseDatabase.getInstance()
     val userId = FirebaseAuth.getInstance().currentUser?.uid
-    private val reference = database.getReference("preferences/$userId")
+    private val reference = database.getReference("users/$userId")
     private val apiService = ApiClient.retrofit.create(MovieInterface::class.java)
 
     suspend fun getUserGenrePreferences(minScore: Int, maxScore: Int): Map<String, Int> =
@@ -23,7 +23,7 @@ class MoviesManager {
         ) {
             val userGenrePreferences = mutableMapOf<String, Int>()
             try {
-                val snapshot = reference.get().await()
+                val snapshot = reference.child("preferencias").get().await()
                 for (genreSnapshot in snapshot.children) {
                     val genreId = genreSnapshot.key ?: continue
                     val genrePreference = genreSnapshot.getValue(Int::class.java) ?: continue
@@ -98,7 +98,8 @@ class MoviesManager {
 
     suspend fun resetPreferences() = withContext(Dispatchers.IO) {
         try {
-            val snapshot = reference.get().await()
+            val snapshot = reference.child("preferencias").get().await()
+
             for (genreSnapshot in snapshot.children) {
                 genreSnapshot.ref.setValue(5)
             }

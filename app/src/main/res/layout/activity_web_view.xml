@@ -10,7 +10,7 @@
         android:id="@+id/ib_back"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:backgroundTint="?attr/colorSurface"
+
         android:scaleType="centerCrop"
         app:srcCompat="@drawable/back_icon"
         app:layout_constraintStart_toStartOf="parent"

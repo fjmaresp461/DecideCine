@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?attr/colorSurface"
-    android:backgroundTint="?attr/colorSurface"
+
     android:paddingTop="2dp"
     tools:context=".MainActivity2">
 
@@ -13,7 +12,7 @@
         android:id="@+id/ib_recomended"
         android:layout_width="0dp"
         android:layout_height="300dp"
-        android:backgroundTint="?attr/colorSurface"
+
         android:scaleType="centerCrop"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -24,7 +23,7 @@
         android:id="@+id/ib_surprise"
         android:layout_width="0dp"
         android:layout_height="300dp"
-        android:backgroundTint="?attr/colorSurface"
+
         android:scaleType="centerCrop"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -47,10 +46,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="32dp"
-        android:background="?attr/colorSurface"
+
         android:text="@string/recommended"
         android:textAlignment="center"
-        android:textColor="?attr/colorOnSurface"
+
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="@+id/ib_recomended"
         app:layout_constraintEnd_toEndOf="parent"
@@ -62,10 +61,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="32dp"
-        android:background="?attr/colorSurface"
+
         android:text="@string/surprise_me"
         android:textAlignment="center"
-        android:textColor="?attr/colorOnSurface"
+
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="@+id/ib_surprise"
         tools:layout_editor_absoluteX="0dp" />
