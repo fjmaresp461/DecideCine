@@ -3,16 +3,24 @@ package com.example.quevemoshoy.authentication
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.quevemoshoy.R
 import com.example.quevemoshoy.databinding.ActivityRegister1Binding
+import com.example.quevemoshoy.databinding.FragmentStepperBinding
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.firebase.auth.FirebaseAuth
 
 class RegisterActivity1 : AppCompatActivity() {
     private lateinit var binding: ActivityRegister1Binding
+    private lateinit var inflater :LayoutInflater
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
         binding = ActivityRegister1Binding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -40,6 +48,24 @@ class RegisterActivity1 : AppCompatActivity() {
 
         val uid = FirebaseAuth.getInstance().currentUser?.uid
         Toast.makeText(this, uid.toString(), Toast.LENGTH_SHORT).show()
+
+
+        // Obtén el supportFragmentManager
+        val fragmentManager = supportFragmentManager
+
+// Inicia una transacción
+        val fragmentTransaction = fragmentManager.beginTransaction()
+
+// Crea una instancia de tu fragmento
+        val miFragmento = StepperFragment.newInstance(0)
+
+// Añade el fragmento a tu actividad
+        fragmentTransaction.add(R.id.fragmentContainerView, miFragmento)
+
+// Confirma la transacción
+        fragmentTransaction.commit()
+
+        supportActionBar?.hide()
     }
 
     private fun setListeners() {
@@ -76,3 +102,5 @@ class RegisterActivity1 : AppCompatActivity() {
         super.onBackPressed()
     }
 }
+
+

@@ -43,6 +43,7 @@ class LoginActivity : AppCompatActivity() {
 
         auth = Firebase.auth
         setListeners()
+        supportActionBar?.hide()
     }
 
     override fun onStart() {

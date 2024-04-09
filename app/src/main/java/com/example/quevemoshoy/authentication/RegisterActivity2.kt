@@ -40,6 +40,21 @@ class RegisterActivity2 : AppCompatActivity() {
                 findSeekBarByGenreId(genreId)?.progress = progress
             }
         }
+        // Obtén el supportFragmentManager
+        val fragmentManager = supportFragmentManager
+
+// Inicia una transacción
+        val fragmentTransaction = fragmentManager.beginTransaction()
+
+// Crea una instancia de tu fragmento
+        val miFragmento = StepperFragment.newInstance(1)
+
+// Añade el fragmento a tu actividad
+        fragmentTransaction.add(R.id.fragmentContainerView, miFragmento)
+
+// Confirma la transacción
+        fragmentTransaction.commit()
+        supportActionBar?.hide()
     }
 
 

@@ -10,21 +10,39 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.quevemoshoy.LoginActivity
 import com.example.quevemoshoy.MainActivity2
+import com.example.quevemoshoy.R
 import com.example.quevemoshoy.databinding.ActivityRegister3Binding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import com.shuhart.stepview.StepView
 import java.lang.reflect.Type
 
 class RegisterActivity3 : AppCompatActivity() {
     private lateinit var binding: ActivityRegister3Binding
+    private lateinit var   stepView: StepView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityRegister3Binding.inflate(layoutInflater)
         setContentView(binding.root)
         setListeners()
         setInitialOpacity()
+        // Obtén el supportFragmentManager
+        val fragmentManager = supportFragmentManager
+
+// Inicia una transacción
+        val fragmentTransaction = fragmentManager.beginTransaction()
+
+// Crea una instancia de tu fragmento
+        val miFragmento = StepperFragment.newInstance(2)
+
+// Añade el fragmento a tu actividad
+        fragmentTransaction.add(R.id.fragmentContainerView, miFragmento)
+
+// Confirma la transacción
+        fragmentTransaction.commit()
+        supportActionBar?.hide()
     }
 
     private fun setListeners() {

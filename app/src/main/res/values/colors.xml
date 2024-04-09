@@ -15,4 +15,9 @@
     <color name="colorBackground_dark">#000000</color>
     <color name="colorSurface_dark">#121212</color>
     <color name="colorOnSurface_dark">#FFFFFF</color>
+
+    <color name="colorAccent">#85979F</color>
+    <color name="colorPrimary">#FFFFFF</color>
+
+
 </resources>
