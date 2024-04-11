@@ -33,29 +33,46 @@ class StepperFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
+
         val view = inflater.inflate(R.layout.fragment_stepper, container, false)
-
-        // Encuentra la vista StepView en tu layout
         val stepView = view.findViewById<StepView>(R.id.step_view)
-
-        // Configura los pasos
         stepView.setSteps(listOf("Datos usuario", "Preferencias", "Proveedores"))
-
-        // Establece el paso actual
         val currentStep = arguments?.getInt("currentStep", 0) ?: 0
         stepView.go(currentStep, false)
 
-        // Configura el listener de clic en los pasos
         stepView.setOnStepClickListener { step ->
-            // Aquí puedes manejar el clic en los pasos
-            // Por ejemplo, puedes iniciar la actividad correspondiente
-            when (step) {
-                0 -> startActivity(Intent(context, RegisterActivity1::class.java))
-                1 -> startActivity(Intent(context, RegisterActivity2::class.java))
-                2 -> startActivity(Intent(context, RegisterActivity3::class.java))
-                //guardar preferencias.
+            when (currentStep) {
+                0 -> {
+                    when (step) {
+                        1,2 -> {
+                            startActivity(Intent(context, RegisterActivity2::class.java))
+                            activity?.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+                        }
+                    }
+                }
+                1 -> {
+                    when (step) {
+                        0 -> {
+                            startActivity(Intent(context, RegisterActivity1::class.java))
+                            activity?.overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
+                        }
+                        2 -> {
+                            startActivity(Intent(context, RegisterActivity3::class.java))
+                            activity?.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+                        }
+                    }
+                }
+                2 -> {
+                    when (step) {
+                        0, 1 -> {
+                            startActivity(Intent(context, RegisterActivity2::class.java))
+                            activity?.overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
+                        }
+                    }
+                }
             }
+
+
 
 
         }

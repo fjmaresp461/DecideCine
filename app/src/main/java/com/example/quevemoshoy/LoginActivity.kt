@@ -1,12 +1,10 @@
 package com.example.quevemoshoy
 
-import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.appcompat.app.AppCompatDelegate
 import com.example.quevemoshoy.authentication.RegisterActivity1
 import com.example.quevemoshoy.databinding.ActivityLoginBinding
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -18,11 +16,7 @@ import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.ktx.Firebase
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.tasks.await
-import kotlinx.coroutines.withContext
+
 
 class LoginActivity : AppCompatActivity() {
     private val responseLauncher =
@@ -43,6 +37,7 @@ class LoginActivity : AppCompatActivity() {
 
         auth = Firebase.auth
         setListeners()
+        getSharedPreferences("Registro", MODE_PRIVATE).edit().clear().apply()
         supportActionBar?.hide()
     }
 
@@ -112,15 +107,20 @@ class LoginActivity : AppCompatActivity() {
 
     private fun checkPreferences(user: FirebaseUser?) {
         val database = FirebaseDatabase.getInstance()
-        val userRef = database.getReference("preferences").child(user!!.uid)
-        userRef.get().addOnSuccessListener {
-            if (it.exists()) {
-                goToMainActivity()
-            } else {
-                goToRegisterActivity()
+        val usersRef = database.getReference("users")
+
+        user?.let {
+            val uidRef = usersRef.child(it.uid)
+            uidRef.get().addOnSuccessListener { snapshot ->
+                if (snapshot.exists()) {
+                    goToMainActivity()
+                } else {
+                    goToRegisterActivity()
+                }
             }
         }
     }
+
 
     private fun goToRegisterActivity() {
         val intent = Intent(this, RegisterActivity1::class.java)
@@ -131,5 +131,9 @@ class LoginActivity : AppCompatActivity() {
     private fun goToMainActivity() {
         startActivity(Intent(this, MainActivity2::class.java))
     }
+    override fun onResume() {
+        super.onResume()
 
+        getSharedPreferences("Registro", MODE_PRIVATE).edit().clear().apply()
+    }
 }

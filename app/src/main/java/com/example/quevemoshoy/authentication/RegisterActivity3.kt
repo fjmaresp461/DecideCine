@@ -9,7 +9,6 @@ import android.widget.ImageButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.quevemoshoy.LoginActivity
-import com.example.quevemoshoy.MainActivity2
 import com.example.quevemoshoy.R
 import com.example.quevemoshoy.databinding.ActivityRegister3Binding
 import com.google.firebase.auth.FirebaseAuth
@@ -21,29 +20,61 @@ import java.lang.reflect.Type
 
 class RegisterActivity3 : AppCompatActivity() {
     private lateinit var binding: ActivityRegister3Binding
-    private lateinit var   stepView: StepView
+    private lateinit var stepView: StepView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityRegister3Binding.inflate(layoutInflater)
         setContentView(binding.root)
         setListeners()
         setInitialOpacity()
-        // Obtén el supportFragmentManager
-        val fragmentManager = supportFragmentManager
-
-// Inicia una transacción
-        val fragmentTransaction = fragmentManager.beginTransaction()
-
-// Crea una instancia de tu fragmento
-        val miFragmento = StepperFragment.newInstance(2)
-
-// Añade el fragmento a tu actividad
-        fragmentTransaction.add(R.id.fragmentContainerView, miFragmento)
-
-// Confirma la transacción
-        fragmentTransaction.commit()
+        loadPreferences()
+        loadStepperFragment()
         supportActionBar?.hide()
     }
+
+    private fun loadPreferences() {
+        val preferences = getSharedPreferences("Registro", Context.MODE_PRIVATE)
+        val jsonString = preferences.getString("proveedores", "")
+        if (!jsonString.isNullOrEmpty()) {
+            val type: Type = object : TypeToken<Map<String, Boolean>>() {}.type
+            val proveedores: Map<String, Boolean> = Gson().fromJson(jsonString, type)
+            for ((providerId, isSelected) in proveedores) {
+                val button = findImageButtonByProviderId(providerId)
+                button?.isSelected = isSelected
+                if (isSelected) {
+                    button?.alpha = 1.0f
+                }
+
+            }
+        }
+    }
+
+
+    private fun findImageButtonByProviderId(providerId: String): ImageButton? {
+        return when (providerId) {
+            "netflix" -> binding.ibNetflix
+            "amazonPrimeVideo" -> binding.ibAmazonPrimeVideo
+            "disneyPlus" -> binding.ibDisneyPlus
+            "hboMax" -> binding.ibHboMax
+            "movistarPlus" -> binding.ibMovistarPlus
+            "appleTv" -> binding.ibAppleTv
+            "rakutenTv" -> binding.ibRakutenTv
+            "skyshowtime" -> binding.ibSkyshowtime
+            "googlePlayMovies" -> binding.ibGooglePlayMovies
+            "crunchyroll" -> binding.ibCrunchyroll
+            else -> null
+        }
+    }
+
+
+    private fun loadStepperFragment() {
+        val fragmentManager = supportFragmentManager
+        val fragmentTransaction = fragmentManager.beginTransaction()
+        val miFragmento = StepperFragment.newInstance(2)
+        fragmentTransaction.add(R.id.fragmentContainerView, miFragmento)
+        fragmentTransaction.commit()
+    }
+
 
     private fun setListeners() {
         val clickListener = { button: ImageButton ->
@@ -61,118 +92,138 @@ class RegisterActivity3 : AppCompatActivity() {
         binding.ibSkyshowtime.setOnClickListener { clickListener(it as ImageButton) }
         binding.ibGooglePlayMovies.setOnClickListener { clickListener(it as ImageButton) }
         binding.ibCrunchyroll.setOnClickListener { clickListener(it as ImageButton) }
+        binding.btnPrev.setOnClickListener {
 
-        binding.btnPrev.setOnClickListener{
-            finish()
+            startActivity(Intent(this, RegisterActivity2::class.java))
+            saveProviderPreferences()
+            this.overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
         }
+        binding.btnFinish.setOnClickListener {
+            saveProviderPreferences()
+            handleAuthentication()
+        }
+    }
 
-            binding.btnFinish.setOnClickListener {
-                val preferences = getSharedPreferences("Registro", Context.MODE_PRIVATE)
-                val editor = preferences.edit()
-                val proveedores = mutableMapOf<String, Boolean>()
-                proveedores["netflix"] = binding.ibNetflix.isSelected
-                proveedores["amazonPrimeVideo"] = binding.ibAmazonPrimeVideo.isSelected
-                proveedores["disneyPlus"] = binding.ibDisneyPlus.isSelected
-                proveedores["hboMax"] = binding.ibHboMax.isSelected
-                proveedores["movistarPlus"] = binding.ibMovistarPlus.isSelected
-                proveedores["appleTv"] = binding.ibAppleTv.isSelected
-                proveedores["rakutenTv"] = binding.ibRakutenTv.isSelected
-                proveedores["skyshowtime"] = binding.ibSkyshowtime.isSelected
-                proveedores["googlePlayMovies"] = binding.ibGooglePlayMovies.isSelected
-                proveedores["crunchyroll"] = binding.ibCrunchyroll.isSelected
-                editor.putString("proveedores", Gson().toJson(proveedores))
-                editor.apply()
+    private fun saveProviderPreferences() {
+        val preferences = getSharedPreferences("Registro", Context.MODE_PRIVATE)
+        val editor = preferences.edit()
+        val proveedores = mutableMapOf<String, Boolean>()
+        proveedores["netflix"] = binding.ibNetflix.isSelected
+        proveedores["amazonPrimeVideo"] = binding.ibAmazonPrimeVideo.isSelected
+        proveedores["disneyPlus"] = binding.ibDisneyPlus.isSelected
+        proveedores["hboMax"] = binding.ibHboMax.isSelected
+        proveedores["movistarPlus"] = binding.ibMovistarPlus.isSelected
+        proveedores["appleTv"] = binding.ibAppleTv.isSelected
+        proveedores["rakutenTv"] = binding.ibRakutenTv.isSelected
+        proveedores["skyshowtime"] = binding.ibSkyshowtime.isSelected
+        proveedores["googlePlayMovies"] = binding.ibGooglePlayMovies.isSelected
+        proveedores["crunchyroll"] = binding.ibCrunchyroll.isSelected
+        editor.putString("proveedores", Gson().toJson(proveedores))
+        editor.apply()
+    }
 
-                // Obtener el correo electrónico y la contraseña de las SharedPreferences
-                val email = preferences.getString("email", "")
-                val password = preferences.getString("password", "")
+    private fun handleAuthentication() {
+        val preferences = getSharedPreferences("Registro", Context.MODE_PRIVATE)
+        val email = preferences.getString("email", "")
+        val password = preferences.getString("password", "")
 
-                if (email.isNullOrBlank() || password.isNullOrBlank()) {
-                    // El usuario inició sesión con Google, guardar las preferencias del usuario en Firebase
+        if (email.isNullOrBlank() || password.isNullOrBlank()) {
+            handleGoogleSignIn(preferences)
+        } else {
+            handleEmailPasswordSignIn(email, password, preferences)
+        }
+    }
+
+    private fun handleGoogleSignIn(preferences: SharedPreferences) {
+        val uid = FirebaseAuth.getInstance().currentUser?.uid
+        Toast.makeText(this, uid.toString(), Toast.LENGTH_SHORT).show()
+        if (uid != null) {
+            savePreferencesToFirebaseWithGoogle(uid, preferences)
+        }
+        startActivity(Intent(this, LoginActivity::class.java))
+    }
+
+    private fun handleEmailPasswordSignIn(
+        email: String,
+        password: String,
+        preferences: SharedPreferences
+    ) {
+        FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, password)
+            .addOnCompleteListener(this) { task ->
+                if (task.isSuccessful) {
                     val uid = FirebaseAuth.getInstance().currentUser?.uid
-                    Toast.makeText(this, uid.toString(), Toast.LENGTH_SHORT).show()
-                    if (uid != null) {
-                        savePreferencesToFirebaseWithGoogle(uid, preferences)
-                    }
-
-                    // Navegar a LoginActivity
+                    savePreferencesToFirebaseWithEmail(uid, preferences)
+                    preferences.edit().clear().apply()
                     startActivity(Intent(this, LoginActivity::class.java))
                 } else {
-                    // El correo electrónico y la contraseña no están vacíos, intenta crear un usuario
-                    FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, password)
-                        .addOnCompleteListener(this) { task ->
-                            if (task.isSuccessful) {
-                                // Registro exitoso, ahora puedes guardar los datos del usuario en Firebase
-                                val uid = FirebaseAuth.getInstance().currentUser?.uid
-
-                                // Guardar todos los datos en Firebase
-                                savePreferencesToFirebaseWithEmail(uid, preferences)
-
-                                // Limpiar SharedPreferences para la próxima sesión de registro
-                                editor.clear()
-                                editor.apply()
-
-                                // Navegar a LoginActivity
-                                startActivity(Intent(this, LoginActivity::class.java))
-                            } else {
-                                // Registro fallido, muestra un mensaje de error
-                                Log.d("RegisterActivity", "Registro fallido", task.exception)
-                            }
-                        }
+                    Log.d("RegisterActivity", "Registro fallido", task.exception)
                 }
             }
     }
 
     private fun savePreferencesToFirebaseWithEmail(uid: String?, preferences: SharedPreferences) {
         val database = FirebaseDatabase.getInstance()
-        val usersRef = database.getReference("preferences")
+        val usersRef = database.getReference("users")
 
         val user = preferences.getString("user", "")
         val type: Type = object : TypeToken<Map<String, Int>>() {}.type
-        val preferencias: Map<String, Int> = Gson().fromJson(preferences.getString("preferencias", ""), type)
-        val proveedoresGuardados: Map<String, Boolean> = Gson().fromJson(preferences.getString("proveedores", ""), object : TypeToken<Map<String, Boolean>>() {}.type)
-
-        val usuario = mutableMapOf<String, Any>()
-        usuario["nombre"] = user ?: ""
-        usuario["preferencias"] = preferencias
+        val preferencias: Map<String, Int> =
+            Gson().fromJson(preferences.getString("preferencias", ""), type)
+        val proveedoresGuardados: Map<String, Boolean> = Gson().fromJson(
+            preferences.getString("proveedores", ""),
+            object : TypeToken<Map<String, Boolean>>() {}.type
+        )
 
         if (uid != null && user != null) {
-            usersRef.child(uid).child(user).setValue(usuario)
+            usersRef.child(uid).child("preferencias").child(user).setValue(preferencias)
             usersRef.child(uid).child("proveedores").setValue(proveedoresGuardados)
         }
     }
 
     private fun savePreferencesToFirebaseWithGoogle(uid: String, preferences: SharedPreferences) {
         val database = FirebaseDatabase.getInstance()
-        val usersRef = database.getReference("preferences")
+        val usersRef = database.getReference("users")
 
         val user = preferences.getString("user", "")
         val type: Type = object : TypeToken<Map<String, Int>>() {}.type
-        val preferencias: Map<String, Int> = Gson().fromJson(preferences.getString("preferencias", ""), type)
-        val proveedoresGuardados: Map<String, Boolean> = Gson().fromJson(preferences.getString("proveedores", ""), object : TypeToken<Map<String, Boolean>>() {}.type)
-
-        val usuario = mutableMapOf<String, Any>()
-        usuario["nombre"] = user ?: ""
-        usuario["preferencias"] = preferencias
-
+        val preferencias: Map<String, Int> =
+            Gson().fromJson(preferences.getString("preferencias", ""), type)
+        val proveedoresGuardados: Map<String, Boolean> = Gson().fromJson(
+            preferences.getString("proveedores", ""),
+            object : TypeToken<Map<String, Boolean>>() {}.type
+        )
 
         if (user != null) {
-            usersRef.child(uid).child(user).setValue(usuario)
-        }
+            usersRef.child(uid).child("preferencias").child(user).setValue(preferencias)
             usersRef.child(uid).child("proveedores").setValue(proveedoresGuardados)
-
-    }
-
-        private fun setInitialOpacity() {
-            binding.ibNetflix.alpha = 0.5f
-            binding.ibAmazonPrimeVideo.alpha = 0.5f
-            binding.ibDisneyPlus.alpha = 0.5f
-            binding.ibHboMax.alpha = 0.5f
-            binding.ibMovistarPlus.alpha = 0.5f
-            binding.ibAppleTv.alpha = 0.5f
-            binding.ibRakutenTv.alpha = 0.5f
-            binding.ibSkyshowtime.alpha = 0.5f
-            binding.ibGooglePlayMovies.alpha = 0.5f
-            binding.ibCrunchyroll.alpha = 0.5f
         }
     }
+
+
+
+
+
+
+    private fun setInitialOpacity() {
+        binding.ibNetflix.alpha = 0.5f
+        binding.ibAmazonPrimeVideo.alpha = 0.5f
+        binding.ibDisneyPlus.alpha = 0.5f
+        binding.ibHboMax.alpha = 0.5f
+        binding.ibMovistarPlus.alpha = 0.5f
+        binding.ibAppleTv.alpha = 0.5f
+        binding.ibRakutenTv.alpha = 0.5f
+        binding.ibSkyshowtime.alpha = 0.5f
+        binding.ibGooglePlayMovies.alpha = 0.5f
+        binding.ibCrunchyroll.alpha = 0.5f
+    }
+    override fun onPause() {
+        super.onPause()
+        saveProviderPreferences()
+    }
+    override fun onBackPressed() {
+        startActivity(Intent(this, RegisterActivity2::class.java))
+        saveProviderPreferences()
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
+    }
+
+}

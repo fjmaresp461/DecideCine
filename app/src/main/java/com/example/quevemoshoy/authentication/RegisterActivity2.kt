@@ -1,17 +1,13 @@
 package com.example.quevemoshoy.authentication
 
-import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.SeekBar
 import android.widget.Toast
-import com.example.quevemoshoy.MainActivity2
 import com.example.quevemoshoy.R
-import com.example.quevemoshoy.databinding.ActivityRegister1Binding
 import com.example.quevemoshoy.databinding.ActivityRegister2Binding
 import com.example.quevemoshoy.model.UserPreferences
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -23,51 +19,51 @@ class RegisterActivity2 : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding= ActivityRegister2Binding.inflate(layoutInflater)
+        binding = ActivityRegister2Binding.inflate(layoutInflater)
         setContentView(binding.root)
         setListener()
+        loadPreferences()
+        loadStepperFragment()
+        supportActionBar?.hide()
+    }
 
-        // Cargar preferencias de SharedPreferences
+    private fun loadPreferences() {
         val preferences = getSharedPreferences("Registro", MODE_PRIVATE)
         val jsonString = preferences.getString("preferencias", "")
         if (!jsonString.isNullOrEmpty()) {
             val type: Type = object : TypeToken<Map<String, Int>>() {}.type
             val preferencias: Map<String, Int> = Gson().fromJson(jsonString, type)
             userPreferences.genres = preferencias
-
-            // Actualizar el progreso de cada SeekBar
-            for ((genreId, progress) in userPreferences.genres) {
-                findSeekBarByGenreId(genreId)?.progress = progress
-            }
+            updateSeekBarProgress()
         }
-        // Obtén el supportFragmentManager
+    }
+
+    private fun updateSeekBarProgress() {
+        for ((genreId, progress) in userPreferences.genres) {
+            findSeekBarByGenreId(genreId)?.progress = progress
+        }
+    }
+
+    private fun loadStepperFragment() {
         val fragmentManager = supportFragmentManager
-
-// Inicia una transacción
         val fragmentTransaction = fragmentManager.beginTransaction()
-
-// Crea una instancia de tu fragmento
-        val miFragmento = StepperFragment.newInstance(1)
-
-// Añade el fragmento a tu actividad
-        fragmentTransaction.add(R.id.fragmentContainerView, miFragmento)
-
-// Confirma la transacción
+        val myFragment = StepperFragment.newInstance(1)
+        fragmentTransaction.add(R.id.fragmentContainerView, myFragment)
         fragmentTransaction.commit()
-        supportActionBar?.hide()
     }
 
 
     private fun setListener() {
         binding.btnBack.setOnClickListener{
-            finish()
+            startActivity(Intent(this, RegisterActivity1::class.java))
+            checkAndSave()
+            this.overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
         }
         binding.btnNext.setOnClickListener {
-            checkValues()
-            Toast.makeText(
-                this, R.string.preferences_saved, Toast.LENGTH_LONG
-            ).show()
+            checkAndSave()
+
             startActivity(Intent(this, RegisterActivity3::class.java))
+            this.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
         }
 
     }
@@ -97,7 +93,7 @@ class RegisterActivity2 : AppCompatActivity() {
         }
     }
 
-    private fun checkValues() {
+    private fun checkAndSave() {
         val genresMap = mutableMapOf<String, Int>()
         genresMap["28"] = binding.actionSeekBar.progress
         genresMap["12"] = binding.adventureSeekBar.progress
@@ -120,12 +116,14 @@ class RegisterActivity2 : AppCompatActivity() {
         genresMap["37"] = binding.westernSeekBar.progress
         userPreferences.genres = genresMap
 
-        // Guardar preferencias en SharedPreferences
         val preferences = getSharedPreferences("Registro", MODE_PRIVATE)
         val editor = preferences.edit()
         editor.putString("preferencias",  Gson().toJson(userPreferences.genres))
         editor.apply()
+
+
     }
+
 
     private fun loadUserPreferencesFromFirebase(userId: String) {
         val database = FirebaseDatabase.getInstance()
@@ -143,5 +141,16 @@ class RegisterActivity2 : AppCompatActivity() {
             }
         }.addOnFailureListener {
         }
+    }
+
+    override fun onPause() {
+        super.onPause()
+
+        checkAndSave()
+    }
+    override fun onBackPressed() {
+        startActivity(Intent(this, RegisterActivity1::class.java))
+        checkAndSave()
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
     }
 }

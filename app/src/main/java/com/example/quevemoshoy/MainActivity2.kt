@@ -42,22 +42,33 @@ class MainActivity2 : AppCompatActivity() {
 
         binding.ibRecomended.setOnClickListener {
             lifecycleScope.launch(Dispatchers.IO) {
-                val userGenrePreferences = moviesManager.getUserGenrePreferences(7, 10)
-                getRecommendedMovies(userGenrePreferences, "recommended")
+                // Check if currentUser is not null before accessing preferences
+                val currentUser = FirebaseAuth.getInstance().currentUser
+                if (currentUser != null) {
+                    val userGenrePreferences = moviesManager.getAllGenrePreferences(currentUser, 7, 10)
+                    getRecommendedMovies(userGenrePreferences, "recommended")
+                } else {
+                    // Handle the case where no user is signed in (e.g., show a message)
+                    Log.w("MoviesManager", "No user signed in, cannot retrieve preferences")
+                }
             }
         }
 
         binding.ibSurprise.setOnClickListener {
             lifecycleScope.launch(Dispatchers.IO) {
-                val userGenrePreferences = moviesManager.getUserGenrePreferences(4, 7)
-                getRecommendedMovies(userGenrePreferences, "surprise")
+                // Check if currentUser is not null before accessing preferences
+                val currentUser = FirebaseAuth.getInstance().currentUser
+                if (currentUser != null) {
+                    val userGenrePreferences = moviesManager.getAllGenrePreferences(currentUser, 4, 7)
+                    getRecommendedMovies(userGenrePreferences, "surprise")
+                } else {
+                    // Handle the case where no user is signed in (e.g., show a message)
+                    Log.w("MoviesManager", "No user signed in, cannot retrieve preferences")
+                }
             }
         }
-
-        binding.ibComingSoon.setOnClickListener {
-
-        }
     }
+
 
 
     suspend fun getRecommendedMovies(userGenrePreferences: Map<String, Int>, recommendationType: String) {

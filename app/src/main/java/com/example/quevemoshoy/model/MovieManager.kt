@@ -5,7 +5,9 @@ import com.example.quevemoshoy.R
 import com.example.quevemoshoy.provider.ApiClient
 import com.example.quevemoshoy.provider.MovieInterface
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.FirebaseDatabase
+
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
@@ -13,30 +15,57 @@ import kotlinx.coroutines.withContext
 class MoviesManager {
 
     private val database = FirebaseDatabase.getInstance()
-    val userId = FirebaseAuth.getInstance().currentUser?.uid
-    private val reference = database.getReference("users/$userId")
+    private val reference = database.getReference("users")
+
     private val apiService = ApiClient.retrofit.create(MovieInterface::class.java)
 
-    suspend fun getUserGenrePreferences(minScore: Int, maxScore: Int): Map<String, Int> =
-        withContext(
-            Dispatchers.IO
-        ) {
-            val userGenrePreferences = mutableMapOf<String, Int>()
+
+    suspend fun getAllGenrePreferences(currentUser: FirebaseUser?, minScore: Int, maxScore: Int): Map<String, Int> =
+        withContext(Dispatchers.IO) {
+            val allGenrePreferences = mutableMapOf<String, Int>()
+
+            val userId = checkNotNull(currentUser?.uid) { "User ID cannot be null" }
+
             try {
-                val snapshot = reference.child("preferencias").get().await()
-                for (genreSnapshot in snapshot.children) {
-                    val genreId = genreSnapshot.key ?: continue
-                    val genrePreference = genreSnapshot.getValue(Int::class.java) ?: continue
-                    if (genrePreference in minScore..maxScore) {
-                        userGenrePreferences[genreId] = genrePreference
+                Log.d("Firebase", "Getting user preferences for UID: $userId")
+                val userSnapshot = reference.child(userId).child("preferencias").get().await()
+                if (userSnapshot != null) {
+                    if (userSnapshot.exists()) {
+                        Log.d("Firebase", "User snapshot retrieved successfully")
+                        for (usernameSnapshot in userSnapshot.children) {
+                            for (genreSnapshot in usernameSnapshot.children) {
+                                val genreId = genreSnapshot.key ?: continue
+                                val genrePreference = genreSnapshot.getValue(Int::class.java) ?: continue
+                                Log.d("Firebase", "Genre ID: $genreId, Preference: $genrePreference")
+                                if (genrePreference in minScore..maxScore) {
+                                    allGenrePreferences[genreId] = genrePreference
+                                }
+                            }
+                        }
+                    } else {
+                        Log.w("Firebase", "Usuario no encontrado con UID: $userId")
                     }
                 }
             } catch (e: Exception) {
-                Log.e("Firebase", R.string.error_getting_data.toString(), e)
+                Log.e("Firebase", "Error getting data:", e)
             }
 
-            userGenrePreferences
+            allGenrePreferences
         }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     suspend fun fetchMovies(
         userGenrePreferences: Map<String, Int>, recommendationType: String
