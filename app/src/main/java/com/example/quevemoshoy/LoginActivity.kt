@@ -7,6 +7,7 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import com.example.quevemoshoy.authentication.RegisterActivity1
 import com.example.quevemoshoy.databinding.ActivityLoginBinding
+import com.example.quevemoshoy.main.MainActivity2
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
@@ -71,6 +72,8 @@ class LoginActivity : AppCompatActivity() {
             auth.sendPasswordResetEmail(email).addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     Toast.makeText(this, "Email sent.", Toast.LENGTH_SHORT).show()
+                }else{
+                    Toast.makeText(this, "Error.", Toast.LENGTH_SHORT).show()
                 }
             }
         }

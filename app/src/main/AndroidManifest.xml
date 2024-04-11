@@ -18,9 +18,14 @@
         android:theme="@style/Theme.AppCompat"
         tools:targetApi="31">
         <activity
+            android:name=".main.UsersActivity"
+            android:exported="false" />
+        <activity
+            android:name=".main.SettingsActivity"
+            android:exported="false" />
+        <activity
             android:name=".authentication.RegisterActivity3"
             android:exported="false" />
-
         <activity
             android:name=".authentication.RegisterActivity2"
             android:exported="false" />
@@ -46,7 +51,7 @@
             android:name=".PreferencesActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity2"
+            android:name=".main.MainActivity2"
             android:exported="false" />
         <activity
             android:name=".LoginActivity"

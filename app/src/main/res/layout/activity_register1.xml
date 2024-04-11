@@ -182,6 +182,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="56dp"
+        android:clickable="true"
         android:text="@string/tv_login"
         android:textColor="#64B6CD"
         android:textSize="20sp"

@@ -7,7 +7,7 @@
     android:background="?attr/colorSurface"
     android:backgroundTint="?attr/colorSurface"
     android:paddingTop="2dp"
-    tools:context=".MainActivity2">
+    tools:context=".main.MainActivity2">
 
     <ScrollView
         android:layout_width="match_parent"

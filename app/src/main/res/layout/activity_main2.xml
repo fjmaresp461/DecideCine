@@ -5,8 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
 
-    android:paddingTop="2dp"
-    tools:context=".MainActivity2">
+    tools:context=".main.MainActivity2">
 
     <ImageButton
         android:id="@+id/ib_recomended"
@@ -30,16 +29,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ib_recomended"
         app:srcCompat="@drawable/surprise" />
-
-    <ImageButton
-        android:id="@+id/ib_coming_soon"
-        android:layout_width="394dp"
-        android:layout_height="203dp"
-        android:scaleType="fitXY"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ib_surprise"
-        app:srcCompat="@drawable/coming_soon" />
 
     <TextView
         android:id="@+id/tv_recommended"
@@ -68,5 +57,15 @@
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="@+id/ib_surprise"
         tools:layout_editor_absoluteX="0dp" />
+
+    <fragment
+        android:id="@+id/fragmentContainerView"
+        android:name="com.example.quevemoshoy.main.OptionsFragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

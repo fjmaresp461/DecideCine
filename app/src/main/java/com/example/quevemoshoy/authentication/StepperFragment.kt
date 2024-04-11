@@ -44,8 +44,12 @@ class StepperFragment : Fragment() {
             when (currentStep) {
                 0 -> {
                     when (step) {
-                        1,2 -> {
+                        1 -> {
                             startActivity(Intent(context, RegisterActivity2::class.java))
+                            activity?.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+                        }
+                       2 -> {
+                            startActivity(Intent(context, RegisterActivity3::class.java))
                             activity?.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
                         }
                     }
@@ -64,7 +68,11 @@ class StepperFragment : Fragment() {
                 }
                 2 -> {
                     when (step) {
-                        0, 1 -> {
+                        0 -> {
+                            startActivity(Intent(context, RegisterActivity1::class.java))
+                            activity?.overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
+                        }
+                         1 -> {
                             startActivity(Intent(context, RegisterActivity2::class.java))
                             activity?.overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
                         }

@@ -56,9 +56,12 @@ class RegisterActivity1 : AppCompatActivity() {
             }
 
             savePreferences()
-            val intent = Intent(this, RegisterActivity2::class.java)
-            startActivity(intent)
+
+            startActivity(Intent(this, RegisterActivity2::class.java))
             this.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+        }
+        binding.tvLogin.setOnClickListener{
+            startActivity(Intent(this, LoginActivity::class.java))
         }
     }
 

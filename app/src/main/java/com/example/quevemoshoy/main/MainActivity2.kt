@@ -1,15 +1,23 @@
-package com.example.quevemoshoy
+package com.example.quevemoshoy.main
 
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.ImageButton
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
+import com.example.quevemoshoy.AboutAppActivity
+import com.example.quevemoshoy.LoginActivity
+import com.example.quevemoshoy.MapActivity
+import com.example.quevemoshoy.PreferencesActivity
+import com.example.quevemoshoy.R
+import com.example.quevemoshoy.RecyclerActivity
 import com.example.quevemoshoy.database.DatabaseManager
 import com.example.quevemoshoy.databinding.ActivityMain2Binding
 import com.example.quevemoshoy.model.MoviesManager
@@ -36,6 +44,22 @@ class MainActivity2 : AppCompatActivity() {
         supportActionBar?.title = ""
         auth = Firebase.auth
         setListeners()
+setAnimations()
+    }
+
+    private fun setAnimations() {
+        val optionsFragment =
+            supportFragmentManager.findFragmentById(R.id.fragmentContainerView) as OptionsFragment
+        optionsFragment.view?.findViewById<ImageButton>(R.id.ib_settings)?.setOnClickListener {
+            startActivity(Intent(this, SettingsActivity::class.java))
+            this.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+        }
+        optionsFragment.view?.findViewById<ImageButton>(R.id.ib_users)?.setOnClickListener {
+            startActivity(Intent(this, UsersActivity::class.java))
+            this.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+        }
+        optionsFragment.view?.findViewById<ImageButton>(R.id.ib_list)?.isClickable=false
+
     }
 
     private fun setListeners() {
@@ -67,6 +91,7 @@ class MainActivity2 : AppCompatActivity() {
                 }
             }
         }
+
     }
 
 

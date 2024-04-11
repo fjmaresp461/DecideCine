@@ -111,7 +111,7 @@
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="@+id/ib_skyshowtime"
                 app:layout_constraintTop_toBottomOf="@+id/ib_hbo_max"
-                app:srcCompat="@drawable/apple_tv_icon"/>
+                app:srcCompat="@drawable/apple_tv_icon" />
 
             <ImageButton
                 android:id="@+id/ib_rakuten_tv"
