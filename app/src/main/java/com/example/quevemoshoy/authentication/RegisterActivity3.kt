@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.quevemoshoy.LoginActivity
 import com.example.quevemoshoy.R
 import com.example.quevemoshoy.databinding.ActivityRegister3Binding
+import com.example.quevemoshoy.main.MainActivity2
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import com.google.gson.Gson
@@ -124,19 +125,27 @@ class RegisterActivity3 : AppCompatActivity() {
 
     private fun handleAuthentication() {
         val preferences = getSharedPreferences("Registro", Context.MODE_PRIVATE)
+        val user = preferences.getString("user", "")
         val email = preferences.getString("email", "")
         val password = preferences.getString("password", "")
+        val repeatPassword = preferences.getString("repeatPassword", "")
+        val currentUser = FirebaseAuth.getInstance().currentUser
 
-        if (email.isNullOrBlank() || password.isNullOrBlank()) {
+        if (currentUser!=null) {
             handleGoogleSignIn(preferences)
         } else {
-            handleEmailPasswordSignIn(email, password, preferences)
+            if (email != null&&password!=null) {
+                handleEmailPasswordSignIn(email, password, preferences)
+            }
         }
+
+
+
     }
 
     private fun handleGoogleSignIn(preferences: SharedPreferences) {
         val uid = FirebaseAuth.getInstance().currentUser?.uid
-        Toast.makeText(this, uid.toString(), Toast.LENGTH_SHORT).show()
+
         if (uid != null) {
             savePreferencesToFirebaseWithGoogle(uid, preferences)
         }
@@ -154,7 +163,7 @@ class RegisterActivity3 : AppCompatActivity() {
                     val uid = FirebaseAuth.getInstance().currentUser?.uid
                     savePreferencesToFirebaseWithEmail(uid, preferences)
                     preferences.edit().clear().apply()
-                    startActivity(Intent(this, LoginActivity::class.java))
+                    startActivity(Intent(this, MainActivity2::class.java))
                 } else {
                     Log.d("RegisterActivity", "Registro fallido", task.exception)
                 }
