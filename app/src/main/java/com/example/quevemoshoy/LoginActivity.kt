@@ -69,13 +69,18 @@ class LoginActivity : AppCompatActivity() {
 
         binding.tvForgottenPass.setOnClickListener{
             val email=binding.etEmail.text.toString().trim()
-            auth.sendPasswordResetEmail(email).addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    Toast.makeText(this, "Email sent.", Toast.LENGTH_SHORT).show()
-                }else{
-                    Toast.makeText(this, "Error.", Toast.LENGTH_SHORT).show()
-                }
-            }
+         if(email.isEmpty()){
+             Toast.makeText(this, "Ingresa un email por favor", Toast.LENGTH_SHORT).show()
+         }else{
+             auth.sendPasswordResetEmail(email).addOnCompleteListener { task ->
+                 if (task.isSuccessful) {
+                     Toast.makeText(this, "Email Enviado, revisa tu correo", Toast.LENGTH_SHORT).show()
+                 }else{
+                     Toast.makeText(this, "Error.", Toast.LENGTH_SHORT).show()
+                 }
+             }
+         }
+
         }
 
         binding.tvRegister.setOnClickListener{
@@ -113,6 +118,12 @@ class LoginActivity : AppCompatActivity() {
         val usersRef = database.getReference("users")
 
         user?.let {
+            if (!it.isEmailVerified) {
+                Toast.makeText(this, "Por favor, verifica tu correo electrónico.", Toast.LENGTH_SHORT).show()
+                auth.signOut()
+                return
+            }
+
             val uidRef = usersRef.child(it.uid)
             uidRef.get().addOnSuccessListener { snapshot ->
                 if (snapshot.exists()) {
@@ -123,7 +134,6 @@ class LoginActivity : AppCompatActivity() {
             }
         }
     }
-
 
     private fun goToRegisterActivity() {
         val intent = Intent(this, RegisterActivity1::class.java)

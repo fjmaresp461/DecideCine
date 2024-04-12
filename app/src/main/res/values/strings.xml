@@ -95,5 +95,9 @@
     <string name="invalid_username">Not a valid username</string>
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
-
+    <string name="tv_users">Usuarios</string>
+    <string name="tv_add">Añadir usuario</string>
+    <string name="tv_elim">Eliminar usuario</string>
+    <string name="tv_prefs">Preferencias</string>
+    <string name="tv_edit_prefs">Editar preferencias</string>
 </resources>

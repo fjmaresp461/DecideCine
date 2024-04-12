@@ -1,66 +1,34 @@
 package com.example.quevemoshoy.authentication
 
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.quevemoshoy.LoginActivity
 import com.example.quevemoshoy.R
 import com.example.quevemoshoy.databinding.ActivityRegister1Binding
+import com.example.quevemoshoy.model.UserPreferences
 import com.google.firebase.auth.FirebaseAuth
 
 class RegisterActivity1 : AppCompatActivity() {
     private lateinit var binding: ActivityRegister1Binding
     var isGoogleSignIn: Boolean = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityRegister1Binding.inflate(layoutInflater)
         setContentView(binding.root)
-        isGoogleSignIn = intent.getBooleanExtra("googleSignIn", false)
-        if(isGoogleSignIn){
+        if (FirebaseAuth.getInstance().currentUser != null) {
             hideEmailAndPasswordFields()
         }
+
         setListeners()
         loadPreferences()
         loadStepperFragment()
         supportActionBar?.hide()
     }
-
-    private fun checkErrors(): Boolean {
-        val password = binding.etPassword.text.toString().trim()
-        val repeatPassword = binding.etRepeatPassword.text.toString().trim()
-        var isValid = true
-
-        if (isGoogleSignIn && binding.etUser.text.isNullOrBlank()) {
-            binding.etUser.error = "El usuario es obligatorio"
-            isValid = false
-        } else {
-            if (binding.etUser.text.isNullOrBlank()) {
-                binding.etUser.error = "El usuario es obligatorio"
-                isValid = false
-            }
-            if (binding.etEmail.text.isNullOrBlank()) {
-                binding.etEmail.error = "El email es obligatorio"
-                isValid = false
-            }
-            if (binding.etPassword.text.isNullOrBlank()) {
-                binding.etPassword.error = "La contraseña es obligatoria"
-                isValid = false
-            }
-            if (binding.etRepeatPassword.text.isNullOrBlank()) {
-                binding.etRepeatPassword.error = "Repetir contraseña es obligatorio"
-                isValid = false
-            }
-            if (password != repeatPassword) {
-                binding.etRepeatPassword.error = "Las contraseñas no coinciden"
-                isValid = false
-            }
-        }
-
-        return isValid
-    }
-
-
 
     private fun hideEmailAndPasswordFields() {
         binding.tvEmail.visibility = View.GONE
@@ -73,12 +41,16 @@ class RegisterActivity1 : AppCompatActivity() {
 
     private fun setListeners() {
         binding.btnContinue.setOnClickListener {
-            checkErrors()
-            savePreferences()
-            startActivity(Intent(this, RegisterActivity2::class.java))
-            this.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+            if (checkErrors()) {
+                savePreferences()
+                startActivity(Intent(this, RegisterActivity2::class.java))
+                this.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+            } else {
+                Toast.makeText(this, "Parece que falta algo", Toast.LENGTH_SHORT).show()
+            }
         }
         binding.tvLogin.setOnClickListener {
+            FirebaseAuth.getInstance().signOut()
             startActivity(Intent(this, LoginActivity::class.java))
         }
     }
@@ -108,8 +80,52 @@ class RegisterActivity1 : AppCompatActivity() {
             putString("email", email)
             putString("password", password)
             putString("repeatPassword", repeatPassword)
+            putBoolean("googleSignIn", isGoogleSignIn)
             apply()
         }
+    }
+
+    fun checkErrors(): Boolean {
+        val user = binding.etUser.text.toString().trim()
+        val email = binding.etEmail.text.toString().trim()
+        val password = binding.etPassword.text.toString().trim()
+        val repeatPassword = binding.etRepeatPassword.text.toString().trim()
+        var isValid = true
+
+        if (FirebaseAuth.getInstance().currentUser != null) {
+            if (user.isNullOrBlank()) {
+                binding.etUser.error = "El usuario es obligatorio"
+                isValid = false
+            }
+
+        } else {
+            if (user.isNullOrBlank()) {
+                binding.etUser.error = "El usuario es obligatorio"
+                isValid = false
+            }
+            if (email.isNullOrBlank()) {
+                binding.etEmail.error = "El email es obligatorio"
+                isValid = false
+            }
+            if (password.isNullOrBlank()) {
+                binding.etPassword.error = "La contraseña es obligatoria"
+                isValid = false
+            }
+            if (password.length < 8) {
+                binding.etPassword.error = "Contraseña minimo 8 caracteres"
+                isValid = false
+            }
+            if (binding.etRepeatPassword.text.isNullOrBlank()) {
+                binding.etRepeatPassword.error = "Debes repetir la contraseña"
+                isValid = false
+            }
+            if (password != repeatPassword) {
+                binding.etRepeatPassword.error = "Las contraseñas no coinciden"
+                isValid = false
+            }
+        }
+
+        return isValid
     }
 
     private fun loadStepperFragment() {
@@ -120,15 +136,13 @@ class RegisterActivity1 : AppCompatActivity() {
         fragmentTransaction.commit()
     }
 
-
     override fun onPause() {
         super.onPause()
         savePreferences()
     }
 
     override fun onBackPressed() {
-
+        FirebaseAuth.getInstance().signOut()
         startActivity(Intent(this, LoginActivity::class.java))
     }
-
 }
