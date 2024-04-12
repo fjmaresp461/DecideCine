@@ -13,6 +13,8 @@ import com.example.quevemoshoy.R
 import com.example.quevemoshoy.databinding.ActivityRegister3Binding
 import com.example.quevemoshoy.main.MainActivity2
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
+import com.google.firebase.auth.FirebaseAuthUserCollisionException
 import com.google.firebase.database.FirebaseDatabase
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -157,18 +159,42 @@ class RegisterActivity3 : AppCompatActivity() {
         password: String,
         preferences: SharedPreferences
     ) {
-        FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, password)
+        val auth = FirebaseAuth.getInstance()
+        auth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
-                    val uid = FirebaseAuth.getInstance().currentUser?.uid
-                    savePreferencesToFirebaseWithEmail(uid, preferences)
-                    preferences.edit().clear().apply()
-                    startActivity(Intent(this, MainActivity2::class.java))
+                    // User registration successful
+                    val user = auth.currentUser
+                    user?.sendEmailVerification()?.addOnCompleteListener { emailTask ->
+                        if (emailTask.isSuccessful) {
+                            // Email sent successfully
+                            Toast.makeText(this, "Registro exitoso. Por favor, revisa tu correo electrónico para verificar tu cuenta.", Toast.LENGTH_LONG).show()
+                            val uid = user.uid
+                            savePreferencesToFirebaseWithEmail(uid, preferences)
+                            preferences.edit().clear().apply()
+                            startActivity(Intent(this, LoginActivity::class.java))
+                        } else {
+                            // Failed to send verification email
+                            Log.d("RegisterActivity", "Error al enviar el correo de verificación", emailTask.exception)
+                        }
+                    }
                 } else {
-                    Log.d("RegisterActivity", "Registro fallido", task.exception)
+                    // User registration failed
+                    when (task.exception) {
+                        is FirebaseAuthUserCollisionException -> {
+                            Toast.makeText(this, "Este correo electrónico ya está en uso.", Toast.LENGTH_SHORT).show()
+                        }
+                        is FirebaseAuthInvalidCredentialsException -> {
+                            Toast.makeText(this, "El correo electrónico está mal formado.", Toast.LENGTH_SHORT).show()
+                        }
+                        else -> {
+                            Log.d("RegisterActivity", "Registro fallido", task.exception)
+                        }
+                    }
                 }
             }
     }
+
 
     private fun savePreferencesToFirebaseWithEmail(uid: String?, preferences: SharedPreferences) {
         val database = FirebaseDatabase.getInstance()
