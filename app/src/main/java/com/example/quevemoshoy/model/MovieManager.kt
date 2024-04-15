@@ -73,7 +73,7 @@ class MoviesManager {
         val allMovies = mutableListOf<Movie>()
         val addedMovieIds = mutableSetOf<Int>()
         val movieIndex = mutableMapOf<String, Int>()
-val loco="loco"
+
         try {
             while (allMovies.size < 12) {
                 for ((genreId, score) in userGenrePreferences) {

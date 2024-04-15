@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".preferences.ProvidersActivity">
+
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="18dp"
+        android:background="#FBFBFB"
+        android:padding="20dp"
+        app:layout_constraintTop_toBottomOf="@+id/tv_add"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageButton
+                android:id="@+id/ib_netflix"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginStart="35dp"
+                android:backgroundTint="#00FFFFFF"
+                android:scaleType="centerCrop"
+                app:layout_constraintBottom_toBottomOf="@+id/ib_amazon_prime_video"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/ib_amazon_prime_video"
+                app:layout_constraintVertical_bias="0.0"
+                app:srcCompat="@drawable/netflix_icon" />
+
+            <ImageButton
+                android:id="@+id/ib_amazon_prime_video"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:backgroundTint="#00FFFFFF"
+                android:scaleType="centerCrop"
+                app:layout_constraintEnd_toEndOf="@+id/ib_hbo_max"
+                app:layout_constraintStart_toStartOf="@+id/ib_hbo_max"
+                app:srcCompat="@drawable/amazon_prime_icon" />
+
+            <ImageButton
+                android:id="@+id/ib_disney_plus"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:backgroundTint="#00FFFFFF"
+                android:scaleType="centerCrop"
+                app:layout_constraintBottom_toBottomOf="@+id/ib_hbo_max"
+                app:layout_constraintEnd_toEndOf="@+id/ib_netflix"
+                app:layout_constraintStart_toStartOf="@+id/ib_netflix"
+                app:layout_constraintTop_toTopOf="@+id/ib_hbo_max"
+                app:srcCompat="@drawable/disney_plus_icon" />
+
+            <ImageButton
+                android:id="@+id/ib_hbo_max"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginTop="24dp"
+                android:backgroundTint="#00FFFFFF"
+                android:scaleType="centerCrop"
+                app:layout_constraintEnd_toEndOf="@+id/ib_apple_tv"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/ib_apple_tv"
+                app:layout_constraintTop_toBottomOf="@+id/ib_amazon_prime_video"
+                app:srcCompat="@drawable/hbo_max_icon" />
+
+            <ImageButton
+                android:id="@+id/ib_movistar_plus"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:backgroundTint="#00FFFFFF"
+                android:scaleType="centerCrop"
+                app:layout_constraintBottom_toBottomOf="@+id/ib_apple_tv"
+                app:layout_constraintEnd_toEndOf="@+id/ib_disney_plus"
+                app:layout_constraintStart_toStartOf="@+id/ib_disney_plus"
+                app:layout_constraintTop_toTopOf="@+id/ib_apple_tv"
+                app:srcCompat="@drawable/movistar_plus_icon" />
+
+            <ImageButton
+                android:id="@+id/ib_apple_tv"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginTop="24dp"
+                android:backgroundTint="#00FFFFFF"
+                android:scaleType="centerCrop"
+                app:layout_constraintEnd_toEndOf="@+id/ib_skyshowtime"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="@+id/ib_skyshowtime"
+                app:layout_constraintTop_toBottomOf="@+id/ib_hbo_max"
+                app:srcCompat="@drawable/apple_tv_icon" />
+
+            <ImageButton
+                android:id="@+id/ib_rakuten_tv"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:backgroundTint="#00FFFFFF"
+                android:scaleType="centerCrop"
+                app:layout_constraintBottom_toBottomOf="@+id/ib_skyshowtime"
+                app:layout_constraintEnd_toEndOf="@+id/ib_movistar_plus"
+                app:layout_constraintStart_toStartOf="@+id/ib_movistar_plus"
+                app:layout_constraintTop_toTopOf="@+id/ib_skyshowtime"
+                app:srcCompat="@drawable/rakuten_icon" />
+
+            <ImageButton
+                android:id="@+id/ib_skyshowtime"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginTop="8dp"
+                android:backgroundTint="#00FFFFFF"
+                android:scaleType="centerCrop"
+                app:layout_constraintEnd_toEndOf="@+id/ib_crunchyroll"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/ib_crunchyroll"
+                app:layout_constraintTop_toBottomOf="@+id/ib_apple_tv"
+                app:srcCompat="@drawable/skyshowtime_icon" />
+
+            <ImageButton
+                android:id="@+id/ib_google_play_movies"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:backgroundTint="#00FFFFFF"
+                android:scaleType="centerCrop"
+                app:layout_constraintBottom_toBottomOf="@+id/ib_crunchyroll"
+                app:layout_constraintEnd_toEndOf="@+id/ib_rakuten_tv"
+                app:layout_constraintStart_toStartOf="@+id/ib_rakuten_tv"
+                app:layout_constraintTop_toTopOf="@+id/ib_crunchyroll"
+                app:srcCompat="@drawable/google_play_icon" />
+
+            <ImageButton
+                android:id="@+id/ib_crunchyroll"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="35dp"
+                android:backgroundTint="#00FFFFFF"
+                android:scaleType="centerCrop"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ib_skyshowtime"
+                app:srcCompat="@drawable/crunchyroll_icon" />
+
+            <Button
+                android:id="@+id/btn_finish"
+                android:layout_width="351dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="81dp"
+                android:layout_marginBottom="30dp"
+                android:background="@drawable/button"
+                android:text="@string/finish"
+                android:textAllCaps="false"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ib_crunchyroll" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+    <!-- Aquí puedes poner tus elementos fuera del ScrollView -->
+
+</androidx.constraintlayout.widget.ConstraintLayout>

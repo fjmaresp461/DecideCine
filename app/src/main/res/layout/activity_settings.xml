@@ -30,7 +30,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintOpcion1"
+        android:id="@+id/cnt_add"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="#FFFFFF"
@@ -42,7 +42,7 @@
             android:id="@+id/tv_add"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/tv_add"
+            android:text="@string/logout"
             android:textColor="#000000"
             android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -64,27 +64,28 @@
             app:srcCompat="@drawable/amazon_prime_icon" />
 
         <ImageButton
-            android:id="@+id/imageButton"
+            android:id="@+id/image_arrow_1"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:backgroundTint="#00FFFFFF"
+            android:scaleType="centerCrop"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/arrow_icon" />
+            app:srcCompat="@drawable/right_arrow_icon" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintOpcion2"
+        android:id="@+id/cnt_del"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="#FFFFFF"
         android:backgroundTint="#FFFFFF"
         android:padding="10dp"
-        app:layout_constraintTop_toBottomOf="@+id/constraintOpcion1">
+        app:layout_constraintTop_toBottomOf="@+id/cnt_add">
 
         <TextView
-            android:id="@+id/textView3"
+            android:id="@+id/tv_delete"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Opcion ejemplo"
@@ -109,14 +110,15 @@
             app:srcCompat="@drawable/amazon_prime_icon" />
 
         <ImageButton
-            android:id="@+id/imageButton3"
+            android:id="@+id/ib_delete_user"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:backgroundTint="#00FFFFFF"
+            android:scaleType="centerCrop"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/arrow_icon" />
+            app:srcCompat="@drawable/right_arrow_icon" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -126,7 +128,7 @@
         android:background="#FFFFFF"
         android:backgroundTint="#FFFFFF"
         android:padding="10dp"
-        app:layout_constraintTop_toBottomOf="@+id/constraintOpcion2">
+        app:layout_constraintTop_toBottomOf="@+id/cnt_del">
 
         <TextView
             android:id="@+id/textView4"
@@ -158,10 +160,11 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:backgroundTint="#00FFFFFF"
+            android:scaleType="centerCrop"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/arrow_icon" />
+            app:srcCompat="@drawable/right_arrow_icon" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
     <fragment

@@ -3,13 +3,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
 
+    android:background="#FFFFFF"
     android:scrollbarStyle="outsideInset">
 
     <ScrollView
         android:id="@+id/frame"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
->
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -22,6 +22,7 @@
                 android:layout_height="wrap_content"
                 android:paddingStart="5dp"
                 android:text="@string/gen_action"
+                android:textColor="#777676"
                 android:textSize="20sp" />
 
             <SeekBar
@@ -41,6 +42,7 @@
                 android:layout_height="wrap_content"
                 android:paddingStart="5dp"
                 android:text="@string/gen_adventure"
+                android:textColor="#777676"
                 android:textSize="20sp" />
 
             <SeekBar
@@ -60,6 +62,7 @@
                 android:layout_height="wrap_content"
                 android:paddingStart="5dp"
                 android:text="@string/gen_animation"
+                android:textColor="#777676"
                 android:textSize="20sp" />
 
             <SeekBar
@@ -79,6 +82,7 @@
                 android:layout_height="wrap_content"
                 android:paddingStart="5dp"
                 android:text="@string/gen_comedy"
+                android:textColor="#777676"
                 android:textSize="20sp" />
 
             <SeekBar
@@ -98,6 +102,7 @@
                 android:layout_height="wrap_content"
                 android:paddingStart="5dp"
                 android:text="@string/gen_crime"
+                android:textColor="#777676"
                 android:textSize="20sp" />
 
             <SeekBar
@@ -117,6 +122,7 @@
                 android:layout_height="wrap_content"
                 android:paddingStart="5dp"
                 android:text="@string/gen_documentary"
+                android:textColor="#777676"
                 android:textSize="20sp" />
 
             <SeekBar
@@ -136,6 +142,7 @@
                 android:layout_height="wrap_content"
                 android:paddingStart="5dp"
                 android:text="@string/gen_drama"
+                android:textColor="#777676"
                 android:textSize="20sp" />
 
             <SeekBar
@@ -155,6 +162,7 @@
                 android:layout_height="wrap_content"
                 android:paddingStart="5dp"
                 android:text="@string/gen_family"
+                android:textColor="#777676"
                 android:textSize="20sp" />
 
             <SeekBar
@@ -174,6 +182,7 @@
                 android:layout_height="wrap_content"
                 android:paddingStart="5dp"
                 android:text="@string/gen_fantasy"
+                android:textColor="#777676"
                 android:textSize="20sp" />
 
             <SeekBar
@@ -193,6 +202,7 @@
                 android:layout_height="wrap_content"
                 android:paddingStart="5dp"
                 android:text="@string/gen_history"
+                android:textColor="#777676"
                 android:textSize="20sp" />
 
             <SeekBar
@@ -212,6 +222,7 @@
                 android:layout_height="wrap_content"
                 android:paddingStart="5dp"
                 android:text="@string/gen_horror"
+                android:textColor="#777676"
                 android:textSize="20sp" />
 
             <SeekBar
@@ -231,6 +242,7 @@
                 android:layout_height="wrap_content"
                 android:paddingStart="5dp"
                 android:text="@string/gen_music"
+                android:textColor="#777676"
                 android:textSize="20sp" />
 
             <SeekBar
@@ -250,6 +262,7 @@
                 android:layout_height="wrap_content"
                 android:paddingStart="5dp"
                 android:text="@string/gen_mystery"
+                android:textColor="#777676"
                 android:textSize="20sp" />
 
             <SeekBar
@@ -269,6 +282,7 @@
                 android:layout_height="wrap_content"
                 android:paddingStart="5dp"
                 android:text="@string/gen_romance"
+                android:textColor="#777676"
                 android:textSize="20sp" />
 
             <SeekBar
@@ -288,6 +302,7 @@
                 android:layout_height="wrap_content"
                 android:paddingStart="5dp"
                 android:text="@string/gen_scifi"
+                android:textColor="#777676"
                 android:textSize="20sp" />
 
             <SeekBar
@@ -307,6 +322,7 @@
                 android:layout_height="wrap_content"
                 android:paddingStart="5dp"
                 android:text="@string/gen_tv_movie"
+                android:textColor="#777676"
                 android:textSize="20sp" />
 
             <SeekBar
@@ -326,6 +342,7 @@
                 android:layout_height="wrap_content"
                 android:paddingStart="5dp"
                 android:text="@string/gen_thriller"
+                android:textColor="#777676"
                 android:textSize="20sp" />
 
             <SeekBar
@@ -345,6 +362,7 @@
                 android:layout_height="wrap_content"
                 android:paddingStart="5dp"
                 android:text="@string/gen_war"
+                android:textColor="#777676"
                 android:textSize="20sp" />
 
             <SeekBar
@@ -364,6 +382,7 @@
                 android:layout_height="wrap_content"
                 android:paddingStart="5dp"
                 android:text="@string/gen_western"
+                android:textColor="#777676"
                 android:textSize="20sp" />
 
             <SeekBar
@@ -378,12 +397,13 @@
                 android:scrollbarStyle="outsideInset"
                 android:thumb="?android:attr/listChoiceIndicatorSingle" />
 
-            <ImageButton
+            <Button
                 android:id="@+id/btnSave"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:backgroundTint="#00FFFFFF"
-                android:src="@android:drawable/ic_menu_save" />
+                android:background="@drawable/button"
+                android:text="@string/finish"
+                android:textAllCaps="false" />
 
         </LinearLayout>
 

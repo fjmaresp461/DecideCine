@@ -55,10 +55,9 @@
     <string name="gen_war">💣 Bélica</string>
     <string name="gen_western">🌵 Western</string>
     <string name="btn_start">Comencemos</string>
-    <string name="edit_preferences">Edita tus preferencias</string>
     <string name="exit">Salir</string>
     <string name="restore">Resetear preferencias</string>
-    <string name="logout">Cerrar sesión</string>
+
     <string name="about_this">Acerca de la app</string>
     <string name="about_app">Sobre la app</string>
     <string name="movie_not_found">Película no encontrada</string>
@@ -97,7 +96,11 @@
     <string name="login_failed">"Login failed"</string>
     <string name="tv_users">Usuarios</string>
     <string name="tv_add">Añadir usuario</string>
-    <string name="tv_elim">Eliminar usuario</string>
+    <string name="tv_del">Eliminar usuario</string>
     <string name="tv_prefs">Preferencias</string>
     <string name="tv_edit_prefs">Editar preferencias</string>
+    <string name="logout">Cerrar sesión</string>
+    <string name="edit_preferences">Edita tus preferencias</string>
+    <string name="edit_providers">Edita tus proveedores</string>
+
 </resources>
