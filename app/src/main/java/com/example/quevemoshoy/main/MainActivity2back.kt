@@ -1,21 +1,18 @@
 package com.example.quevemoshoy.main
 
-import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.ImageButton
-import android.widget.ImageView
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.quevemoshoy.AboutAppActivity
-import com.example.quevemoshoy.DetailActivity
 import com.example.quevemoshoy.LoginActivity
 import com.example.quevemoshoy.MapActivity
 import com.example.quevemoshoy.PreferencesActivity
@@ -23,29 +20,21 @@ import com.example.quevemoshoy.R
 import com.example.quevemoshoy.RecyclerActivity
 import com.example.quevemoshoy.database.DatabaseManager
 import com.example.quevemoshoy.databinding.ActivityMain2Binding
-import com.example.quevemoshoy.model.Movie
 import com.example.quevemoshoy.model.MoviesManager
 import com.example.quevemoshoy.viewModel.MoviesViewModel
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 
-class MainActivity2 : AppCompatActivity() {
-    private lateinit var binding: ActivityMain2Binding
+class MainActivity2back : AppCompatActivity() {
+   /* private lateinit var binding: ActivityMain2Binding
     private lateinit var auth: FirebaseAuth
     private val dbManager = DatabaseManager()
     private val moviesManager = MoviesManager()
-    val currentUser = FirebaseAuth.getInstance().currentUser
-    private val PREFS_NAME = "user_prefs"
-    private val GENRE_PREFS_KEY = "genre_prefs"
-    private val RECOMMENDATION_TYPE_KEY = "recommendation_type"
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,51 +43,9 @@ class MainActivity2 : AppCompatActivity() {
         supportActionBar?.title = ""
         auth = Firebase.auth
         setListeners()
-        setAnimations()
-        initMovies()
+setAnimations()
     }
 
-    fun initRecommendations() {
-        // Inicializa las películas recomendadas
-        initMovies("recommended", 7, 10, listOf(binding.ivReco1, binding.ivReco2, binding.ivReco3, binding.ivReco4))
-
-        // Inicializa las películas sorpresa
-        initMovies("surprise", 4, 7, listOf(binding.ivSur1, binding.ivSur2, binding.ivSur3, binding.ivSur4))
-    }
-
-    fun initMovies(recommendationType: String, minScore: Int, maxScore: Int, imageViews: List<ImageView>) {
-        lifecycleScope.launch {
-            val sharedPreferences = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
-            val userGenrePreferences = sharedPreferences.getString(GENRE_PREFS_KEY, null)?.let { jsonString ->
-                Gson().fromJson(jsonString, object : TypeToken<Map<String, Int>>() {}.type)
-            } ?: moviesManager.getAllGenrePreferences(currentUser, minScore, maxScore)
-
-            val movies = fetchMovies(userGenrePreferences, recommendationType)
-            bindImagesToViews(movies.take(4), imageViews)
-        }
-    }
-
-    fun bindImagesToViews(movies: List<Movie>, imageViews: List<ImageView>) {
-        for (i in movies.indices) {
-            bindImageToView(imageViews[i], movies[i])
-        }
-    }
-
-    fun bindImageToView(imageView: ImageView, movie: Movie) {
-        Glide.with(this)
-            .load("https://image.tmdb.org/t/p/w500${movie.posterPath}")
-            .diskCacheStrategy(DiskCacheStrategy.ALL)
-            .into(imageView)
-
-        imageView.setOnClickListener {
-            val intent = Intent(this, DetailActivity::class.java).apply {
-                putExtra("MOVIE_ID", movie.id)
-            }
-            startActivity(intent)
-        }
-    }
-
-// hay que inicializar recommend, surprise etc, y bindear, buscar  manera de hacerlo algo mas automatico
     private fun setAnimations() {
         val optionsFragment =
             supportFragmentManager.findFragmentById(R.id.fragmentContainerView) as OptionsFragment
@@ -116,10 +63,10 @@ class MainActivity2 : AppCompatActivity() {
 
     private fun setListeners() {
 
-        binding.ivRecoMore.setOnClickListener {
+        binding.ibRecomended.setOnClickListener {
             lifecycleScope.launch(Dispatchers.IO) {
                 // Check if currentUser is not null before accessing preferences
-
+                val currentUser = FirebaseAuth.getInstance().currentUser
                 if (currentUser != null) {
                     val userGenrePreferences = moviesManager.getAllGenrePreferences(currentUser, 7, 10)
                     getRecommendedMovies(userGenrePreferences, "recommended")
@@ -130,7 +77,7 @@ class MainActivity2 : AppCompatActivity() {
             }
         }
 
-        binding.ivSurMore.setOnClickListener {
+        binding.ibSurprise.setOnClickListener {
             lifecycleScope.launch(Dispatchers.IO) {
                 // Check if currentUser is not null before accessing preferences
                 val currentUser = FirebaseAuth.getInstance().currentUser
@@ -155,12 +102,12 @@ class MainActivity2 : AppCompatActivity() {
                 withContext(Dispatchers.Main) {
                     if (movies.isNotEmpty()) {
                         val intent =
-                            Intent(this@MainActivity2, RecyclerActivity::class.java).apply {
+                            Intent(this@MainActivity2back, RecyclerActivity::class.java).apply {
                                 putExtra("movies", ArrayList(movies))
                             }
                         startActivity(intent)
                     } else {
-                        Toast.makeText(this@MainActivity2, R.string.no_matching_movies, Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this@MainActivity2back, R.string.no_matching_movies, Toast.LENGTH_SHORT).show()
                     }
                 }
             } catch (e: Exception) {
@@ -218,5 +165,5 @@ class MainActivity2 : AppCompatActivity() {
             }
         }
         return super.onOptionsItemSelected(item)
-    }
+    }*/
 }

@@ -37,6 +37,7 @@
         android:backgroundTint="#FFFFFF"
         android:clickable="true"
         android:padding="10dp"
+        android:paddingStart="30dp"
         android:paddingEnd="10dp"
         app:layout_constraintTop_toBottomOf="@+id/constraintTitulo1">
 
@@ -56,14 +57,14 @@
 
         <ImageView
             android:id="@+id/imageView"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:backgroundTint="#00514747"
             android:scaleType="centerCrop"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@android:drawable/ic_menu_mylocation" />
+            app:srcCompat="@drawable/add_user_icon" />
 
         <ImageView
             android:id="@+id/ivArrow1"
@@ -84,8 +85,9 @@
         android:layout_height="70dp"
         android:background="#FFFFFF"
         android:backgroundTint="#FFFFFF"
-        android:padding="10dp"
         android:clickable="true"
+        android:padding="10dp"
+        android:paddingStart="30dp"
         app:layout_constraintTop_toBottomOf="@+id/cnt_add">
 
         <TextView
@@ -104,14 +106,14 @@
 
         <ImageView
             android:id="@+id/imageView2"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:backgroundTint="#00514747"
             android:scaleType="centerCrop"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@android:drawable/ic_menu_mylocation" />
+            app:srcCompat="@drawable/remove_user_icon" />
 
         <ImageView
             android:id="@+id/ivArrow2"
@@ -132,8 +134,9 @@
         android:layout_height="70dp"
         android:background="#FFFFFF"
         android:backgroundTint="#FFFFFF"
-        android:padding="10dp"
         android:clickable="true"
+        android:padding="10dp"
+        android:paddingStart="30dp"
         app:layout_constraintTop_toBottomOf="@+id/cnt_del">
 
         <TextView
@@ -152,8 +155,8 @@
 
         <ImageView
             android:id="@+id/imageView4"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:backgroundTint="#00514747"
             android:scaleType="centerCrop"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -193,14 +196,16 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cnt_edit_prefs"
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:background="#FFFFFF"
         android:backgroundTint="#FFFFFF"
-        android:padding="10dp"
         android:clickable="true"
+        android:padding="10dp"
+        android:paddingStart="30dp"
         app:layout_constraintTop_toBottomOf="@+id/constraintTitulo2">
 
         <TextView
@@ -219,14 +224,14 @@
 
         <ImageView
             android:id="@+id/imageView5"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:backgroundTint="#00514747"
             android:scaleType="centerCrop"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@android:drawable/ic_menu_mylocation" />
+            app:srcCompat="@drawable/preferences_icon" />
 
         <ImageView
             android:id="@+id/ivArrow4"
@@ -240,14 +245,16 @@
             app:srcCompat="@drawable/right_arrow_icon" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cnt_edit_prov"
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:background="#FFFFFF"
         android:backgroundTint="#FFFFFF"
-        android:padding="10dp"
         android:clickable="true"
+        android:padding="10dp"
+        android:paddingStart="30dp"
         app:layout_constraintTop_toBottomOf="@+id/cnt_edit_prefs">
 
         <TextView
@@ -266,14 +273,14 @@
 
         <ImageView
             android:id="@+id/imageView6"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:backgroundTint="#00514747"
             android:scaleType="centerCrop"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@android:drawable/ic_menu_mylocation" />
+            app:srcCompat="@drawable/provider_icon" />
 
         <ImageView
             android:id="@+id/ivArrow5"

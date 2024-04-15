@@ -12,7 +12,7 @@ class MovieAdapter(
 ) : RecyclerView.Adapter<MovieViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.movie_layout, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.cardview_vertical, parent, false)
         return MovieViewHolder(view)
     }
 
