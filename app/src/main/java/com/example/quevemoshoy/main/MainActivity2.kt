@@ -46,34 +46,34 @@ class MainActivity2 : AppCompatActivity() {
     private val GENRE_PREFS_KEY = "genre_prefs"
     private val RECOMMENDATION_TYPE_KEY = "recommendation_type"
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMain2Binding.inflate(layoutInflater)
         setContentView(binding.root)
-        supportActionBar?.title = ""
+
         auth = Firebase.auth
         setListeners()
         setAnimations()
-        initMovies()
+        initRecommendations()
     }
 
     fun initRecommendations() {
-        // Inicializa las películas recomendadas
         initMovies("recommended", 7, 10, listOf(binding.ivReco1, binding.ivReco2, binding.ivReco3, binding.ivReco4))
-
-        // Inicializa las películas sorpresa
         initMovies("surprise", 4, 7, listOf(binding.ivSur1, binding.ivSur2, binding.ivSur3, binding.ivSur4))
+        initMovies("latest", 0, 10, listOf(binding.ivLat1, binding.ivLat2, binding.ivLat3, binding.ivLat4))
     }
 
     fun initMovies(recommendationType: String, minScore: Int, maxScore: Int, imageViews: List<ImageView>) {
         lifecycleScope.launch {
             val sharedPreferences = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
-            val userGenrePreferences = sharedPreferences.getString(GENRE_PREFS_KEY, null)?.let { jsonString ->
-                Gson().fromJson(jsonString, object : TypeToken<Map<String, Int>>() {}.type)
-            } ?: moviesManager.getAllGenrePreferences(currentUser, minScore, maxScore)
-
-            val movies = fetchMovies(userGenrePreferences, recommendationType)
+            val userGenrePreferences = if (recommendationType != "latest") {
+                sharedPreferences.getString(GENRE_PREFS_KEY, null)?.let { jsonString ->
+                    Gson().fromJson(jsonString, object : TypeToken<Map<String, Int>>() {}.type)
+                } ?: moviesManager.getAllGenrePreferences(currentUser, minScore, maxScore)
+            } else {
+                mapOf<String, Int>()
+            }
+            val movies = moviesManager.fetchMovies(userGenrePreferences, recommendationType)
             bindImagesToViews(movies.take(4), imageViews)
         }
     }
@@ -98,7 +98,6 @@ class MainActivity2 : AppCompatActivity() {
         }
     }
 
-// hay que inicializar recommend, surprise etc, y bindear, buscar  manera de hacerlo algo mas automatico
     private fun setAnimations() {
         val optionsFragment =
             supportFragmentManager.findFragmentById(R.id.fragmentContainerView) as OptionsFragment
@@ -115,40 +114,31 @@ class MainActivity2 : AppCompatActivity() {
     }
 
     private fun setListeners() {
-
-        binding.ivRecoMore.setOnClickListener {
-            lifecycleScope.launch(Dispatchers.IO) {
-                // Check if currentUser is not null before accessing preferences
-
-                if (currentUser != null) {
-                    val userGenrePreferences = moviesManager.getAllGenrePreferences(currentUser, 7, 10)
-                    getRecommendedMovies(userGenrePreferences, "recommended")
-                } else {
-                    // Handle the case where no user is signed in (e.g., show a message)
-                    Log.w("MoviesManager", "No user signed in, cannot retrieve preferences")
-                }
-            }
+        binding.cntRecoMore.setOnClickListener {
+            getRecommendedMovies("recommended", 7, 10)
         }
 
-        binding.ivSurMore.setOnClickListener {
-            lifecycleScope.launch(Dispatchers.IO) {
-                // Check if currentUser is not null before accessing preferences
-                val currentUser = FirebaseAuth.getInstance().currentUser
-                if (currentUser != null) {
-                    val userGenrePreferences = moviesManager.getAllGenrePreferences(currentUser, 4, 7)
-                    getRecommendedMovies(userGenrePreferences, "surprise")
-                } else {
-                    // Handle the case where no user is signed in (e.g., show a message)
-                    Log.w("MoviesManager", "No user signed in, cannot retrieve preferences")
-                }
-            }
+        binding.cntSurMore.setOnClickListener {
+            getRecommendedMovies("surprise", 4, 7)
         }
-
+        binding.cntLatMore.setOnClickListener {
+            getRecommendedMovies("latest", 0, 10)
+        }
     }
 
+    private fun getRecommendedMovies(recommendationType: String, minScore: Int, maxScore: Int) {
+        lifecycleScope.launch(Dispatchers.IO) {
+            val currentUser = FirebaseAuth.getInstance().currentUser
+            if (currentUser != null) {
+                val userGenrePreferences = moviesManager.getAllGenrePreferences(currentUser, minScore, maxScore)
+                fetchAndDisplayMovies(userGenrePreferences, recommendationType)
+            } else {
+                Log.w("MoviesManager", "No user signed in, cannot retrieve preferences")
+            }
+        }
+    }
 
-
-    suspend fun getRecommendedMovies(userGenrePreferences: Map<String, Int>, recommendationType: String) {
+    private suspend fun fetchAndDisplayMovies(userGenrePreferences: Map<String, Int>, recommendationType: String) {
         withContext(Dispatchers.IO) {
             try {
                 val movies = moviesManager.fetchMovies(userGenrePreferences, recommendationType)

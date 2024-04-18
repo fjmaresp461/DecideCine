@@ -75,23 +75,28 @@ class MoviesManager {
         val movieIndex = mutableMapOf<String, Int>()
 
         try {
-            while (allMovies.size < 12) {
-                for ((genreId, score) in userGenrePreferences) {
-                    if (allMovies.size >= 12) break
-                    if ((recommendationType == "recommended" && score < 7) ||
-                        (recommendationType == "surprise" && (score < 4 || score >= 7))) continue
-                    val index = movieIndex.getOrDefault(genreId, 0)
-                    val response = apiService.getMoviesByGenres(
-                        apiKey = "2bb0ba9a57e9cdae9dd4f957fd27140a", genres = genreId
-                    )
-                    val movies = response.movies
-                    for (i in index until movies.size) {
-                        val movie = movies[i]
-                        if (movie.id !in addedMovieIds) {
-                            allMovies.add(movie)
-                            addedMovieIds.add(movie.id)
-                            movieIndex[genreId] = i + 1
-                            break
+            if (recommendationType == "latest") {
+                val response = apiService.getLatestMovies(apiKey = "2bb0ba9a57e9cdae9dd4f957fd27140a")
+                allMovies.addAll(response.movies)
+            } else {
+                while (allMovies.size < 12) {
+                    for ((genreId, score) in userGenrePreferences) {
+                        if (allMovies.size >= 12) break
+                        if ((recommendationType == "recommended" && score < 7) ||
+                            (recommendationType == "surprise" && (score < 4 || score >= 7))) continue
+                        val index = movieIndex.getOrDefault(genreId, 0)
+                        val response = apiService.getMoviesByGenres(
+                            apiKey = "2bb0ba9a57e9cdae9dd4f957fd27140a", genres = genreId
+                        )
+                        val movies = response.movies
+                        for (i in index until movies.size) {
+                            val movie = movies[i]
+                            if (movie.id !in addedMovieIds) {
+                                allMovies.add(movie)
+                                addedMovieIds.add(movie.id)
+                                movieIndex[genreId] = i + 1
+                                break
+                            }
                         }
                     }
                 }
@@ -103,6 +108,7 @@ class MoviesManager {
             return emptyList()
         }
     }
+
 
 
     suspend fun fetchMovieById(movieId: Int): Movie? {

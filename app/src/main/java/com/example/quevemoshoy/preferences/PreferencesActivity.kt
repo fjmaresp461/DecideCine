@@ -26,11 +26,9 @@ class PreferencesActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityPreferencesBinding.inflate(layoutInflater)
         setContentView(binding.root)
-<<<<<<< HEAD
 
-=======
         supportActionBar?.hide()
->>>>>>> d066f46 (15/04 14.54)
+
         setListener()
         val isFirstTime=intent.getBooleanExtra("firstTime",false)
          userName= intent.getStringExtra("user").toString()
@@ -46,10 +44,9 @@ class PreferencesActivity : AppCompatActivity() {
 
         }
 
-<<<<<<< HEAD
+
         Toast.makeText(this, userName, Toast.LENGTH_SHORT).show()
-=======
->>>>>>> d066f46 (15/04 14.54)
+
 
     }
 

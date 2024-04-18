@@ -33,6 +33,14 @@ interface MovieInterface {
         @Query("region") region: String = "ES"
     ): ProvidersResponse
 
+    @GET("/3/discover/movie")
+    suspend fun getLatestMovies(
+        @Query("api_key") apiKey: String,
+        @Query("language") language: String = "es-ES",
+        @Query("region") region: String = "ES",
+       // @Query("sort_by") sortBy: String = "release_date.desc"
+    ): MovieResponse
+
 
 
 }

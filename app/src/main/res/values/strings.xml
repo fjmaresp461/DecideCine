@@ -102,5 +102,7 @@
     <string name="logout">Cerrar sesión</string>
     <string name="edit_preferences">Edita tus preferencias</string>
     <string name="edit_providers">Edita tus proveedores</string>
+    <string name="latest">Últimas novedades</string>
+
 
 </resources>
