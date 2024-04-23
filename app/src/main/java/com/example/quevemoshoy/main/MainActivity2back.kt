@@ -1,33 +1,6 @@
 package com.example.quevemoshoy.main
 
-import android.content.Intent
-import android.graphics.Color
-import android.os.Bundle
-import android.util.Log
-import android.view.Menu
-import android.view.MenuItem
-import android.widget.ImageButton
-import android.widget.Toast
-import androidx.activity.viewModels
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.lifecycleScope
-import com.example.quevemoshoy.AboutAppActivity
-import com.example.quevemoshoy.LoginActivity
-import com.example.quevemoshoy.MapActivity
-import com.example.quevemoshoy.PreferencesActivity
-import com.example.quevemoshoy.R
-import com.example.quevemoshoy.RecyclerActivity
-import com.example.quevemoshoy.database.DatabaseManager
-import com.example.quevemoshoy.databinding.ActivityMain2Binding
-import com.example.quevemoshoy.model.MoviesManager
-import com.example.quevemoshoy.viewModel.MoviesViewModel
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 
 class MainActivity2back : AppCompatActivity() {
