@@ -9,7 +9,6 @@ import android.view.MenuItem
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
@@ -59,7 +58,7 @@ class MainActivity2 : AppCompatActivity() {
 
     fun initRecommendations() {
         initMovies("recommended", 7, 10, listOf(binding.ivReco1, binding.ivReco2, binding.ivReco3, binding.ivReco4))
-        initMovies("surprise", 4, 7, listOf(binding.ivSur1, binding.ivSur2, binding.ivSur3, binding.ivSur4))
+        //initMovies("surprise", 4, 6, listOf(binding.ivSur1, binding.ivSur2, binding.ivSur3, binding.ivSur4))
         initMovies("latest", 0, 10, listOf(binding.ivLat1, binding.ivLat2, binding.ivLat3, binding.ivLat4))
     }
 
@@ -119,7 +118,7 @@ class MainActivity2 : AppCompatActivity() {
         }
 
         binding.cntSurMore.setOnClickListener {
-            getRecommendedMovies("surprise", 4, 7)
+            getRecommendedMovies("surprise", 4, 6)
         }
         binding.cntLatMore.setOnClickListener {
             getRecommendedMovies("latest", 0, 10)
@@ -174,19 +173,8 @@ class MainActivity2 : AppCompatActivity() {
             }
 
             R.id.item_restore -> {
-                AlertDialog.Builder(this)
-                    .setTitle("Restaurar a valores predeterminados")
-                    .setMessage("¿Estás seguro de que quieres restaurar tus preferencias a los valores predeterminados?")
-                    .setPositiveButton("Sí") { _, _ ->
-                        dbManager.deleteAll()
-                        lifecycleScope.launch {
-                            Dispatchers.Main
-                            moviesManager.resetPreferences()
-                        }
 
-                    }
-                    .setNegativeButton("No", null)
-                    .show()
+
             }
 
             R.id.item_exit -> {
