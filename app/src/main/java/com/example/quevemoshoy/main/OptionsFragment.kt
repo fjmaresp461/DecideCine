@@ -10,15 +10,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import com.example.quevemoshoy.R
-import com.example.quevemoshoy.databinding.FragmentOptionsBinding
 
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
 class OptionsFragment : Fragment() {
-    lateinit var ibList: ImageButton
-    lateinit var ibUsers: ImageButton
-    lateinit var ibSettings: ImageButton
+    private lateinit var ibList: ImageButton
+    private lateinit var ibUsers: ImageButton
+    private lateinit var ibSettings: ImageButton
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -111,14 +108,5 @@ class OptionsFragment : Fragment() {
     }
 
 
-    companion object {
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            OptionsFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
-    }
+
 }

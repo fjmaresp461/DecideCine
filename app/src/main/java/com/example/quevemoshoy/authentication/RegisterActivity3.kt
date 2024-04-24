@@ -11,19 +11,17 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.quevemoshoy.LoginActivity
 import com.example.quevemoshoy.R
 import com.example.quevemoshoy.databinding.ActivityRegister3Binding
-import com.example.quevemoshoy.main.MainActivity2
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.FirebaseAuthUserCollisionException
 import com.google.firebase.database.FirebaseDatabase
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import com.shuhart.stepview.StepView
+
 import java.lang.reflect.Type
 
 class RegisterActivity3 : AppCompatActivity() {
     private lateinit var binding: ActivityRegister3Binding
-    private lateinit var stepView: StepView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityRegister3Binding.inflate(layoutInflater)
@@ -127,10 +125,8 @@ class RegisterActivity3 : AppCompatActivity() {
 
     private fun handleAuthentication() {
         val preferences = getSharedPreferences("Registro", Context.MODE_PRIVATE)
-        val user = preferences.getString("user", "")
         val email = preferences.getString("email", "")
         val password = preferences.getString("password", "")
-        val repeatPassword = preferences.getString("repeatPassword", "")
         val currentUser = FirebaseAuth.getInstance().currentUser
 
         if (currentUser!=null) {
@@ -255,7 +251,9 @@ class RegisterActivity3 : AppCompatActivity() {
         super.onPause()
         saveProviderPreferences()
     }
+    @Deprecated("deprecated ")
     override fun onBackPressed() {
+        super.onBackPressed()
         startActivity(Intent(this, RegisterActivity2::class.java))
         saveProviderPreferences()
         overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)

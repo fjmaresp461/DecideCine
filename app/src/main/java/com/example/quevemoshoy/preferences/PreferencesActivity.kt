@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.widget.SeekBar
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
 import com.example.quevemoshoy.R
 import com.example.quevemoshoy.databinding.ActivityPreferencesBinding
 import com.example.quevemoshoy.main.MainActivity2
@@ -17,8 +16,8 @@ import com.google.firebase.database.FirebaseDatabase
 class PreferencesActivity : AppCompatActivity() {
     private lateinit var binding: ActivityPreferencesBinding
     private val userPreferences = UserPreferences()
-    val userId = FirebaseAuth.getInstance().currentUser?.uid
-    var userName=""
+    private val userId = FirebaseAuth.getInstance().currentUser?.uid
+    private var userName=""
 
 
 
@@ -36,12 +35,6 @@ class PreferencesActivity : AppCompatActivity() {
             if (userId != null) {
                 loadUserPreferencesFromFirebase(userId, userName)
             }
-        }else{
-
-            if (userName != null) {
-                userName=userName
-            }
-
         }
 
 

@@ -1,7 +1,6 @@
 package com.example.quevemoshoy.authentication
 
 import android.content.Intent
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -9,12 +8,11 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.quevemoshoy.LoginActivity
 import com.example.quevemoshoy.R
 import com.example.quevemoshoy.databinding.ActivityRegister1Binding
-import com.example.quevemoshoy.model.UserPreferences
 import com.google.firebase.auth.FirebaseAuth
 
 class RegisterActivity1 : AppCompatActivity() {
     private lateinit var binding: ActivityRegister1Binding
-    var isGoogleSignIn: Boolean = false
+    private var isGoogleSignIn: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -93,21 +91,21 @@ class RegisterActivity1 : AppCompatActivity() {
         var isValid = true
 
         if (FirebaseAuth.getInstance().currentUser != null) {
-            if (user.isNullOrBlank()) {
+            if (user.isBlank()) {
                 binding.etUser.error = "El usuario es obligatorio"
                 isValid = false
             }
 
         } else {
-            if (user.isNullOrBlank()) {
+            if (user.isBlank()) {
                 binding.etUser.error = "El usuario es obligatorio"
                 isValid = false
             }
-            if (email.isNullOrBlank()) {
+            if (email.isBlank()) {
                 binding.etEmail.error = "El email es obligatorio"
                 isValid = false
             }
-            if (password.isNullOrBlank()) {
+            if (password.isBlank()) {
                 binding.etPassword.error = "La contraseña es obligatoria"
                 isValid = false
             }
@@ -141,7 +139,9 @@ class RegisterActivity1 : AppCompatActivity() {
         savePreferences()
     }
 
+    @Deprecated("Deprecated")
     override fun onBackPressed() {
+        super.onBackPressed()
         FirebaseAuth.getInstance().signOut()
         startActivity(Intent(this, LoginActivity::class.java))
     }

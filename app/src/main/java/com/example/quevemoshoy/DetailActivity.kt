@@ -91,7 +91,7 @@ class DetailActivity : AppCompatActivity() {
     private fun displayMovieDetails(movie: Movie) {
         binding.movieTitle.text = movie.title
         binding.tvSummary.text = movie.overview
-        val genreNames = movie.genres?.joinToString { it.name } ?: "N/A"
+        val genreNames = movie.genres.joinToString { it.name }
         binding.tvGenres.text = genreNames
         binding.tvRuntime.text = "${movie.runtime} minutos."
         Glide.with(this)

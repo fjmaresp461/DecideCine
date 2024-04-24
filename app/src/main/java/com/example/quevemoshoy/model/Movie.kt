@@ -2,7 +2,6 @@ package com.example.quevemoshoy.model
 
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable
-import java.security.Provider
 
 data class Movie(
     @SerializedName("id") val id: Int,

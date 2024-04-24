@@ -7,9 +7,9 @@ import android.util.Log
 import android.widget.ImageButton
 import androidx.appcompat.app.AppCompatActivity
 import com.example.quevemoshoy.R
-import com.example.quevemoshoy.authentication.RegisterActivity2
 import com.example.quevemoshoy.databinding.ActivityProvidersBinding
 import com.example.quevemoshoy.main.MainActivity2
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -54,7 +54,8 @@ class ProvidersActivity : AppCompatActivity() {
     }
 
     private fun loadPreferencesFromFirebase() {
-        val uid = "your_user_id" // Reemplaza esto con el ID de usuario correspondiente
+        val currentUser = FirebaseAuth.getInstance().currentUser
+        val uid = currentUser?.uid  // Reemplaza esto con el ID de usuario correspondiente
         val database = FirebaseDatabase.getInstance()
         val myRef = database.getReference("users/$uid/proveedores")
 
@@ -79,7 +80,8 @@ class ProvidersActivity : AppCompatActivity() {
     }
 
     private fun saveProviderPreferencesToFirebase() {
-        val uid = "your_user_id" // Reemplaza esto con el ID de usuario correspondiente
+        val currentUser = FirebaseAuth.getInstance().currentUser
+        val uid = currentUser?.uid  // Reemplaza esto con el ID de usuario correspondiente
         val database = FirebaseDatabase.getInstance()
         val myRef = database.getReference("users/$uid/proveedores")
 
@@ -98,6 +100,7 @@ class ProvidersActivity : AppCompatActivity() {
 
         myRef.setValue(providerValues)
     }
+
 
     private fun findImageButtonByProviderId(providerId: String): ImageButton? {
         return when (providerId) {

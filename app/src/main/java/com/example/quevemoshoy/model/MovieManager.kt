@@ -2,6 +2,7 @@ package com.example.quevemoshoy.model
 
 import android.util.Log
 import com.example.quevemoshoy.R
+import com.example.quevemoshoy.main.MainActivity2
 import com.example.quevemoshoy.provider.ApiClient
 import com.example.quevemoshoy.provider.MovieInterface
 import com.google.firebase.auth.FirebaseAuth
@@ -19,7 +20,11 @@ class MoviesManager {
     val auth = FirebaseAuth.getInstance()
     val currentUser = auth.currentUser
 
-    val addedMovieIds = mutableSetOf<Int>()
+
+    companion object {
+        var moviesCache: List<Movie>? = null
+        var genrePreferencesCache: List<String>? = null
+    }
 
     suspend fun getAllGenrePreferences(currentUser: FirebaseUser?): List<String> =
         withContext(Dispatchers.IO) {
@@ -31,15 +36,19 @@ class MoviesManager {
                 val userSnapshot = reference.child(userId).child("preferencias").get().await()
                 if (userSnapshot != null) {
                     if (userSnapshot.exists()) {
-                        Log.d("Firebase", "User snapshot retrieved successfully")
+
                         for (usernameSnapshot in userSnapshot.children) {
                             for (genreSnapshot in usernameSnapshot.children) {
                                 val genreId = genreSnapshot.key ?: continue
-                                val genrePreference = genreSnapshot.getValue(Int::class.java) ?: continue
-                                Log.d("Firebase", "Genre ID: $genreId, Preference: $genrePreference")
+                                val genrePreference =
+                                    genreSnapshot.getValue(Int::class.java) ?: continue
+
                                 if (genrePreference >= 7) {
-                                    allGenrePreferences[genreId] = maxOf(genrePreference, allGenrePreferences.getOrDefault(genreId, genrePreference))
-                                    Log.d("general", allGenrePreferences.toString())
+                                    allGenrePreferences[genreId] = maxOf(
+                                        genrePreference,
+                                        allGenrePreferences.getOrDefault(genreId, genrePreference)
+                                    )
+
 
                                 }
                             }
@@ -52,37 +61,87 @@ class MoviesManager {
                 Log.e("Firebase", "Error getting data:", e)
             }
 
-            Log.d("Firebase", "All genre preferences: $allGenrePreferences")
+
 
             allGenrePreferences.keys.toList()
         }
 
+    suspend fun getPreferredProviders(currentUser: FirebaseUser?): List<Int> =
+        withContext(Dispatchers.IO) {
+            val preferredProviderIds = mutableListOf<Int>()
 
+            // Mapeo de nombres de proveedores a IDs
+            val providerNameToId = mapOf(
+                "amazonPrimeVideo" to 119,
+                "appleTv" to 2,
+                "crunchyroll" to 283,
+                "disneyPlus" to 337,
+                "googlePlayMovies" to 3,
+                "hboMax" to 384,
+                "movistarPlus" to 339,
+                "netflix" to 8,
+                "rakutenTv" to 35,
+                "skyshowtime" to 1773
+
+            )
+
+            val userId = checkNotNull(currentUser?.uid) { "User ID cannot be null" }
+
+            try {
+                val userSnapshot = reference.child(userId).child("proveedores").get().await()
+                if (userSnapshot != null) {
+                    if (userSnapshot.exists()) {
+
+                        for (providerSnapshot in userSnapshot.children) {
+                            val providerName = providerSnapshot.key ?: continue
+                            val isPreferred =
+                                providerSnapshot.getValue(Boolean::class.java) ?: continue
+                            if (isPreferred) {
+                                val providerId = providerNameToId[providerName]
+                                if (providerId != null) {
+                                    preferredProviderIds.add(providerId)
+                                }
+                            }
+                        }
+                    } else {
+                        Log.w("Firebase", "Usuario no encontrado con UID: $userId")
+                    }
+                }
+            } catch (e: Exception) {
+                Log.e("Firebase", "Error getting data:", e)
+            }
+
+            return@withContext preferredProviderIds
+        }
 
 
     suspend fun fetchMoviesByGenre(): List<Movie> {
-        val allMovies = mutableListOf<Movie>()
-        val genreIds = getAllGenrePreferences(currentUser)
-        val genreMovies = mutableMapOf<String, MutableList<Movie>>()
-        val netflixProviderId = 8 // Asumiendo que 8 es el ID del proveedor de Netflix
+        val currentUserGenrePreferences = getAllGenrePreferences(currentUser)
+        val preferredProviderIds =
+            getPreferredProviders(currentUser)
 
-        for (genreId in genreIds) {
+        if (genrePreferencesCache == currentUserGenrePreferences && !moviesCache.isNullOrEmpty()) {
+            return moviesCache!!
+        }
+        genrePreferencesCache = currentUserGenrePreferences
+        val allMovies = mutableListOf<Movie>()
+        val genreMovies = mutableMapOf<String, MutableList<Movie>>()
+
+        for (genreId in currentUserGenrePreferences) {
             val response = apiService.getMoviesByGenres(genres = genreId)
             val movies = response.movies.take(10).shuffled() // Mezcla las películas
             genreMovies[genreId] = movies.toMutableList()
         }
 
-        for (genreId in genreIds) {
+        for (genreId in currentUserGenrePreferences) {
             val movies = genreMovies[genreId]
             var index = 0
             while (!movies.isNullOrEmpty() && index < movies.size && allMovies.size < 12) {
                 val movie = movies[index]
-                    val providers = fetchMovieProviders(movie.id) // Obtiene los proveedores de la película
-                    if (providers?.any { it.providerId == netflixProviderId } == true) {
-                        allMovies.add(movie)
-                        addedMovieIds.add(movie.id)
-                    }
-
+                val providers = fetchMovieProviders(movie.id)
+                if (providers?.any { it.providerId in preferredProviderIds } == true) {
+                    allMovies.add(movie)
+                }
                 index++
             }
             if (allMovies.size == 12) {
@@ -94,45 +153,43 @@ class MoviesManager {
             for (movie in response.movies) {
                 if (movie.id !in allMovies.map { it.id }) {
                     allMovies.add(movie)
-   if (allMovies.size == 12) {
+                    if (allMovies.size == 12) {
                         break
                     }
                 }
             }
         }
 
+        // Actualiza la caché de películas
+        moviesCache = allMovies
+
         return allMovies
     }
 
 
-
-
-
-
-
-
     suspend fun fetchMovies(recommendationType: String): List<Movie> {
         val allMovies = mutableListOf<Movie>()
-        val netflixProviderId = 8
-        val hboProviderId = 384
+        val favMovies = mutableListOf<Movie>()
+
 
         try {
             if (recommendationType == "latest") {
                 val response = apiService.getLatestMovies()
                 for (movie in response.movies) {
                     val providers = fetchMovieProviders(movie.id)
-                    if (providers?.any { it.providerId == netflixProviderId } == true) {
+                    if (providers?.any { it.providerId in getPreferredProviders(currentUser) } == true) {
                         allMovies.add(movie)
                         if (allMovies.size == 12) {
                             break
                         }
                     }
                 }
-            } else {
-                // En proceso
+            } else if (recommendationType == "myList") {
+                favMovies.addAll(MainActivity2.favoriteMoviesList)
+                return favMovies
             }
 
-            // Si no hay suficientes películas de los proveedores seleccionados, llena con otras películas
+
             if (allMovies.size < 12) {
                 val response = apiService.getLatestMovies()
                 for (movie in response.movies) {
@@ -144,7 +201,8 @@ class MoviesManager {
                     }
                 }
             }
-allMovies.shuffle()
+
+            allMovies.shuffle()
             return allMovies
         } catch (e: Exception) {
             Log.e("MoviesManager", R.string.error_fetching.toString(), e)
@@ -153,16 +211,10 @@ allMovies.shuffle()
     }
 
 
-
-
-
-
-
     suspend fun fetchMovieProviders(movieId: Int): List<Providers>? {
         return try {
             val response = apiService.getMovieProviders(movieId)
-            Log.d("proveedores",response.toString())
-            response.results.es?.providers
+            response.results.es.providers
         } catch (e: Exception) {
             Log.e("MoviesManager", R.string.error_providers.toString(), e)
             null
@@ -170,23 +222,21 @@ allMovies.shuffle()
     }
 
 
-
     suspend fun fetchMovieById(movieId: Int): Movie? {
-        try {
+        return try {
             val response = apiService.getMovieDetails(movieId, apiKey = ApiClient.API_KEY)
-            return response
+            response
         } catch (e: Exception) {
             Log.e("MoviesManager", R.string.error_fetching.toString(), e)
-            return null
+            null
         }
     }
 
 
-
-
 }
 
-/*
-
-
- */
+// refrescar proveedores
+// empezar a buscar errores  testeando
+// la interfaz main estaria lista
+//empezar con las opciones
+//boton login sin email, da error

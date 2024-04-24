@@ -11,7 +11,7 @@ class AboutAppActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAboutAppBinding
     private lateinit var mediaController: MediaController
     private var posicion = 0
-    private var posicion2 = 0
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

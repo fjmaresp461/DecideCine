@@ -19,7 +19,7 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback,
     GoogleMap.OnMyLocationButtonClickListener, GoogleMap.OnMyLocationClickListener {
     private lateinit var binding: ActivityMapBinding
     private lateinit var mapa: GoogleMap
-    val LOCATION_PERMISSION = 1000
+    private val LOCATION_PERMISSION = 1000
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -80,12 +80,8 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback,
                     .position(LatLng(cinema.latitude, cinema.longitude)) // Use latitude and longitude
                     .title(cinema.name)
             )
-            if (marker != null) {
-                marker.setTag(cinema)
-            }
-            if (marker != null) {
-                marker.setInfoWindowAnchor(0.5f, 0.5f)
-            }
+            marker?.tag = cinema
+            marker?.setInfoWindowAnchor(0.5f, 0.5f)
 
         }
     }
@@ -125,13 +121,7 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback,
     }
 
 
-    private fun takePermissions() {
-        ActivityCompat.requestPermissions(
-            this, arrayOf(
-                Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION
-            ), LOCATION_PERMISSION
-        )
-    }
+
 
     @SuppressLint("MissingPermission")
     override fun onRequestPermissionsResult(
@@ -142,8 +132,6 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback,
             if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED && grantResults[1] == PackageManager.PERMISSION_GRANTED) {
                 mapa.isMyLocationEnabled = true
             }
-        } else {
-
         }
     }
 

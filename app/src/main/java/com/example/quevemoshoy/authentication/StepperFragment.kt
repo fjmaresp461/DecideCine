@@ -1,6 +1,6 @@
 package com.example.quevemoshoy.authentication
 
-import android.animation.ValueAnimator
+
 import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -36,7 +36,6 @@ class StepperFragment : Fragment() {
         val stepView = view.findViewById<StepView>(R.id.step_view)
         stepView.setSteps(listOf("Datos usuario", "Preferencias", "Proveedores"))
         val currentStep = arguments?.getInt("currentStep", 0) ?: 0
-        val registerActivity1 = activity as? RegisterActivity1
         stepView.go(currentStep, false)
 
         stepView.setOnStepClickListener { step ->

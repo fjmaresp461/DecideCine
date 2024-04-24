@@ -1,21 +1,15 @@
 package com.example.quevemoshoy.main
 
-import android.annotation.SuppressLint
+
 import android.content.Intent
-import android.graphics.Color
 import android.os.Bundle
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import com.example.quevemoshoy.PreferencesActivity
 import com.example.quevemoshoy.R
-import com.example.quevemoshoy.authentication.StepperFragment
-import com.example.quevemoshoy.databinding.ActivitySettingsBinding
 import com.example.quevemoshoy.databinding.ActivityUsersBinding
 import com.example.quevemoshoy.preferences.ProvidersActivity
 import com.google.firebase.auth.FirebaseAuth

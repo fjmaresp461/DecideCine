@@ -18,6 +18,8 @@ import com.example.quevemoshoy.DetailActivity
 import com.example.quevemoshoy.LoginActivity
 import com.example.quevemoshoy.R
 import com.example.quevemoshoy.RecyclerActivity
+import com.example.quevemoshoy.database.DBStarter
+import com.example.quevemoshoy.database.DatabaseHelper
 import com.example.quevemoshoy.database.DatabaseManager
 import com.example.quevemoshoy.databinding.ActivityMain2Binding
 import com.example.quevemoshoy.model.Movie
@@ -35,36 +37,76 @@ import kotlinx.coroutines.withContext
 class MainActivity2 : AppCompatActivity() {
     private lateinit var binding: ActivityMain2Binding
     private lateinit var auth: FirebaseAuth
-    private lateinit var sharedPreferences:SharedPreferences
+    private lateinit var sharedPreferences: SharedPreferences
     private val moviesManager = MoviesManager()
     val currentUser = FirebaseAuth.getInstance().currentUser
     private val PREFS_NAME = "user_prefs"
     private val GENRE_PREFS_KEY = "genre_prefs"
-
+    private val dbManager = DatabaseManager()
+    private var movies = mutableListOf<Movie>()
+    private val movieManager = MoviesManager()
+    companion object {
+        var favoriteMoviesList = mutableListOf<Movie>()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMain2Binding.inflate(layoutInflater)
         setContentView(binding.root)
         auth = Firebase.auth
-        sharedPreferences=getSharedPreferences(PREFS_NAME,Context.MODE_PRIVATE)
+        sharedPreferences = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
         setListeners()
         setAnimations()
         initRecommendations()
+        initDatabase()
+
+
+
     }
 
-    fun initRecommendations() {
+    private fun initDatabase() {
+        DBStarter.appContext = this.applicationContext
+
+        val currentUser = FirebaseAuth.getInstance().currentUser
+        if (currentUser != null) {
+            DBStarter.DB = DatabaseHelper(currentUser.uid)
+        }
+
+        lifecycleScope.launch(Dispatchers.Main) {
+            loadFavoriteMovies()
+            movieManager.getPreferredProviders(currentUser)
+            initMovies("myList",
+                listOf(binding.ivList1, binding.ivList2, binding.ivList3, binding.ivList4)
+            )
+        }
+    }
+
+    private suspend fun loadFavoriteMovies() {
+        val favoriteMovies = dbManager.readAll()
+        for (simpleMovie in favoriteMovies) {
+            val movie = withContext(Dispatchers.IO) { movieManager.fetchMovieById(simpleMovie.id) }
+            if (movie != null && movie !in favoriteMoviesList) {
+                movies.add(movie)
+                favoriteMoviesList.add(movie)
+            }
+        }
+    }
+
+
+    private fun initRecommendations() {
         initMovies(
             "recommended",
             listOf(binding.ivReco1, binding.ivReco2, binding.ivReco3, binding.ivReco4)
         )
-        initMovies("latest", listOf(binding.ivLat1, binding.ivLat2, binding.ivLat3, binding.ivLat4))
-        //añadir similar a "mi lista"
+        initMovies("latest",
+            listOf(binding.ivLat1, binding.ivLat2, binding.ivLat3, binding.ivLat4)
+        )
+
     }
 
-    fun initMovies(recommendationType: String, imageViews: List<ImageView>) {
+    private fun initMovies(recommendationType: String, imageViews: List<ImageView>) {
         lifecycleScope.launch {
-            val userGenrePreferences = if (recommendationType != "latest") {
+            if (recommendationType != "latest" && recommendationType != "myList") {
                 sharedPreferences.getString(GENRE_PREFS_KEY, null)?.let { jsonString ->
                     Gson().fromJson(jsonString, object : TypeToken<Map<String, Int>>() {}.type)
                 } ?: moviesManager.getAllGenrePreferences(currentUser)
@@ -72,10 +114,16 @@ class MainActivity2 : AppCompatActivity() {
                 mapOf<String, Int>()
             }
 
-            val movies = if (recommendationType == "latest") {
-                moviesManager.fetchMovies(recommendationType)
-            } else {
-                moviesManager.fetchMoviesByGenre()
+            val movies = when (recommendationType) {
+                "latest" -> {
+                    moviesManager.fetchMovies(recommendationType)
+                }
+                "myList" -> {
+                    favoriteMoviesList
+                }
+                else -> {
+                    moviesManager.fetchMoviesByGenre()
+                }
             }
 
             bindImagesToViews(movies.take(4), imageViews)
@@ -83,13 +131,14 @@ class MainActivity2 : AppCompatActivity() {
     }
 
 
-    fun bindImagesToViews(movies: List<Movie>, imageViews: List<ImageView>) {
+
+    private fun bindImagesToViews(movies: List<Movie>, imageViews: List<ImageView>) {
         for (i in movies.indices) {
             bindImageToView(imageViews[i], movies[i])
         }
     }
 
-    fun bindImageToView(imageView: ImageView, movie: Movie) {
+    private fun bindImageToView(imageView: ImageView, movie: Movie) {
         Glide.with(this).load("https://image.tmdb.org/t/p/w500${movie.posterPath}")
             .diskCacheStrategy(DiskCacheStrategy.ALL).into(imageView)
 
@@ -124,18 +173,26 @@ class MainActivity2 : AppCompatActivity() {
         binding.cntLatMore.setOnClickListener {
             intentRecycler("latest")
         }
+        binding.cntListMore.setOnClickListener{
+            intentRecycler("myList")
+        }
     }
 
     private fun intentRecycler(type: String) {
         lifecycleScope.launch(Dispatchers.IO) {
             val movies = when (type) {
                 "recommended" -> {
-
                     moviesManager.fetchMoviesByGenre()
                 }
+
                 "latest" -> {
                     moviesManager.fetchMovies(type)
                 }
+
+                "myList" -> {
+                   favoriteMoviesList
+                }
+
                 else -> {
                     Log.w("MainActivity", "Unknown type: $type")
                     return@launch
@@ -144,13 +201,14 @@ class MainActivity2 : AppCompatActivity() {
 
             withContext(Dispatchers.Main) {
                 if (movies.isNotEmpty()) {
-                    val intent =
-                        Intent(this@MainActivity2, RecyclerActivity::class.java).apply {
-                            putExtra("movies", ArrayList(movies))
-                        }
+                    val intent = Intent(this@MainActivity2, RecyclerActivity::class.java).apply {
+                        putExtra("movies", ArrayList(movies))
+                    }
                     startActivity(intent)
                 } else {
-                    Toast.makeText(this@MainActivity2, R.string.no_matching_movies, Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        this@MainActivity2, R.string.no_matching_movies, Toast.LENGTH_SHORT
+                    ).show()
                 }
             }
         }

@@ -13,8 +13,12 @@ class DatabaseManager {
             put("id", movie.id)
             put("title", movie.title)
         }
-        val result = db.insertWithOnConflict(DBStarter.TABLE, null, values, SQLiteDatabase.CONFLICT_IGNORE)
-        return result
+        return db.insertWithOnConflict(
+            DBStarter.TABLE,
+            null,
+            values,
+            SQLiteDatabase.CONFLICT_IGNORE
+        )
     }
 
     fun readAll(): MutableList<SimpleMovie> {
@@ -33,23 +37,14 @@ class DatabaseManager {
         return list
     }
 
-    fun deleteAll() {
-        val db = DBStarter.DB.writableDatabase
-        db.delete(DBStarter.TABLE, null, null)
-    }
+
 
     fun delete(id: Int) {
         val db = DBStarter.DB.writableDatabase
         db.delete(DBStarter.TABLE, "id=?", arrayOf(id.toString()))
     }
 
-    fun update(movie: SimpleMovie): Int {
-        val db = DBStarter.DB.writableDatabase
-        val values = ContentValues().apply {
-            put("title", movie.title)
-        }
-        return db.update(DBStarter.TABLE, values, "id=?", arrayOf(movie.id.toString()))
-    }
+
 
 
 

@@ -4,11 +4,9 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.SeekBar
-import android.widget.Toast
 import com.example.quevemoshoy.R
 import com.example.quevemoshoy.databinding.ActivityRegister2Binding
 import com.example.quevemoshoy.model.UserPreferences
-import com.google.firebase.database.FirebaseDatabase
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import java.lang.reflect.Type
@@ -125,30 +123,16 @@ class RegisterActivity2 : AppCompatActivity() {
     }
 
 
-    private fun loadUserPreferencesFromFirebase(userId: String) {
-        val database = FirebaseDatabase.getInstance()
-        val reference = database.getReference("preferences/$userId")
-        reference.get().addOnSuccessListener { dataSnapshot ->
-            val userGenrePreferences = mutableMapOf<String, Int>()
-            for (genreSnapshot in dataSnapshot.children) {
-                val genreId = genreSnapshot.key ?: continue
-                val genrePreference = genreSnapshot.getValue(Int::class.java) ?: continue
-                userGenrePreferences[genreId] = genrePreference
-            }
-            for ((genreId, genrePreference) in userGenrePreferences) {
-                val seekBar = findSeekBarByGenreId(genreId)
-                seekBar?.progress = genrePreference
-            }
-        }.addOnFailureListener {
-        }
-    }
+
 
     override fun onPause() {
         super.onPause()
 
         checkAndSave()
     }
+    @Deprecated("deprecated")
     override fun onBackPressed() {
+        super.onBackPressed()
         startActivity(Intent(this, RegisterActivity1::class.java))
         checkAndSave()
         overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)

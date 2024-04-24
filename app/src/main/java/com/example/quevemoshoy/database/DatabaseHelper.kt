@@ -4,8 +4,8 @@ import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 
 
-class DatabaseHelper :
-    SQLiteOpenHelper(DBStarter.appContext, DBStarter.BASE, null, DBStarter.VERSION) {
+class DatabaseHelper(userUid: String) :
+    SQLiteOpenHelper(DBStarter.appContext, "${userUid}_DB", null, DBStarter.VERSION) {
 
     private val createTable = "CREATE TABLE ${DBStarter.TABLE}" +
             "(id INTEGER PRIMARY KEY," +
@@ -21,3 +21,4 @@ class DatabaseHelper :
         onCreate(db)
     }
 }
+
