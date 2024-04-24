@@ -11,11 +11,12 @@ interface MovieInterface {
 
     @GET("/3/discover/movie")
     suspend fun getMoviesByGenres(
-        @Query("api_key") apiKey: String = "2bb0ba9a57e9cdae9dd4f957fd27140a",
+        @Query("api_key") apiKey: String = ApiClient.API_KEY,
         @Query("with_genres") genres: String,
         @Query("language") language: String = "es-ES",
         @Query("sort_by") sortBy: String = "vote_average.desc",
-        @Query("vote_count.gte") voteCount: Int = 100
+        @Query("vote_count.gte") voteCount: Int = 100,
+        @Query("page") page: Int =3
 
     ): MovieResponse
 
@@ -35,11 +36,12 @@ interface MovieInterface {
 
     @GET("/3/discover/movie")
     suspend fun getLatestMovies(
-        @Query("api_key") apiKey: String,
+        @Query("api_key") apiKey: String = ApiClient.API_KEY,
         @Query("language") language: String = "es-ES",
         @Query("region") region: String = "ES",
-       // @Query("sort_by") sortBy: String = "release_date.desc"
-    ): MovieResponse
+
+
+        ): MovieResponse
 
 
 
