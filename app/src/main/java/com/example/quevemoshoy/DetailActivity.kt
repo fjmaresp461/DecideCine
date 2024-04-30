@@ -3,6 +3,11 @@ package com.example.quevemoshoy
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.text.SpannableString
+import android.text.Spanned
+import android.text.method.LinkMovementMethod
+import android.text.style.ClickableSpan
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
@@ -10,6 +15,7 @@ import com.bumptech.glide.Glide
 import com.example.quevemoshoy.database.DatabaseManager
 import com.example.quevemoshoy.databinding.ActivityDetailBinding
 import com.example.quevemoshoy.main.MainActivity2
+import com.example.quevemoshoy.model.Genre
 import com.example.quevemoshoy.model.Movie
 import com.example.quevemoshoy.model.MoviesManager
 import com.example.quevemoshoy.model.Providers
@@ -21,8 +27,29 @@ import kotlinx.coroutines.withContext
 class DetailActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDetailBinding
     private var movieTitle: String? = null
-    private val dbManager =DatabaseManager()
+    private val dbManager = DatabaseManager()
     private var movieManager = MoviesManager()
+    val genreNameToIdMap = mapOf(
+        "Acción" to "28",
+        "Aventura" to "12",
+        "Animación" to "16",
+        "Comedia" to "35",
+        "Crimen" to "80",
+        "Documental" to "99",
+        "Drama" to "18",
+        "Familia" to "10751",
+        "Fantasía" to "14",
+        "Historia" to "36",
+        "Horror" to "27",
+        "Música" to "10402",
+        "Misterio" to "9648",
+        "Romance" to "10749",
+        "Ciencia ficción" to "878",
+        "Película de TV" to "10770",
+        "Suspense" to "53",
+        "Guerra" to "10752",
+        "Western" to "37"
+    )
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,18 +87,16 @@ class DetailActivity : AppCompatActivity() {
                 movieTitle = movie.title
                 val isFavorite = dbManager.readAll().any { it.id == movieId }
                 binding.swFav.isChecked = isFavorite
- val providers = withContext(Dispatchers.IO) { movieManager.fetchMovieProviders(movieId) }
+                val providers =
+                    withContext(Dispatchers.IO) { movieManager.fetchMovieProviders(movieId) }
                 displayProviders(providers)
             } else {
                 Toast.makeText(
-                    this@DetailActivity,
-                    R.string.movie_not_found,
-                    Toast.LENGTH_SHORT
+                    this@DetailActivity, R.string.movie_not_found, Toast.LENGTH_SHORT
                 ).show()
             }
         }
     }
-
 
 
     private fun displayProviders(providers: List<Providers>?) {
@@ -93,17 +118,47 @@ class DetailActivity : AppCompatActivity() {
     private fun displayMovieDetails(movie: Movie) {
         binding.movieTitle.text = movie.title
         binding.tvSummary.text = movie.overview
-        val genreNames = movie.genres.joinToString { it.name }
-        binding.tvGenres.text = genreNames
         binding.tvRuntime.text = "${movie.runtime} minutos."
-        Glide.with(this)
-            .load("https://image.tmdb.org/t/p/w500${movie.posterPath}")
+        Glide.with(this).load("https://image.tmdb.org/t/p/w500${movie.posterPath}")
             .into(binding.movieImg)
+
+        // Crear un SpannableString para los géneros
+        val genreNames = movie.genres.joinToString(", ") { it.name }
+        val spannableString = createSpannableGenres(genreNames, movie.genres)
+
+        // Configurar el TextView
+        binding.tvGenres.movementMethod = LinkMovementMethod.getInstance()
+        binding.tvGenres.text = spannableString
     }
+
+    private fun createSpannableGenres(genreNames: String, genres: List<Genre>): SpannableString {
+        val spannableString = SpannableString(genreNames)
+
+
+        var start = 0
+        for (genre in genres) {
+            val end = start + genre.name.length
+            val clickableSpan = object : ClickableSpan() {
+                override fun onClick(widget: View) {
+
+                    val genreId = genreNameToIdMap[genre.name]
+
+                    if (genreId != null) {
+                        movieManager.fetchAndStartActivity(this@DetailActivity, genreId)
+                    }
+                }
+            }
+            spannableString.setSpan(clickableSpan, start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+            start = end + 2
+        }
+
+        return spannableString
+    }
+
 
     private fun addMovieToFavorites(movieId: Int, movieTitle: String) {
         val dbManager = DatabaseManager()
-        val movie = SimpleMovie( movieId,movieTitle)
+        val movie = SimpleMovie(movieId, movieTitle)
         dbManager.create(movie)
         Toast.makeText(this, R.string.favorite, Toast.LENGTH_SHORT).show()
     }
@@ -111,9 +166,10 @@ class DetailActivity : AppCompatActivity() {
     private fun removeMoviefromFavorites(movieId: Int) {
         val dbManager = DatabaseManager()
         dbManager.delete(movieId)
-        startActivity(Intent(this,MainActivity2::class.java))
+        startActivity(Intent(this, MainActivity2::class.java))
 
         Toast.makeText(this, R.string.delete_from_favorite, Toast.LENGTH_SHORT).show()
     }
 
 }
+

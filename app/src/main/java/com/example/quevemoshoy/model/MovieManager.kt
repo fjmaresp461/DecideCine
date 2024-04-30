@@ -1,16 +1,23 @@
 package com.example.quevemoshoy.model
 
+import android.content.Context
+import android.content.Intent
 import android.util.Log
 import com.example.quevemoshoy.R
+import com.example.quevemoshoy.RecyclerActivity
 import com.example.quevemoshoy.main.MainActivity2
 import com.example.quevemoshoy.provider.ApiClient
 import com.example.quevemoshoy.provider.MovieInterface
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.FirebaseDatabase
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
+
 
 class MoviesManager {
 
@@ -242,7 +249,22 @@ class MoviesManager {
         }
     }
 
+    fun fetchAndStartActivity(context: Context, genreId: String) {
+        CoroutineScope(Dispatchers.IO).launch {
+            val movies = fetchMoviesByOneGenre(genreId)
+            withContext(Dispatchers.Main) {
+                val intent = Intent(context, RecyclerActivity::class.java).apply {
+                    putExtra("movies", ArrayList(movies))
+                }
+                context.startActivity(intent)
+            }
+        }
+    }
 
+    suspend fun fetchMoviesByOneGenre(genreId: String): List<Movie> {
+        val response = apiService.getMoviesByGenres(genres = genreId)
+        return response.movies.take(20) // Toma solo las primeras 20 películas
+    }
 }
 
 // refrescar proveedores

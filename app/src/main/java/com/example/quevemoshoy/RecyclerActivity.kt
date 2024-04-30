@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.quevemoshoy.adapter.MovieAdapter
 import com.example.quevemoshoy.databinding.ActivityRecyclerBinding
+import com.example.quevemoshoy.main.MainActivity2
 import com.example.quevemoshoy.model.Movie
 
 class RecyclerActivity : AppCompatActivity() {
@@ -31,6 +32,12 @@ class RecyclerActivity : AppCompatActivity() {
         }
         binding.recyclerView.layoutManager = LinearLayoutManager(this)
         binding.recyclerView.adapter = adapter
+
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        startActivity(Intent(this,MainActivity2::class.java))
 
     }
 }

@@ -201,6 +201,18 @@ class MainActivity2 : AppCompatActivity() {
         binding.cntAllGenres.setOnClickListener {
             startActivity(Intent(this, AllGenresActivity::class.java))
         }
+        binding.ivActionMain.setOnClickListener{
+            movieManager.fetchAndStartActivity(this,"28")
+        }
+        binding.ivAnimationMain.setOnClickListener{
+            movieManager.fetchAndStartActivity(this,"16")
+        }
+        binding.ivMysteryMain.setOnClickListener{
+            movieManager.fetchAndStartActivity(this,"9648")
+        }
+        binding.ivWesterMain.setOnClickListener{
+            movieManager.fetchAndStartActivity(this,"37")
+        }
     }
 
     private fun intentRecycler(type: String) {

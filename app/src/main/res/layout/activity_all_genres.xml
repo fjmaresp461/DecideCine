@@ -130,7 +130,7 @@
                 android:orientation="horizontal">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/cnr_war"
+                    android:id="@+id/cnt_war"
                     android:layout_width="match_parent"
                     android:layout_height="270dp"
                     android:layout_weight="1">
@@ -587,6 +587,7 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cnt_horror"
                     android:layout_width="match_parent"
                     android:layout_height="270dp"
                     android:layout_weight="1">
@@ -619,6 +620,7 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cnt_thriller"
                     android:layout_width="match_parent"
                     android:layout_height="270dp"
                     android:layout_weight="1">
