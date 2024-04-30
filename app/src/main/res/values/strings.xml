@@ -28,7 +28,7 @@
 
     <string name="tv_forgotten_pass"><u>He olvidado mi contraseña</u></string>
     <string name="user_cancelled">El usuario canceló</string>
-    <string name="recommended">Películas recomendadas para tí</string>
+    <string name="recommended">Recomendadas para tí</string>
     <string name="surprise_me">Películas que podrian interesarte</string>
     <string name="coming_soon">Próximamente</string>
     <string name="btn_recommended">Veamos</string>
@@ -104,6 +104,26 @@
     <string name="edit_providers">Edita tus proveedores</string>
     <string name="your_list">Tu lista</string>
     <string name="latest">Últimas novedades</string>
+    <string name="see_more">Ver más</string>
+    <string name="genres">Todos los géneros</string>
+    <string name="action">Acción</string>
+    <string name="animation">Animación</string>
+    <string name="adventure">Aventura</string>
+    <string name="war">Bélica</string>
+    <string name="scifi">Ciencia ficción</string>
+    <string name="comedy">Comedia</string>
+    <string name="crime">Crimen</string>
+    <string name="documentary">Documental</string>
+    <string name="drama">Drama</string>
+    <string name="familiar">Familiar</string>
+    <string name="history">Historia</string>
+    <string name="mistery">Misterio</string>
+    <string name="music">Música</string>
+    <string name="western">Western</string>
+    <string name="romantic">Romántica</string>
+    <string name="television">Televisión</string>
+    <string name="horror">Terror</string>
+    <string name="thriller">Thriller</string>
 
 
 </resources>

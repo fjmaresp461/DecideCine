@@ -24,7 +24,9 @@ class MoviesManager {
     companion object {
         var moviesCache: List<Movie>? = null
         var genrePreferencesCache: List<String>? = null
+        var latestMoviesCache: List<Movie>? = null
     }
+
 
     suspend fun getAllGenrePreferences(currentUser: FirebaseUser?): List<String> =
         withContext(Dispatchers.IO) {
@@ -43,13 +45,11 @@ class MoviesManager {
                                 val genrePreference =
                                     genreSnapshot.getValue(Int::class.java) ?: continue
 
-                                if (genrePreference >= 7) {
+                                if (genrePreference >= 6) {
                                     allGenrePreferences[genreId] = maxOf(
                                         genrePreference,
                                         allGenrePreferences.getOrDefault(genreId, genrePreference)
                                     )
-
-
                                 }
                             }
                         }
@@ -61,9 +61,10 @@ class MoviesManager {
                 Log.e("Firebase", "Error getting data:", e)
             }
 
+            // Ordena los géneros por puntuación en orden descendente
+            val sortedGenrePreferences = allGenrePreferences.toList().sortedByDescending { it.second }.map { it.first }
 
-
-            allGenrePreferences.keys.toList()
+            sortedGenrePreferences
         }
 
     suspend fun getPreferredProviders(currentUser: FirebaseUser?): List<Int> =
@@ -117,8 +118,7 @@ class MoviesManager {
 
     suspend fun fetchMoviesByGenre(): List<Movie> {
         val currentUserGenrePreferences = getAllGenrePreferences(currentUser)
-        val preferredProviderIds =
-            getPreferredProviders(currentUser)
+        val preferredProviderIds = getPreferredProviders(currentUser)
 
         if (genrePreferencesCache == currentUserGenrePreferences && !moviesCache.isNullOrEmpty()) {
             return moviesCache!!
@@ -133,6 +133,7 @@ class MoviesManager {
             genreMovies[genreId] = movies.toMutableList()
         }
 
+        var genreCount = 0
         for (genreId in currentUserGenrePreferences) {
             val movies = genreMovies[genreId]
             var index = 0
@@ -141,10 +142,13 @@ class MoviesManager {
                 val providers = fetchMovieProviders(movie.id)
                 if (providers?.any { it.providerId in preferredProviderIds } == true) {
                     allMovies.add(movie)
+                    if (++genreCount == 4) {
+                        break
+                    }
                 }
                 index++
             }
-            if (allMovies.size == 12) {
+            if (allMovies.size == 12 || genreCount == 4) {
                 break
             }
         }
@@ -171,9 +175,13 @@ class MoviesManager {
         val allMovies = mutableListOf<Movie>()
         val favMovies = mutableListOf<Movie>()
 
-
         try {
             if (recommendationType == "latest") {
+                // Comprueba si la caché de las últimas películas no está vacía
+                if (!latestMoviesCache.isNullOrEmpty()) {
+                    return latestMoviesCache!!
+                }
+
                 val response = apiService.getLatestMovies()
                 for (movie in response.movies) {
                     val providers = fetchMovieProviders(movie.id)
@@ -185,10 +193,9 @@ class MoviesManager {
                     }
                 }
             } else if (recommendationType == "myList") {
-                favMovies.addAll(MainActivity2.favoriteMoviesList)
+                favMovies.addAll(MainActivity2.favoriteMoviesList.filterNotNull())
                 return favMovies
             }
-
 
             if (allMovies.size < 12) {
                 val response = apiService.getLatestMovies()
@@ -201,6 +208,9 @@ class MoviesManager {
                     }
                 }
             }
+
+            // Actualiza la caché de las últimas películas
+            latestMoviesCache = allMovies
 
             allMovies.shuffle()
             return allMovies

@@ -1,5 +1,6 @@
 package com.example.quevemoshoy
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
@@ -8,6 +9,7 @@ import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
 import com.example.quevemoshoy.database.DatabaseManager
 import com.example.quevemoshoy.databinding.ActivityDetailBinding
+import com.example.quevemoshoy.main.MainActivity2
 import com.example.quevemoshoy.model.Movie
 import com.example.quevemoshoy.model.MoviesManager
 import com.example.quevemoshoy.model.Providers
@@ -109,6 +111,9 @@ class DetailActivity : AppCompatActivity() {
     private fun removeMoviefromFavorites(movieId: Int) {
         val dbManager = DatabaseManager()
         dbManager.delete(movieId)
+        startActivity(Intent(this,MainActivity2::class.java))
+
         Toast.makeText(this, R.string.delete_from_favorite, Toast.LENGTH_SHORT).show()
     }
+
 }

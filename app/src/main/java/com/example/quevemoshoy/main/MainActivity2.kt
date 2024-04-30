@@ -12,12 +12,16 @@ import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.example.quevemoshoy.AllGenresActivity
 import com.example.quevemoshoy.DetailActivity
 import com.example.quevemoshoy.LoginActivity
 import com.example.quevemoshoy.R
 import com.example.quevemoshoy.RecyclerActivity
+import com.example.quevemoshoy.adapter.FavAdapter
+import com.example.quevemoshoy.adapter.MovieAdapter
 import com.example.quevemoshoy.database.DBStarter
 import com.example.quevemoshoy.database.DatabaseHelper
 import com.example.quevemoshoy.database.DatabaseManager
@@ -45,21 +49,30 @@ class MainActivity2 : AppCompatActivity() {
     private val dbManager = DatabaseManager()
     private var movies = mutableListOf<Movie>()
     private val movieManager = MoviesManager()
+
+
     companion object {
-        var favoriteMoviesList = mutableListOf<Movie>()
+        var favoriteMoviesList = mutableListOf<Movie?>()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMain2Binding.inflate(layoutInflater)
         setContentView(binding.root)
+
+
+
+
         auth = Firebase.auth
         sharedPreferences = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
         setListeners()
         setAnimations()
         initRecommendations()
         initDatabase()
+        lifecycleScope.launch(Dispatchers.Main) {
+            loadFavoriteMovies()
 
+        }
 
 
     }
@@ -75,13 +88,12 @@ class MainActivity2 : AppCompatActivity() {
         lifecycleScope.launch(Dispatchers.Main) {
             loadFavoriteMovies()
             movieManager.getPreferredProviders(currentUser)
-            initMovies("myList",
-                listOf(binding.ivList1, binding.ivList2, binding.ivList3, binding.ivList4)
-            )
+
         }
     }
 
-    private suspend fun loadFavoriteMovies() {
+     suspend fun loadFavoriteMovies() {
+         favoriteMoviesList.clear()
         val favoriteMovies = dbManager.readAll()
         for (simpleMovie in favoriteMovies) {
             val movie = withContext(Dispatchers.IO) { movieManager.fetchMovieById(simpleMovie.id) }
@@ -90,7 +102,16 @@ class MainActivity2 : AppCompatActivity() {
                 favoriteMoviesList.add(movie)
             }
         }
+
+        val recyclerView = findViewById<RecyclerView>(R.id.recyclerView)
+        recyclerView.adapter = FavAdapter(favoriteMoviesList, this)
+
     }
+
+
+
+
+
 
 
     private fun initRecommendations() {
@@ -132,9 +153,9 @@ class MainActivity2 : AppCompatActivity() {
 
 
 
-    private fun bindImagesToViews(movies: List<Movie>, imageViews: List<ImageView>) {
+    private fun bindImagesToViews(movies: List<Movie?>, imageViews: List<ImageView>) {
         for (i in movies.indices) {
-            bindImageToView(imageViews[i], movies[i])
+            movies[i]?.let { bindImageToView(imageViews[i], it) }
         }
     }
 
@@ -166,15 +187,19 @@ class MainActivity2 : AppCompatActivity() {
     }
 
     private fun setListeners() {
-        binding.cntRecoMore.setOnClickListener {
+        binding.cntRecommended.setOnClickListener {
             intentRecycler("recommended")
         }
 
-        binding.cntLatMore.setOnClickListener {
+        binding.cntLatest.setOnClickListener {
             intentRecycler("latest")
         }
-        binding.cntListMore.setOnClickListener{
+       binding.cntList
+           .setOnClickListener{
             intentRecycler("myList")
+        }
+        binding.cntAllGenres.setOnClickListener {
+            startActivity(Intent(this, AllGenresActivity::class.java))
         }
     }
 
@@ -234,5 +259,12 @@ class MainActivity2 : AppCompatActivity() {
 
         }
         return super.onOptionsItemSelected(item)
+    }
+    override fun onResume() {
+        super.onResume()
+
+        lifecycleScope.launch(Dispatchers.Main) {
+            loadFavoriteMovies()
+        }
     }
 }
