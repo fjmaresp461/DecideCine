@@ -7,8 +7,10 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.widget.ImageButton
 import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
@@ -59,10 +61,6 @@ class MainActivity2 : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMain2Binding.inflate(layoutInflater)
         setContentView(binding.root)
-
-
-
-
         auth = Firebase.auth
         sharedPreferences = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
         setListeners()
@@ -92,8 +90,8 @@ class MainActivity2 : AppCompatActivity() {
         }
     }
 
-     suspend fun loadFavoriteMovies() {
-         favoriteMoviesList.clear()
+    suspend fun loadFavoriteMovies() {
+        favoriteMoviesList.clear()
         val favoriteMovies = dbManager.readAll()
         for (simpleMovie in favoriteMovies) {
             val movie = withContext(Dispatchers.IO) { movieManager.fetchMovieById(simpleMovie.id) }
@@ -104,9 +102,17 @@ class MainActivity2 : AppCompatActivity() {
         }
 
         val recyclerView = findViewById<RecyclerView>(R.id.recyclerView)
+        val emptyView = binding.emptyView
+        if (favoriteMoviesList.isEmpty()) {
+            recyclerView.visibility = View.GONE
+            emptyView.visibility = View.VISIBLE
+        } else {
+            recyclerView.visibility = View.VISIBLE
+            emptyView.visibility = View.GONE
+        }
         recyclerView.adapter = FavAdapter(favoriteMoviesList, this)
-
     }
+
 
 
 
@@ -200,18 +206,23 @@ class MainActivity2 : AppCompatActivity() {
         }
         binding.cntAllGenres.setOnClickListener {
             startActivity(Intent(this, AllGenresActivity::class.java))
+
         }
         binding.ivActionMain.setOnClickListener{
             movieManager.fetchAndStartActivity(this,"28")
+            Toast.makeText(this, R.string.action, Toast.LENGTH_SHORT).show()
         }
         binding.ivAnimationMain.setOnClickListener{
             movieManager.fetchAndStartActivity(this,"16")
+            Toast.makeText(this, R.string.animation, Toast.LENGTH_SHORT).show()
         }
         binding.ivMysteryMain.setOnClickListener{
             movieManager.fetchAndStartActivity(this,"9648")
+            Toast.makeText(this, R.string.mistery, Toast.LENGTH_SHORT).show()
         }
         binding.ivWesterMain.setOnClickListener{
             movieManager.fetchAndStartActivity(this,"37")
+            Toast.makeText(this, R.string.western, Toast.LENGTH_SHORT).show()
         }
     }
 

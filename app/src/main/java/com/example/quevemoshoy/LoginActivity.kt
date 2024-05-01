@@ -57,15 +57,21 @@ class LoginActivity : AppCompatActivity() {
         binding.btnLogin.setOnClickListener{
             val email=binding.etEmail.text.toString().trim()
             val pass=binding.etPassword.text.toString().trim()
-            auth.signInWithEmailAndPassword(email, pass).addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    val user = auth.currentUser
-                    checkPreferences(user)
-                } else {
-                    Toast.makeText(this, "Authentication failed.", Toast.LENGTH_SHORT).show()
+
+            if (email.isEmpty()) {
+                Toast.makeText(this, "Por favor, introduce el correo electrónico.", Toast.LENGTH_SHORT).show()
+            } else {
+                auth.signInWithEmailAndPassword(email, pass).addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        val user = auth.currentUser
+                        checkPreferences(user)
+                    } else {
+                        Toast.makeText(this, "Authentication failed.", Toast.LENGTH_SHORT).show()
+                    }
                 }
             }
         }
+
 
         binding.tvForgottenPass.setOnClickListener{
             val email=binding.etEmail.text.toString().trim()

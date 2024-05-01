@@ -1,5 +1,5 @@
 <resources>
-    <style name="Theme.QueVemosHoy" parent="Theme.MaterialComponents.DayNight">
+    <style name="Theme.QueVemosHoy" parent="Theme.MaterialComponents.DayNight.NoActionBar">
     </style>
 
     <style name="Theme.QueVemosHoy.Light" parent="Theme.QueVemosHoy">

@@ -2,14 +2,18 @@ package com.example.quevemoshoy
 
 import android.content.Context
 import android.content.Intent
+import android.content.res.Resources
 import android.os.Bundle
 import android.text.SpannableString
 import android.text.Spanned
 import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
 import android.view.View
+import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.marginEnd
 import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
 import com.example.quevemoshoy.database.DatabaseManager
@@ -18,8 +22,11 @@ import com.example.quevemoshoy.main.MainActivity2
 import com.example.quevemoshoy.model.Genre
 import com.example.quevemoshoy.model.Movie
 import com.example.quevemoshoy.model.MoviesManager
+import com.example.quevemoshoy.model.MoviesManager.Companion.latestMoviesCache
+import com.example.quevemoshoy.model.MoviesManager.Companion.moviesCache
 import com.example.quevemoshoy.model.Providers
 import com.example.quevemoshoy.model.SimpleMovie
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -29,6 +36,7 @@ class DetailActivity : AppCompatActivity() {
     private var movieTitle: String? = null
     private val dbManager = DatabaseManager()
     private var movieManager = MoviesManager()
+
     val genreNameToIdMap = mapOf(
         "Acción" to "28",
         "Aventura" to "12",
@@ -47,7 +55,7 @@ class DetailActivity : AppCompatActivity() {
         "Ciencia ficción" to "878",
         "Película de TV" to "10770",
         "Suspense" to "53",
-        "Guerra" to "10752",
+        "Bélica" to "10752",
         "Western" to "37"
     )
 
@@ -77,7 +85,15 @@ class DetailActivity : AppCompatActivity() {
                 removeMoviefromFavorites(movieId)
             }
         }
+
     }
+
+
+        suspend fun updateMovies() {
+            moviesCache = MoviesManager().fetchMoviesByGenre()
+            latestMoviesCache = MoviesManager().fetchMovies("latest")
+        }
+
 
     private fun fetchAndDisplayMovieDetails(movieId: Int) {
         lifecycleScope.launch(Dispatchers.Main) {
@@ -108,12 +124,29 @@ class DetailActivity : AppCompatActivity() {
             stringBuilder.append("Plataformas disponibles: ")
             providers.forEach { provider ->
                 stringBuilder.append(provider.providerName).append(", ")
+                val imageView = ImageView(this)
+
+                when (provider.providerName) {
+                    "Netflix" -> imageView.setImageResource(R.drawable.netflix_icon)
+                    "Amazon Prime Video" -> imageView.setImageResource(R.drawable.amazon_prime_icon)
+                    "Disney Plus" -> imageView.setImageResource(R.drawable.disney_plus_icon)
+                    "Apple TV" -> imageView.setImageResource(R.drawable.apple_tv_icon)
+                    "Crunchyroll" -> imageView.setImageResource(R.drawable.crunchyroll_icon)
+                    "Google Play Movies" -> imageView.setImageResource(R.drawable.google_play_icon)
+                    "HBO Max" -> imageView.setImageResource(R.drawable.hbo_max_icon)
+                    "Movistar Plus" -> imageView.setImageResource(R.drawable.movistar_plus_icon)
+                    "Rakuten TV" -> imageView.setImageResource(R.drawable.rakuten_icon)
+                    "SkyShowtime" -> imageView.setImageResource(R.drawable.skyshowtime_icon)
+                }
+
+                binding.providersLayout.addView(imageView)
             }
-            // Elimina la última coma y espacio
             stringBuilder.setLength(stringBuilder.length - 2)
             Toast.makeText(this, stringBuilder.toString(), Toast.LENGTH_LONG).show()
         }
     }
+
+
 
     private fun displayMovieDetails(movie: Movie) {
         binding.movieTitle.text = movie.title
@@ -122,11 +155,9 @@ class DetailActivity : AppCompatActivity() {
         Glide.with(this).load("https://image.tmdb.org/t/p/w500${movie.posterPath}")
             .into(binding.movieImg)
 
-        // Crear un SpannableString para los géneros
         val genreNames = movie.genres.joinToString(", ") { it.name }
         val spannableString = createSpannableGenres(genreNames, movie.genres)
 
-        // Configurar el TextView
         binding.tvGenres.movementMethod = LinkMovementMethod.getInstance()
         binding.tvGenres.text = spannableString
     }

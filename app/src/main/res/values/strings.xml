@@ -24,8 +24,6 @@
     <string name="tv_register3"> 3/3. Selecciona tus proveedores </string>
     <string name="tv_register3_text"> Selecciona tus proveedores </string>
     <string name="finish">Finalizar</string>
-
-
     <string name="tv_forgotten_pass"><u>He olvidado mi contraseña</u></string>
     <string name="user_cancelled">El usuario canceló</string>
     <string name="recommended">Recomendadas para tí</string>
@@ -68,18 +66,13 @@
     <string name="favorites_saved">Película añadida a tus favoritos</string>
     <string name="error_updating_data">Error al resetear preferencias</string>
     <string name="movie_dont_available">No disponible en plataformas actualmente</string>
-    <string name="no_matching_movies">No se han encontrado peliculas coincidentes.</string>
+    <string name="no_matching_movies">¡Aún no has añadido películas!.</string>
     <string name="error_getting_data">Error recibiendo los datos</string>
     <string name="about_app_text">
-        Esta aplicación te ayuda a encontrar las mejores películas para ti.
-        Te ofrece recomendaciones personalizadas basadas en tus gustos y preferencias.
-        La idea es que no te compliques buscando.
+        Aplicación creada para el trabajo de fin de curso de segundo año del grado superior: desarrollo
+        de aplicaciones multiplataforma.
 </string>
 
-    <string name="welcome_mesaage">
-        Hola.\n\n\n\n\nAhora podrás realizar un breve cuestionario, serán sólo unos minutos😊\nAsí podremos conocer mejor tus
-        preferencias y así poder ofrecerte una experiencia personalizada.
-    </string>
     <string name="favorite">Película favorita</string>
     <string name="delete_from_favorite">Película eliminada de favoritos</string>
     <string name="map">¿Te apetece  cine?</string>
@@ -123,7 +116,31 @@
     <string name="romantic">Romántica</string>
     <string name="television">Televisión</string>
     <string name="horror">Terror</string>
-    <string name="thriller">Thriller</string>
+    <string name="thriller">Suspense</string>
+
+    <string name="added_movies">Aquí aparecerán tus peliculas añadidas</string>
+    <string name="del_acc">Eliminar cuenta</string>
+    <string name="account">Cuenta
+    </string>
+    <string name="author">Francisco Javier Martín España</string>
+    <string name="course">Desarrollo de aplicaciones multiplataforma</string>
+    <string name="instituto">I.E.S Al-Andalus</string>
+    <string name="year">2024</string>
+    <string name="add_user_title">Añadir usuario</string>
+    <string name="add_user_message">Por favor, introduce un nombre</string>
+    <string name="accept">Aceptar</string>
+    <string name="cancel">Cancelar</string>
+    <string name="user_exists_message">El nombre de usuario ya existe. Por favor, introduce un nombre diferente.</string>
+    <string name="minimum_user_message">Mínimo debes tener un usuario.</string>
+    <string name="delete_user_title">Eliminar usuario</string>
+    <string name="confirm_delete_title">Confirmar eliminación</string>
+    <string name="confirm_delete_message">¿Estás seguro de que quieres eliminar a %1$s?</string>
+    <string name="yes">Sí</string>
+    <string name="no">No</string>
+    <string name="user_deleted_message">%1$s ha sido eliminado.</string>
+    <string name="delete_error_message">Hubo un error al intentar eliminar a %1$s.</string>
+    <string name="select_user_title">Seleccionar usuario</string>
+    <string name="all_users">Lista de usuarios</string>
 
 
 </resources>

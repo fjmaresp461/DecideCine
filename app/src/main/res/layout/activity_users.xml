@@ -91,7 +91,7 @@
         app:layout_constraintTop_toBottomOf="@+id/cnt_add">
 
         <TextView
-            android:id="@+id/tv_delete"
+            android:id="@+id/ff"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/tv_del"
@@ -129,7 +129,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintOpcion3"
+        android:id="@+id/cnt_users_list"
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:background="#FFFFFF"
@@ -140,10 +140,10 @@
         app:layout_constraintTop_toBottomOf="@+id/cnt_del">
 
         <TextView
-            android:id="@+id/textView4"
+            android:id="@+id/tv_users_list"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Opcion ejemplo"
+            android:text="@string/all_users"
             android:textColor="#000000"
             android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -162,7 +162,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@android:drawable/ic_menu_mylocation" />
+            app:srcCompat="@drawable/users_icon" />
 
         <ImageView
             android:id="@+id/ivArrow3"
@@ -184,7 +184,7 @@
         android:padding="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/constraintOpcion3">
+        app:layout_constraintTop_toBottomOf="@id/cnt_users_list">
 
         <TextView
             android:id="@+id/tv_prefs"
@@ -209,7 +209,7 @@
         app:layout_constraintTop_toBottomOf="@+id/constraintTitulo2">
 
         <TextView
-            android:id="@+id/tv_edit_prefs"
+            android:id="@+id/tv_logout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/edit_preferences"

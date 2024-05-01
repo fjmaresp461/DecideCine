@@ -1,126 +1,146 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/ib_favorites"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginTop="20dp">
 
-    android:orientation="vertical">
-
-    <TextView
-        android:id="@+id/summary"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:layout_weight="1"
-        android:padding="5dp"
-        android:text="Sinopsis"
-        android:textColor="@color/textColorPrimary_light"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@+id/movie_title"
-        app:layout_constraintTop_toBottomOf="@+id/tv_runtime" />
-
-    <TextView
-        android:id="@+id/tv_runtime"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="44dp"
-        android:padding="5dp"
-        android:text="2h 49min  "
-
-        android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="@+id/movie_title"
-        app:layout_constraintTop_toBottomOf="@+id/movie_title" />
-
-    <TextView
-        android:id="@+id/movie_title"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:layout_weight="1"
-        android:fontFamily="sans-serif-light"
-        android:padding="5dp"
-        android:text="La historia interminable"
-        android:textColor="@color/textColorPrimary_light"
-        android:textSize="30sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/movie_img" />
-
-    <ImageView
-        android:id="@+id/movie_img"
-        android:layout_width="0dp"
-        android:layout_height="355dp"
-        android:scaleType="centerCrop"
-        android:src="@drawable/ejemplo"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <View
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:background="@drawable/fade_gradient"
-        app:layout_constraintBottom_toBottomOf="@+id/movie_img"
-        app:layout_constraintEnd_toEndOf="@+id/movie_img"
-        app:layout_constraintStart_toStartOf="@+id/movie_img"
-        app:layout_constraintTop_toTopOf="@+id/movie_img" />
-
-    <TextView
-        android:id="@+id/tv_genres"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="Adventure, Drama, Sci-Fi,"
-
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="@+id/movie_title"
-        app:layout_constraintTop_toBottomOf="@+id/movie_title" />
-
-    <TextView
-        android:id="@+id/tv_summary"
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="9dp"
-        android:padding="5dp"
+        android:layout_height="wrap_content">
 
-        android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="@+id/summary"
-        app:layout_constraintTop_toBottomOf="@+id/summary" />
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
-    <ImageButton
-        android:id="@+id/ib_tmdb"
-        android:layout_width="45dp"
-        android:layout_height="45dp"
-        android:scaleType="centerCrop"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/tmdb_icon" />
+            <ImageView
+                android:id="@+id/movie_img"
+                android:layout_width="match_parent"
+                android:layout_height="618dp"
+                android:background="@drawable/fade_gradient_dark"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ejemplo"
+                app:layout_collapseMode="parallax" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/fade_gradient"
+                app:layout_constraintBottom_toBottomOf="@+id/movie_img"
+                app:layout_constraintEnd_toEndOf="@+id/movie_img"
+                app:layout_constraintStart_toStartOf="@+id/movie_img"
+                app:layout_constraintTop_toTopOf="@+id/movie_img" />
 
-    <LinearLayout
-        android:id="@+id/providersLayout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="@+id/tv_runtime"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/tv_runtime">
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
 
-    </LinearLayout>
+    </com.google.android.material.appbar.AppBarLayout>
 
-    <Switch
-        android:id="@+id/sw_fav"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="13dp"
-        android:layout_marginEnd="7dp"
-        android:text="Me encanta"
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/nestedScrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_genres" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="13dp">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                android:id="@+id/movie_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="8dp"
+                android:fontFamily="sans-serif-light"
+                android:text="La historia interminable"
+                android:textColor="@color/textColorPrimary_light"
+                android:textSize="30sp"
+                android:textStyle="bold"
+                app:layout_collapseMode="parallax" />
+
+            <TextView
+                android:id="@+id/tv_genres"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:gravity="end"
+                android:text="Adventure, Drama, Sci-Fi,"
+                android:textSize="16sp"
+                app:layout_collapseMode="parallax" />
+
+            <TextView
+                android:id="@+id/tv_runtime"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:gravity="end"
+                android:padding="5dp"
+                android:text="2h 49min  "
+                android:textSize="16sp" />
+
+            <LinearLayout
+                android:id="@+id/providersLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+
+
+                android:gravity="end"
+                android:orientation="horizontal"></LinearLayout>
+
+
+            <ImageButton
+                android:id="@+id/ib_tmdb"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:scaleType="centerCrop"
+                app:srcCompat="@drawable/tmdb_icon" />
+
+            <Switch
+                android:id="@+id/sw_fav"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:text="Añadir a tu lista"
+                android:verticalScrollbarPosition="defaultPosition"
+                app:layout_collapseMode="parallax" />
+
+            <TextView
+                android:id="@+id/summary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:text="Sinopsis"
+                android:textColor="@color/textColorPrimary_light"
+                android:textSize="26sp"
+                android:textStyle="bold" />
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="516dp"
+                android:layout_marginTop="20dp"
+                android:fillViewport="true">
+
+                <TextView
+                    android:id="@+id/tv_summary"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:justificationMode="inter_word"
+                    android:padding="4dp"
+                    android:paddingTop="20dp"
+                    android:textSize="18sp" />
+
+            </ScrollView>
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

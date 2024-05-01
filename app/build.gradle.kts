@@ -69,7 +69,7 @@ dependencies {
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
     //steppers
     implementation("com.github.shuhart:stepview:1.5.1")
-    //implementation(" com.stepstone.stepper:material-stepper:4.3.1")
+//  implementation("org.adw.library:discrete-seekbar:1.0.1")
 
 
     //Glide

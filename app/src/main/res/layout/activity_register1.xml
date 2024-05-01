@@ -18,7 +18,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/tv_add"
+        android:id="@+id/f"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="18dp"
@@ -40,7 +40,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.6"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_add" />
+        app:layout_constraintTop_toBottomOf="@+id/f" />
 
     <EditText
         android:id="@+id/et_user"
@@ -168,7 +168,7 @@
         tools:layout_editor_absoluteX="20dp" />
 
     <TextView
-        android:id="@+id/tv_delete"
+        android:id="@+id/ff"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
@@ -188,10 +188,10 @@
         android:textColor="#64B6CD"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/tv_delete"
+        app:layout_constraintBottom_toBottomOf="@+id/ff"
         app:layout_constraintEnd_toEndOf="@+id/btn_continue"
-        app:layout_constraintStart_toEndOf="@+id/tv_delete"
-        app:layout_constraintTop_toTopOf="@+id/tv_delete"
+        app:layout_constraintStart_toEndOf="@+id/ff"
+        app:layout_constraintTop_toTopOf="@+id/ff"
         app:layout_constraintVertical_bias="0.0" />
 
 

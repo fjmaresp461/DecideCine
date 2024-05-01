@@ -5,6 +5,7 @@ import android.content.Intent
 import android.util.Log
 import com.example.quevemoshoy.R
 import com.example.quevemoshoy.RecyclerActivity
+import com.example.quevemoshoy.database.DatabaseManager
 import com.example.quevemoshoy.main.MainActivity2
 import com.example.quevemoshoy.provider.ApiClient
 import com.example.quevemoshoy.provider.MovieInterface
@@ -171,11 +172,12 @@ class MoviesManager {
             }
         }
 
-        // Actualiza la caché de películas
         moviesCache = allMovies
 
         return allMovies
     }
+
+
 
 
     suspend fun fetchMovies(recommendationType: String): List<Movie> {
@@ -184,7 +186,6 @@ class MoviesManager {
 
         try {
             if (recommendationType == "latest") {
-                // Comprueba si la caché de las últimas películas no está vacía
                 if (!latestMoviesCache.isNullOrEmpty()) {
                     return latestMoviesCache!!
                 }
@@ -252,9 +253,11 @@ class MoviesManager {
     fun fetchAndStartActivity(context: Context, genreId: String) {
         CoroutineScope(Dispatchers.IO).launch {
             val movies = fetchMoviesByOneGenre(genreId)
+            val isFromAllGenres= true
             withContext(Dispatchers.Main) {
                 val intent = Intent(context, RecyclerActivity::class.java).apply {
                     putExtra("movies", ArrayList(movies))
+                    putExtra("isFromAllGenres", isFromAllGenres)
                 }
                 context.startActivity(intent)
             }
@@ -267,7 +270,9 @@ class MoviesManager {
     }
 }
 
-// refrescar proveedores
+data class UserPreferences(
+    var genres: Map<String, Int> = mutableMapOf()
+)
 // empezar a buscar errores  testeando
 // la interfaz main estaria lista
 //empezar con las opciones

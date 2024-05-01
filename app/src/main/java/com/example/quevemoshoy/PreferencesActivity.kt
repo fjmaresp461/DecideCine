@@ -24,7 +24,7 @@ class PreferencesActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityPreferencesBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
+        supportActionBar?.hide()
         setListener()
         val isFirstTime=intent.getBooleanExtra("firstTime",false)
          userName= intent.getStringExtra("user").toString()
