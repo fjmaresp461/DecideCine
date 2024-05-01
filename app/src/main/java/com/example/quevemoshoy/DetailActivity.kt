@@ -142,7 +142,6 @@ class DetailActivity : AppCompatActivity() {
                 binding.providersLayout.addView(imageView)
             }
             stringBuilder.setLength(stringBuilder.length - 2)
-            Toast.makeText(this, stringBuilder.toString(), Toast.LENGTH_LONG).show()
         }
     }
 
@@ -191,15 +190,12 @@ class DetailActivity : AppCompatActivity() {
         val dbManager = DatabaseManager()
         val movie = SimpleMovie(movieId, movieTitle)
         dbManager.create(movie)
-        Toast.makeText(this, R.string.favorite, Toast.LENGTH_SHORT).show()
     }
 
     private fun removeMoviefromFavorites(movieId: Int) {
         val dbManager = DatabaseManager()
         dbManager.delete(movieId)
         startActivity(Intent(this, MainActivity2::class.java))
-
-        Toast.makeText(this, R.string.delete_from_favorite, Toast.LENGTH_SHORT).show()
     }
 
 }

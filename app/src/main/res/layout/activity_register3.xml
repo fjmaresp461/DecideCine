@@ -24,6 +24,9 @@
         android:text="@string/tv_register3_text"
         android:textColor="#9F9E9E"
         android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/fragmentContainerView" />
 
     <ScrollView
@@ -33,8 +36,8 @@
         android:layout_marginTop="18dp"
         android:background="#FBFBFB"
         android:padding="20dp"
-        app:layout_constraintTop_toBottomOf="@+id/f"
-        app:layout_constraintBottom_toBottomOf="parent">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/f">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -51,7 +54,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/ib_amazon_prime_video"
                 app:layout_constraintVertical_bias="0.0"
-                app:srcCompat="@drawable/netflix_icon"/>
+                app:srcCompat="@drawable/netflix_icon" />
 
             <ImageButton
                 android:id="@+id/ib_amazon_prime_video"
@@ -61,7 +64,7 @@
                 android:scaleType="centerCrop"
                 app:layout_constraintEnd_toEndOf="@+id/ib_hbo_max"
                 app:layout_constraintStart_toStartOf="@+id/ib_hbo_max"
-                app:srcCompat="@drawable/amazon_prime_icon"/>
+                app:srcCompat="@drawable/amazon_prime_icon" />
 
             <ImageButton
                 android:id="@+id/ib_disney_plus"
@@ -73,7 +76,7 @@
                 app:layout_constraintEnd_toEndOf="@+id/ib_netflix"
                 app:layout_constraintStart_toStartOf="@+id/ib_netflix"
                 app:layout_constraintTop_toTopOf="@+id/ib_hbo_max"
-                app:srcCompat="@drawable/disney_plus_icon"/>
+                app:srcCompat="@drawable/disney_plus_icon" />
 
             <ImageButton
                 android:id="@+id/ib_hbo_max"
@@ -86,7 +89,7 @@
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@+id/ib_apple_tv"
                 app:layout_constraintTop_toBottomOf="@+id/ib_amazon_prime_video"
-                app:srcCompat="@drawable/hbo_max_icon"/>
+                app:srcCompat="@drawable/hbo_max_icon" />
 
             <ImageButton
                 android:id="@+id/ib_movistar_plus"
@@ -98,7 +101,7 @@
                 app:layout_constraintEnd_toEndOf="@+id/ib_disney_plus"
                 app:layout_constraintStart_toStartOf="@+id/ib_disney_plus"
                 app:layout_constraintTop_toTopOf="@+id/ib_apple_tv"
-                app:srcCompat="@drawable/movistar_plus_icon"/>
+                app:srcCompat="@drawable/movistar_plus_icon" />
 
             <ImageButton
                 android:id="@+id/ib_apple_tv"
@@ -123,7 +126,7 @@
                 app:layout_constraintEnd_toEndOf="@+id/ib_movistar_plus"
                 app:layout_constraintStart_toStartOf="@+id/ib_movistar_plus"
                 app:layout_constraintTop_toTopOf="@+id/ib_skyshowtime"
-                app:srcCompat="@drawable/rakuten_icon"/>
+                app:srcCompat="@drawable/rakuten_icon" />
 
             <ImageButton
                 android:id="@+id/ib_skyshowtime"
@@ -148,7 +151,7 @@
                 app:layout_constraintEnd_toEndOf="@+id/ib_rakuten_tv"
                 app:layout_constraintStart_toStartOf="@+id/ib_rakuten_tv"
                 app:layout_constraintTop_toTopOf="@+id/ib_crunchyroll"
-                app:srcCompat="@drawable/google_play_icon"/>
+                app:srcCompat="@drawable/google_play_icon" />
 
             <ImageButton
                 android:id="@+id/ib_crunchyroll"
@@ -160,7 +163,7 @@
                 android:scaleType="centerCrop"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/ib_skyshowtime"
-                app:srcCompat="@drawable/crunchyroll_icon"/>
+                app:srcCompat="@drawable/crunchyroll_icon" />
 
             <Button
                 android:id="@+id/btn_prev"
@@ -172,7 +175,7 @@
                 android:textSize="18sp"
                 app:layout_constraintBottom_toBottomOf="@+id/btn_finish"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/btn_finish"/>
+                app:layout_constraintTop_toTopOf="@+id/btn_finish" />
 
             <Button
                 android:id="@+id/btn_finish"
@@ -186,7 +189,7 @@
                 android:textSize="18sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/ib_crunchyroll"/>
+                app:layout_constraintTop_toBottomOf="@+id/ib_crunchyroll" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

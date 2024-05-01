@@ -61,6 +61,7 @@ class MainActivity2 : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMain2Binding.inflate(layoutInflater)
         setContentView(binding.root)
+        supportActionBar?.hide()
         auth = Firebase.auth
         sharedPreferences = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
         setListeners()

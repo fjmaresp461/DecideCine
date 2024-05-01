@@ -6,47 +6,45 @@
     android:layout_height="wrap_content"
     tools:context=".main.OptionsFragment">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="50dp">
 
         <ImageButton
             android:id="@+id/ib_list"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_marginStart="1dp"
-            android:background="@drawable/button"
-            android:backgroundTint="#ABFFFFFF"
+            android:layout_weight="1"
+            android:background="@drawable/rounded_button"
+            android:backgroundTint="#00C6CABA"
             android:padding="10dp"
-            android:src="@drawable/list_icon"
-            app:layout_constraintEnd_toStartOf="@+id/ib_users"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:scaleType="fitCenter"
+            android:src="@drawable/list_icon" />
 
         <ImageButton
             android:id="@+id/ib_users"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:background="@drawable/button"
-            android:backgroundTint="#00FFFFFF"
+            android:layout_height="match_parent"
+            android:layout_marginStart="1dp"
+            android:layout_weight="1"
+            android:background="@drawable/rounded_button"
+            android:backgroundTint="#00D4E4A4"
             android:padding="10dp"
-            android:src="@drawable/users_icon"
-            app:layout_constraintEnd_toStartOf="@+id/ib_settings"
-            app:layout_constraintStart_toEndOf="@+id/ib_list"
-            app:layout_constraintTop_toTopOf="@+id/ib_list" />
+            android:scaleType="fitCenter"
+            android:src="@drawable/users_icon" />
 
         <ImageButton
             android:id="@+id/ib_settings"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="3dp"
-            android:background="@drawable/button"
-            android:backgroundTint="#00FFFFFF"
+            android:layout_height="match_parent"
+            android:layout_marginStart="1dp"
+            android:layout_weight="1"
+            android:background="@drawable/rounded_button"
+            android:backgroundTint="#00D4E4A4"
             android:padding="10dp"
-            android:src="@drawable/settings_icon"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/ib_users"
-            app:layout_constraintTop_toTopOf="@+id/ib_users" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            android:scaleType="fitCenter"
+            android:src="@drawable/settings_icon" />
+    </LinearLayout>
 
 </FrameLayout>

@@ -50,12 +50,15 @@ class SettingsActivity : AppCompatActivity() {
                 .setMessage("¿Estás seguro de que quieres eliminar tu cuenta? Esta acción no se puede deshacer.")
                 .setPositiveButton("Sí") { _, _ ->
                     deleteUserAccount(userId)
+                    auth.signOut()
+                    startActivity(Intent(this, LoginActivity::class.java))
                 }
                 .setNegativeButton("No", null)
                 .show()
         } else {
             Log.e(TAG, "Usuario no autenticado")
         }
+
     }
 
     private fun deleteUserAccount(userId: String) {

@@ -71,7 +71,7 @@ class MoviesManager {
 
             // Ordena los géneros por puntuación en orden descendente
             val sortedGenrePreferences = allGenrePreferences.toList().sortedByDescending { it.second }.map { it.first }
-
+            Log.d("Firebaserl", "Lista de preferencias de género ordenada: $sortedGenrePreferences")
             sortedGenrePreferences
         }
 
@@ -135,37 +135,50 @@ class MoviesManager {
         val allMovies = mutableListOf<Movie>()
         val genreMovies = mutableMapOf<String, MutableList<Movie>>()
 
+        // Primero, intenta llenar la lista con películas que coincidan con los géneros y proveedores preferidos
         for (genreId in currentUserGenrePreferences) {
             val response = apiService.getMoviesByGenres(genres = genreId)
-            val movies = response.movies.take(10).shuffled() // Mezcla las películas
-            genreMovies[genreId] = movies.toMutableList()
-        }
-
-        var genreCount = 0
-        for (genreId in currentUserGenrePreferences) {
-            val movies = genreMovies[genreId]
-            var index = 0
-            while (!movies.isNullOrEmpty() && index < movies.size && allMovies.size < 12) {
-                val movie = movies[index]
+            val movies = response.movies.shuffled() // Mezcla las películas
+            for (movie in movies) {
                 val providers = fetchMovieProviders(movie.id)
                 if (providers?.any { it.providerId in preferredProviderIds } == true) {
                     allMovies.add(movie)
-                    if (++genreCount == 4) {
+                    if (allMovies.size >= 2 * currentUserGenrePreferences.size) {
                         break
                     }
                 }
-                index++
             }
-            if (allMovies.size == 12 || genreCount == 4) {
+            if (allMovies.size >= 2 * currentUserGenrePreferences.size) {
                 break
             }
         }
+
+        // Si la lista tiene menos de 12 películas, busca más películas que coincidan con los géneros preferidos
+        if (allMovies.size < 12) {
+            for (genreId in currentUserGenrePreferences) {
+                val response = apiService.getMoviesByGenres(genres = genreId)
+                val movies = response.movies.shuffled() // Mezcla las películas
+                for (movie in movies) {
+                    if (movie.id !in allMovies.map { it.id }) {
+                        allMovies.add(movie)
+                        if (allMovies.size >= 12) {
+                            break
+                        }
+                    }
+                }
+                if (allMovies.size >= 12) {
+                    break
+                }
+            }
+        }
+
+        // Si la lista todavía tiene menos de 12 películas, llena los huecos con películas aleatorias
         if (allMovies.size < 12) {
             val response = apiService.getLatestMovies()
             for (movie in response.movies) {
                 if (movie.id !in allMovies.map { it.id }) {
                     allMovies.add(movie)
-                    if (allMovies.size == 12) {
+                    if (allMovies.size >= 12) {
                         break
                     }
                 }
@@ -176,6 +189,8 @@ class MoviesManager {
 
         return allMovies
     }
+
+
 
 
 

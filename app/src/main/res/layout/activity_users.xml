@@ -162,7 +162,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/users_icon" />
+            app:srcCompat="@drawable/users_icon2" />
 
         <ImageView
             android:id="@+id/ivArrow3"
