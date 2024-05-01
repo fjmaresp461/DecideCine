@@ -1,23 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
-    <color name="colorPrimary_light">#D3D3D3</color>
-    <color name="colorOnPrimary_light">#000000</color>
-    <color name="textColorPrimary_light">#000000</color>
-    <color name="colorBackground_light">#FFFFFF</color>
-    <color name="colorSurface_light">#F2F2F2</color>
-    <color name="colorOnSurface_light">#000000</color>
-
-    <color name="colorPrimary_dark">#333333</color>
-    <color name="colorOnPrimary_dark">#FFFFFF</color>
-    <color name="textColorPrimary_dark">#FFFFFF</color>
-    <color name="colorBackground_dark">#000000</color>
-    <color name="colorSurface_dark">#121212</color>
-    <color name="colorOnSurface_dark">#FFFFFF</color>
-
-    <color name="colorAccent">#85979F</color>
-    <color name="colorPrimary">#FFFFFF</color>
-
-
+    <!-- No se definen colores personalizados -->
 </resources>

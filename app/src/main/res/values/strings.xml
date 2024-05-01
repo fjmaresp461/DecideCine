@@ -10,7 +10,7 @@
     <string name="tv_register"> Regístrate</string>
     <string name="tv_register1"> 1/3. Crear cuenta </string>
     <string name="tv_register1_text"> Bienvenido a "Que vemos hoy", vamos a registrarte, para ello
-    completa el siguiente formulario, tan sólo le tomará unos minutos</string>
+    completa el siguiente formulario, tan sólo te tomará unos minutos</string>
     <string name="tv_user">Nombre de usuario</string>
     <string name="hint_user">Tu usuario ...</string>
     <string name="tv_repeat_password">Confirmar contraseña</string>

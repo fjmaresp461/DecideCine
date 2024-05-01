@@ -58,8 +58,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_user"
-       />
+        app:layout_constraintTop_toBottomOf="@+id/tv_user" />
 
 
     <TextView
@@ -171,28 +170,25 @@
         android:id="@+id/ff"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="50dp"
         android:text="@string/have_account"
         android:textColor="#4C4949"
         android:textSize="20sp"
-        app:layout_constraintTop_toBottomOf="@+id/btn_continue"
-        tools:layout_editor_absoluteX="36dp" />
+        app:layout_constraintStart_toStartOf="@+id/btn_continue"
+        app:layout_constraintTop_toBottomOf="@+id/btn_continue" />
 
     <TextView
         android:id="@+id/tv_login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="56dp"
+        android:layout_marginTop="50dp"
         android:clickable="true"
         android:text="@string/tv_login"
         android:textColor="#64B6CD"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/ff"
         app:layout_constraintEnd_toEndOf="@+id/btn_continue"
-        app:layout_constraintStart_toEndOf="@+id/ff"
-        app:layout_constraintTop_toTopOf="@+id/ff"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/btn_continue" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
