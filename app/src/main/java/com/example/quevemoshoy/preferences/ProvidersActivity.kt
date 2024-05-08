@@ -16,9 +16,21 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.getValue
 
+/**
+ * `ProvidersActivity` es una actividad que permite al usuario gestionar sus preferencias de proveedores.
+ *
+ * Esta actividad proporciona una interfaz para que el usuario ajuste sus preferencias de proveedores y las guarda en la base de datos de Firebase.
+ *
+ * @property binding Enlace de la actividad con su vista.
+ *
+ * @constructor Crea una instancia de `ProvidersActivity`.
+ */
 class ProvidersActivity : AppCompatActivity() {
     private lateinit var binding: ActivityProvidersBinding
 
+    /**
+     * Se llama cuando se crea la actividad. Inicializa la vista, los oyentes, carga las preferencias desde Firebase y establece la opacidad inicial.
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityProvidersBinding.inflate(layoutInflater)
@@ -29,6 +41,9 @@ class ProvidersActivity : AppCompatActivity() {
         setInitialOpacity()
     }
 
+    /**
+     * Establece los oyentes para los botones de la interfaz.
+     */
     private fun setListeners() {
         val clickListener = { button: ImageButton ->
             button.isSelected = !button.isSelected
@@ -53,6 +68,9 @@ class ProvidersActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Carga las preferencias del proveedor desde Firebase.
+     */
     private fun loadPreferencesFromFirebase() {
         val currentUser = FirebaseAuth.getInstance().currentUser
         val uid = currentUser?.uid
@@ -79,6 +97,9 @@ class ProvidersActivity : AppCompatActivity() {
         })
     }
 
+    /**
+     * Guarda las preferencias del proveedor en Firebase.
+     */
     private fun saveProviderPreferencesToFirebase() {
         val currentUser = FirebaseAuth.getInstance().currentUser
         val uid = currentUser?.uid
@@ -101,7 +122,12 @@ class ProvidersActivity : AppCompatActivity() {
         myRef.setValue(providerValues)
     }
 
-
+    /**
+     * Encuentra un botón de imagen por el ID del proveedor.
+     *
+     * @param providerId El ID del proveedor.
+     * @return El botón de imagen correspondiente al ID del proveedor.
+     */
     private fun findImageButtonByProviderId(providerId: String): ImageButton? {
         return when (providerId) {
             "netflix" -> binding.ibNetflix
@@ -117,6 +143,10 @@ class ProvidersActivity : AppCompatActivity() {
             else -> null
         }
     }
+
+    /**
+     * Establece la opacidad inicial de los botones de la interfaz.
+     */
     private fun setInitialOpacity() {
         binding.ibNetflix.alpha = 0.5f
         binding.ibAmazonPrimeVideo.alpha = 0.5f

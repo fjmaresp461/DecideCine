@@ -19,7 +19,20 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
 
-
+/**
+ * `MoviesManager` es una clase que gestiona las operaciones relacionadas con las películas.
+ *
+ * Esta clase se encarga de interactuar con la API de películas y la base de datos de Firebase para obtener y gestionar las películas y las preferencias del usuario.
+ *
+ * @property database La base de datos de Firebase.
+ * @property reference La referencia a la base de datos de Firebase.
+ * @property apiService El servicio de la API de películas.
+ * @property auth La autenticación de Firebase.
+ * @property currentUser El usuario actual autenticado con Firebase.
+ * @property allGenres La lista de todos los géneros de películas.
+ *
+ * @constructor Crea una instancia de `MoviesManager`.
+ */
 class MoviesManager {
 
     private val database = FirebaseDatabase.getInstance()
@@ -27,7 +40,27 @@ class MoviesManager {
     private val apiService = ApiClient.retrofit.create(MovieInterface::class.java)
     val auth = FirebaseAuth.getInstance()
     val currentUser = auth.currentUser
-    val allGenres = listOf("28", "12", "16", "35", "80", "99", "18", "10751", "14", "36", "27", "10402", "9648", "10749", "878", "10770", "53", "10752", "37")
+    val allGenres = listOf(
+        "28",
+        "12",
+        "16",
+        "35",
+        "80",
+        "99",
+        "18",
+        "10751",
+        "14",
+        "36",
+        "27",
+        "10402",
+        "9648",
+        "10749",
+        "878",
+        "10770",
+        "53",
+        "10752",
+        "37"
+    )
 
 
     companion object {
@@ -37,7 +70,12 @@ class MoviesManager {
         var latestMoviesCache: List<Movie>? = null
     }
 
-
+    /**
+     * Obtiene todas las preferencias de género del usuario.
+     *
+     * @param currentUser El usuario actual.
+     * @return Una lista de las preferencias de género del usuario.
+     */
     suspend fun getAllGenrePreferences(currentUser: FirebaseUser?): List<String> =
         withContext(Dispatchers.IO) {
             val allGenrePreferences = mutableMapOf<String, Int>()
@@ -71,7 +109,8 @@ class MoviesManager {
                 Log.e("Firebase", "Error getting data:", e)
             }
 
-            val sortedGenrePreferences = allGenrePreferences.toList().sortedByDescending { it.second }.map { it.first }
+            val sortedGenrePreferences =
+                allGenrePreferences.toList().sortedByDescending { it.second }.map { it.first }
             Log.d("Firebaserl", "Lista de preferencias de género ordenada: $sortedGenrePreferences")
 
             if (genrePreferencesCache != sortedGenrePreferences) {
@@ -81,7 +120,12 @@ class MoviesManager {
             genrePreferencesCache!!
         }
 
-
+    /**
+     * Obtiene los proveedores preferidos del usuario.
+     *
+     * @param currentUser El usuario actual.
+     * @return Una lista de los IDs de los proveedores preferidos del usuario.
+     */
     suspend fun getPreferredProviders(currentUser: FirebaseUser?): List<Int> =
         withContext(Dispatchers.IO) {
             val preferredProviderIds = mutableListOf<Int>()
@@ -129,7 +173,11 @@ class MoviesManager {
             return@withContext preferredProviderIds
         }
 
-
+    /**
+     * Obtiene las películas por género y proveedor.
+     *
+     * @return Una lista de películas.
+     */
     suspend fun fetchMoviesByGenreAndProvider(): List<Movie> {
         val currentUserGenrePreferences = getAllGenrePreferences(currentUser).toMutableList()
 
@@ -181,12 +229,12 @@ class MoviesManager {
         return allMovies
     }
 
-
-
-
-
-
-
+    /**
+     * Obtiene las películas basándose en el tipo de recomendación.
+     *
+     * @param recommendationType El tipo de recomendación ("latest" para las últimas películas, "myList" para las películas favoritas del usuario).
+     * @return Una lista de películas basada en el tipo de recomendación.
+     */
 
 
     suspend fun fetchMovies(recommendationType: String): List<Movie> {
@@ -211,12 +259,13 @@ class MoviesManager {
                 }
 
                 if (allMovies.size < 20) {
-                    val additionalMovies = response.movies.filter { it !in allMovies }.take(20 - allMovies.size)
+                    val additionalMovies =
+                        response.movies.filter { it !in allMovies }.take(20 - allMovies.size)
                     allMovies.addAll(additionalMovies)
                 }
 
 
-               allMovies.shuffle()
+                allMovies.shuffle()
                 latestMoviesCache = allMovies.take(12)
             } else if (recommendationType == "myList") {
                 favMovies.addAll(MainActivity2.favoriteMoviesList.filterNotNull())
@@ -231,8 +280,12 @@ class MoviesManager {
     }
 
 
-
-
+    /**
+     * Obtiene los proveedores de una película.
+     *
+     * @param movieId El ID de la película.
+     * @return Una lista de proveedores de la película.
+     */
     suspend fun fetchMovieProviders(movieId: Int): List<Providers>? {
         return try {
             val response = apiService.getMovieProviders(movieId)
@@ -244,7 +297,12 @@ class MoviesManager {
     }
 
 
-
+    /**
+     * Obtiene una película por su ID.
+     *
+     * @param movieId El ID de la película.
+     * @return La película con el ID proporcionado.
+     */
     suspend fun fetchMovieById(movieId: Int): Movie? {
         return try {
             val response = apiService.getMovieDetails(movieId, apiKey = ApiClient.API_KEY)
@@ -255,10 +313,16 @@ class MoviesManager {
         }
     }
 
+    /**
+     * Inicia una actividad y obtiene las películas por un género.
+     *
+     * @param context El contexto de la aplicación.
+     * @param genreId El ID del género.
+     */
     fun fetchAndStartActivity(context: Context, genreId: String) {
         CoroutineScope(Dispatchers.IO).launch {
             val movies = fetchMoviesByOneGenre(genreId)
-            val isFromAllGenres= true
+            val isFromAllGenres = true
             withContext(Dispatchers.Main) {
                 val intent = Intent(context, RecyclerActivity::class.java).apply {
                     putExtra("movies", ArrayList(movies))
@@ -269,6 +333,12 @@ class MoviesManager {
         }
     }
 
+    /**
+     * Obtiene las películas por un género.
+     *
+     * @param genreId El ID del género.
+     * @return Una lista de películas del género proporcionado.
+     */
     suspend fun fetchMoviesByOneGenre(genreId: String): List<Movie> {
         val response = apiService.getMoviesByGenres(genres = genreId)
         return response.movies.take(20)
@@ -277,7 +347,11 @@ class MoviesManager {
 
 }
 
-
+/**
+ * `UserPreferences` representa las preferencias de género de un usuario.
+ *
+ * @property genres Un mapa de los géneros y sus preferencias.
+ */
 data class UserPreferences(
     var genres: Map<String, Int> = mutableMapOf()
 )

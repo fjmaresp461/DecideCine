@@ -41,7 +41,26 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-
+/**
+ * `MainActivity2` es la actividad principal de la aplicación.
+ *
+ * Esta clase se encarga de inicializar y gestionar las principales funcionalidades de la aplicación,
+ * como la carga de películas recomendadas y recientes, la interacción con la base de datos y la gestión de las preferencias del usuario.
+ *
+ * @property binding Enlace de la actividad con su vista.
+ * @property auth Autenticación de Firebase.
+ * @property sharedPreferences Preferencias compartidas para almacenar las preferencias de género del usuario.
+ * @property moviesManager Gestor de películas para interactuar con la API de películas.
+ * @property currentUser Usuario actual autenticado con Firebase.
+ * @property PREFS_NAME Nombre de las preferencias compartidas.
+ * @property GENRE_PREFS_KEY Clave para almacenar y recuperar las preferencias de género del usuario.
+ * @property dbManager Gestor de la base de datos para interactuar con la base de datos local.
+ * @property movies Lista de películas cargadas.
+ * @property movieManager Gestor de películas para interactuar con la API de películas.
+ * @property favoriteMoviesList Lista de películas favoritas del usuario.
+ *
+ * @constructor Crea una instancia de `MainActivity2`.
+ */
 class MainActivity2 : AppCompatActivity() {
     private lateinit var binding: ActivityMain2Binding
     private lateinit var auth: FirebaseAuth
@@ -59,6 +78,10 @@ class MainActivity2 : AppCompatActivity() {
         var favoriteMoviesList = mutableListOf<Movie?>()
     }
 
+    /**
+     * Se llama cuando se crea la actividad. Inicializa la vista, la autenticación de Firebase,
+     * las preferencias compartidas, los oyentes y las animaciones. También inicia las recomendaciones y la base de datos.
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMain2Binding.inflate(layoutInflater)
@@ -78,6 +101,9 @@ class MainActivity2 : AppCompatActivity() {
 
     }
 
+    /**
+     * Inicializa la base de datos.
+     */
     private fun initDatabase() {
         DBStarter.appContext = this.applicationContext
 
@@ -93,6 +119,9 @@ class MainActivity2 : AppCompatActivity() {
         }
     }
 
+    /**
+     * Carga las películas favoritas del usuario.
+     */
     suspend fun loadFavoriteMovies() {
         favoriteMoviesList.clear()
         val favoriteMovies = dbManager.readAll()
@@ -117,23 +146,24 @@ class MainActivity2 : AppCompatActivity() {
     }
 
 
-
-
-
-
-
+    /**
+     * Inicializa las recomendaciones de películas.
+     */
 
     private fun initRecommendations() {
         initMovies(
             "recommended",
             listOf(binding.ivReco1, binding.ivReco2, binding.ivReco3, binding.ivReco4)
         )
-        initMovies("latest",
-            listOf(binding.ivLat1, binding.ivLat2, binding.ivLat3, binding.ivLat4)
+        initMovies(
+            "latest", listOf(binding.ivLat1, binding.ivLat2, binding.ivLat3, binding.ivLat4)
         )
 
     }
 
+    /**
+     * Inicializa las películas basándose en el tipo de recomendación y las vistas de imagen proporcionadas.
+     */
     private fun initMovies(recommendationType: String, imageViews: List<ImageView>) {
         lifecycleScope.launch {
             if (recommendationType != "latest" && recommendationType != "myList") {
@@ -148,9 +178,11 @@ class MainActivity2 : AppCompatActivity() {
                 "latest" -> {
                     moviesManager.fetchMovies(recommendationType)
                 }
+
                 "myList" -> {
                     favoriteMoviesList
                 }
+
                 else -> {
                     moviesManager.fetchMoviesByGenreAndProvider()
                 }
@@ -161,13 +193,18 @@ class MainActivity2 : AppCompatActivity() {
     }
 
 
-
+    /**
+     * Vincula las imágenes a las vistas proporcionadas.
+     */
     private fun bindImagesToViews(movies: List<Movie?>, imageViews: List<ImageView>) {
         for (i in movies.indices) {
             movies[i]?.let { bindImageToView(imageViews[i], it) }
         }
     }
 
+    /**
+     * Vincula una imagen a una vista.
+     */
     private fun bindImageToView(imageView: ImageView, movie: Movie) {
         Glide.with(this).load("https://image.tmdb.org/t/p/w500${movie.posterPath}")
             .diskCacheStrategy(DiskCacheStrategy.ALL).into(imageView)
@@ -180,6 +217,9 @@ class MainActivity2 : AppCompatActivity() {
         }
     }
 
+    /**
+     * Establece las animaciones para los botones de la interfaz.
+     */
     private fun setAnimations() {
         val optionsFragment =
             supportFragmentManager.findFragmentById(R.id.fragmentContainerView) as OptionsFragment
@@ -195,6 +235,9 @@ class MainActivity2 : AppCompatActivity() {
 
     }
 
+    /**
+     * Establece los oyentes para los botones y contenedores de la interfaz.
+     */
     private fun setListeners() {
         binding.cntRecommended.setOnClickListener {
             intentRecycler("recommended")
@@ -203,32 +246,34 @@ class MainActivity2 : AppCompatActivity() {
         binding.cntLatest.setOnClickListener {
             intentRecycler("latest")
         }
-       binding.cntList
-           .setOnClickListener{
+        binding.cntList.setOnClickListener {
             intentRecycler("myList")
         }
         binding.cntAllGenres.setOnClickListener {
             startActivity(Intent(this, AllGenresActivity::class.java))
 
         }
-        binding.ivActionMain.setOnClickListener{
-            movieManager.fetchAndStartActivity(this,"28")
+        binding.ivActionMain.setOnClickListener {
+            movieManager.fetchAndStartActivity(this, "28")
             Toast.makeText(this, R.string.action, Toast.LENGTH_SHORT).show()
         }
-        binding.ivAnimationMain.setOnClickListener{
-            movieManager.fetchAndStartActivity(this,"16")
+        binding.ivAnimationMain.setOnClickListener {
+            movieManager.fetchAndStartActivity(this, "16")
             Toast.makeText(this, R.string.animation, Toast.LENGTH_SHORT).show()
         }
-        binding.ivMysteryMain.setOnClickListener{
-            movieManager.fetchAndStartActivity(this,"9648")
+        binding.ivMysteryMain.setOnClickListener {
+            movieManager.fetchAndStartActivity(this, "9648")
             Toast.makeText(this, R.string.mistery, Toast.LENGTH_SHORT).show()
         }
-        binding.ivWesterMain.setOnClickListener{
-            movieManager.fetchAndStartActivity(this,"37")
+        binding.ivWesterMain.setOnClickListener {
+            movieManager.fetchAndStartActivity(this, "37")
             Toast.makeText(this, R.string.western, Toast.LENGTH_SHORT).show()
         }
     }
 
+    /**
+     * Inicia la actividad `RecyclerActivity` basándose en el tipo de películas proporcionado.
+     */
     private fun intentRecycler(type: String) {
         lifecycleScope.launch(Dispatchers.IO) {
             val movies = when (type) {
@@ -241,7 +286,7 @@ class MainActivity2 : AppCompatActivity() {
                 }
 
                 "myList" -> {
-                   favoriteMoviesList
+                    favoriteMoviesList
                 }
 
                 else -> {
@@ -266,31 +311,15 @@ class MainActivity2 : AppCompatActivity() {
     }
 
 
-
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.menu_options, menu)
-        return super.onCreateOptionsMenu(menu)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-
-
-            R.id.item_sign_out -> {
-                auth.signOut()
-                finish()
-                startActivity(Intent(this, LoginActivity::class.java))
-            }
-
-
-        }
-        return super.onOptionsItemSelected(item)
-    }
+    /**
+     * Se llama cuando se reanuda la actividad. Recarga las recomendaciones y las películas favoritas.
+     */
     override fun onResume() {
         super.onResume()
 
         lifecycleScope.launch(Dispatchers.Main) {
-            val currentUserGenrePreferences = MoviesManager().getAllGenrePreferences(currentUser).toMutableList()
+            val currentUserGenrePreferences =
+                MoviesManager().getAllGenrePreferences(currentUser).toMutableList()
             if (genrePreferencesCache != currentUserGenrePreferences) {
                 moviesCache = null
             }
@@ -304,7 +333,9 @@ class MainActivity2 : AppCompatActivity() {
     }
 
 
-
+    /**
+     * Se llama cuando se presiona el botón de retroceso. En este caso, no hace nada.
+     */
     override fun onBackPressed() {
 
     }

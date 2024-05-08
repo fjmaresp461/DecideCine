@@ -20,8 +20,21 @@ import com.google.gson.reflect.TypeToken
 
 import java.lang.reflect.Type
 
+/**
+ * `RegisterActivity3` es una actividad que permite al usuario gestionar sus preferencias de proveedores durante el proceso de registro.
+ *
+ * Esta actividad proporciona una interfaz para que el usuario ajuste sus preferencias de proveedores y las guarda en las preferencias compartidas.
+ *
+ * @property binding Enlace de la actividad con su vista.
+ *
+ * @constructor Crea una instancia de `RegisterActivity3`.
+ */
 class RegisterActivity3 : AppCompatActivity() {
     private lateinit var binding: ActivityRegister3Binding
+
+    /**
+     * Se llama cuando se crea la actividad. Inicializa la vista, establece los oyentes, establece la opacidad inicial, carga las preferencias y carga el fragmento del stepper.
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityRegister3Binding.inflate(layoutInflater)
@@ -33,6 +46,9 @@ class RegisterActivity3 : AppCompatActivity() {
         supportActionBar?.hide()
     }
 
+    /**
+     * Carga las preferencias del usuario desde las preferencias compartidas y actualiza los botones de imagen.
+     */
     private fun loadPreferences() {
         val preferences = getSharedPreferences("Registro", Context.MODE_PRIVATE)
         val jsonString = preferences.getString("proveedores", "")
@@ -50,7 +66,12 @@ class RegisterActivity3 : AppCompatActivity() {
         }
     }
 
-
+    /**
+     * Encuentra un botón de imagen por el ID del proveedor.
+     *
+     * @param providerId El ID del proveedor.
+     * @return El botón de imagen correspondiente al ID del proveedor.
+     */
     private fun findImageButtonByProviderId(providerId: String): ImageButton? {
         return when (providerId) {
             "netflix" -> binding.ibNetflix
@@ -67,7 +88,9 @@ class RegisterActivity3 : AppCompatActivity() {
         }
     }
 
-
+    /**
+     * Carga el fragmento del stepper en la actividad.
+     */
     private fun loadStepperFragment() {
         val fragmentManager = supportFragmentManager
         val fragmentTransaction = fragmentManager.beginTransaction()
@@ -76,7 +99,9 @@ class RegisterActivity3 : AppCompatActivity() {
         fragmentTransaction.commit()
     }
 
-
+    /**
+     * Establece los oyentes para los botones de la interfaz.
+     */
     private fun setListeners() {
         val clickListener = { button: ImageButton ->
             button.isSelected = !button.isSelected
@@ -105,6 +130,9 @@ class RegisterActivity3 : AppCompatActivity() {
         }
     }
 
+    /**
+     * Guarda las preferencias del proveedor del usuario en las preferencias compartidas.
+     */
     private fun saveProviderPreferences() {
         val preferences = getSharedPreferences("Registro", Context.MODE_PRIVATE)
         val editor = preferences.edit()
@@ -123,24 +151,29 @@ class RegisterActivity3 : AppCompatActivity() {
         editor.apply()
     }
 
+    /**
+     * Maneja la autenticación del usuario.
+     */
     private fun handleAuthentication() {
         val preferences = getSharedPreferences("Registro", Context.MODE_PRIVATE)
         val email = preferences.getString("email", "")
         val password = preferences.getString("password", "")
         val currentUser = FirebaseAuth.getInstance().currentUser
 
-        if (currentUser!=null) {
+        if (currentUser != null) {
             handleGoogleSignIn(preferences)
         } else {
-            if (email != null&&password!=null) {
+            if (email != null && password != null) {
                 handleEmailPasswordSignIn(email, password, preferences)
             }
         }
 
 
-
     }
 
+    /**
+     * Maneja el inicio de sesión con Google.
+     */
     private fun handleGoogleSignIn(preferences: SharedPreferences) {
         val uid = FirebaseAuth.getInstance().currentUser?.uid
 
@@ -151,35 +184,53 @@ class RegisterActivity3 : AppCompatActivity() {
         finish()
     }
 
+    /**
+     * Maneja el inicio de sesión con correo y contraseña.
+     *
+     * @param email Correo del usuario.
+     * @param password Contraseña del usuario.
+     * @param preferences Preferencias del usuario.
+     */
     private fun handleEmailPasswordSignIn(
-        email: String,
-        password: String,
-        preferences: SharedPreferences
+        email: String, password: String, preferences: SharedPreferences
     ) {
         val auth = FirebaseAuth.getInstance()
-        auth.createUserWithEmailAndPassword(email, password)
-            .addOnCompleteListener(this) { task ->
+        auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     val user = auth.currentUser
                     user?.sendEmailVerification()?.addOnCompleteListener { emailTask ->
                         if (emailTask.isSuccessful) {
-                            Toast.makeText(this, "Registro exitoso. Por favor, revisa tu correo electrónico para verificar tu cuenta.", Toast.LENGTH_LONG).show()
+                            Toast.makeText(
+                                this,
+                                "Registro exitoso. Por favor, revisa tu correo electrónico para verificar tu cuenta.",
+                                Toast.LENGTH_LONG
+                            ).show()
                             val uid = user.uid
                             savePreferencesToFirebaseWithEmail(uid, preferences)
                             preferences.edit().clear().apply()
                             startActivity(Intent(this, LoginActivity::class.java))
                         } else {
-                            Log.d("RegisterActivity", "Error al enviar el correo de verificación", emailTask.exception)
+                            Log.d(
+                                "RegisterActivity",
+                                "Error al enviar el correo de verificación",
+                                emailTask.exception
+                            )
                         }
                     }
                 } else {
                     when (task.exception) {
                         is FirebaseAuthUserCollisionException -> {
-                            Toast.makeText(this, "Este correo electrónico ya está en uso.", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(
+                                this, "Este correo electrónico ya está en uso.", Toast.LENGTH_SHORT
+                            ).show()
                         }
+
                         is FirebaseAuthInvalidCredentialsException -> {
-                            Toast.makeText(this, "El correo electrónico está mal formado.", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(
+                                this, "El correo electrónico está mal formado.", Toast.LENGTH_SHORT
+                            ).show()
                         }
+
                         else -> {
                             Log.d("RegisterActivity", "Registro fallido", task.exception)
                         }
@@ -188,7 +239,12 @@ class RegisterActivity3 : AppCompatActivity() {
             }
     }
 
-
+    /**
+     * Guarda las preferencias del usuario en Firebase usando correo electrónico.
+     *
+     * @param uid ID del usuario.
+     * @param preferences Preferencias del usuario.
+     */
     private fun savePreferencesToFirebaseWithEmail(uid: String?, preferences: SharedPreferences) {
         val database = FirebaseDatabase.getInstance()
         val usersRef = database.getReference("users")
@@ -208,6 +264,12 @@ class RegisterActivity3 : AppCompatActivity() {
         }
     }
 
+    /**
+     * Guarda las preferencias del usuario en Firebase usando Google.
+     *
+     * @param uid ID del usuario.
+     * @param preferences Preferencias del usuario.
+     */
     private fun savePreferencesToFirebaseWithGoogle(uid: String, preferences: SharedPreferences) {
         val database = FirebaseDatabase.getInstance()
         val usersRef = database.getReference("users")
@@ -227,10 +289,9 @@ class RegisterActivity3 : AppCompatActivity() {
         }
     }
 
-
-
-
-
+    /**
+     * Establece la opacidad inicial de los botones de los proveedores de streaming.
+     */
 
     private fun setInitialOpacity() {
         binding.ibNetflix.alpha = 0.5f
@@ -244,10 +305,18 @@ class RegisterActivity3 : AppCompatActivity() {
         binding.ibGooglePlayMovies.alpha = 0.5f
         binding.ibCrunchyroll.alpha = 0.5f
     }
+
+    /**
+     * Guarda las preferencias del proveedor cuando la actividad está en pausa.
+     */
     override fun onPause() {
         super.onPause()
         saveProviderPreferences()
     }
+
+    /**
+     * Guarda las preferencias del proveedor y navega a RegisterActivity2 cuando se presiona el botón de retroceso.
+     */
     @Deprecated("deprecated ")
     override fun onBackPressed() {
         super.onBackPressed()

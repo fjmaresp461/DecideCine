@@ -12,14 +12,28 @@ import com.example.quevemoshoy.model.UserPreferences
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 
+/**
+ * `PreferencesActivity` es una actividad que permite al usuario gestionar sus preferencias de género.
+ *
+ * Esta actividad proporciona una interfaz para que el usuario ajuste sus preferencias de género y las guarda en la base de datos de Firebase.
+ *
+ * @property binding Enlace de la actividad con su vista.
+ * @property userPreferences Las preferencias de género del usuario.
+ * @property userId El ID del usuario actual.
+ * @property userName El nombre del usuario actual.
+ *
+ * @constructor Crea una instancia de `PreferencesActivity`.
+ */
 
 class PreferencesActivity : AppCompatActivity() {
     private lateinit var binding: ActivityPreferencesBinding
     private val userPreferences = UserPreferences()
     private val userId = FirebaseAuth.getInstance().currentUser?.uid
-    private var userName=""
+    private var userName = ""
 
-
+    /**
+     * Se llama cuando se crea la actividad. Inicializa la vista, las preferencias del usuario, el ID del usuario y el nombre del usuario.
+     */
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,9 +43,9 @@ class PreferencesActivity : AppCompatActivity() {
         supportActionBar?.hide()
 
         setListener()
-        val isFirstTime=intent.getBooleanExtra("firstTime",false)
-         userName= intent.getStringExtra("user").toString()
-        if(!isFirstTime){
+        val isFirstTime = intent.getBooleanExtra("firstTime", false)
+        userName = intent.getStringExtra("user").toString()
+        if (!isFirstTime) {
             if (userId != null) {
                 loadUserPreferencesFromFirebase(userId, userName)
             }
@@ -44,7 +58,9 @@ class PreferencesActivity : AppCompatActivity() {
     }
 
 
-
+    /**
+     * Establece el oyente para el botón de guardar.
+     */
     private fun setListener() {
         binding.btnSave.setOnClickListener {
             checkValues()
@@ -58,12 +74,24 @@ class PreferencesActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Guarda las preferencias del usuario en la base de datos de Firebase.
+     *
+     * @param userId El ID del usuario.
+     * @param userName El nombre del usuario.
+     */
     private fun savePreferencesToFirebase(userId: String, userName: String) {
         val database = FirebaseDatabase.getInstance()
         val reference = database.getReference("users/$userId/preferencias/$userName")
         reference.setValue(userPreferences.genres)
     }
 
+    /**
+     * Carga las preferencias del usuario desde la base de datos de Firebase.
+     *
+     * @param userId El ID del usuario.
+     * @param userName El nombre del usuario.
+     */
     private fun loadUserPreferencesFromFirebase(userId: String, userName: String) {
         val database = FirebaseDatabase.getInstance()
         val reference = database.getReference("users/$userId/preferencias/$userName")
@@ -78,11 +106,15 @@ class PreferencesActivity : AppCompatActivity() {
                 val seekBar = findSeekBarByGenreId(genreId)
                 seekBar?.progress = genrePreference
             }
-        }.addOnFailureListener {
-        }
+        }.addOnFailureListener {}
     }
 
-
+    /**
+     * Encuentra una barra de búsqueda por el ID del género.
+     *
+     * @param genreId El ID del género.
+     * @return La barra de búsqueda correspondiente al ID del género.
+     */
     private fun findSeekBarByGenreId(genreId: String): SeekBar? {
         return when (genreId) {
             "28" -> binding.actionSeekBar
@@ -108,6 +140,9 @@ class PreferencesActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Comprueba los valores de las barras de búsqueda y los guarda en las preferencias del usuario.
+     */
     private fun checkValues() {
         val genresMap = mutableMapOf<String, Int>()
         genresMap["28"] = binding.actionSeekBar.progress
@@ -132,7 +167,7 @@ class PreferencesActivity : AppCompatActivity() {
         userPreferences.genres = genresMap
 
         if (userId != null) {
-            savePreferencesToFirebase(userId,userName)
+            savePreferencesToFirebase(userId, userName)
         }
     }
 }

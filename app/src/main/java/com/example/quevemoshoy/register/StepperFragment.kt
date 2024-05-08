@@ -13,13 +13,24 @@ import com.shuhart.stepview.StepView
 
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
-
+/**
+ * `StepperFragment` es un fragmento que muestra un StepperView para navegar entre las etapas del proceso de registro.
+ *
+ * Este fragmento proporciona una interfaz para que el usuario vea en qué etapa del proceso de registro se encuentra y le permite navegar a las diferentes etapas.
+ *
+ * @property param1 El primer parámetro del fragmento.
+ * @property param2 El segundo parámetro del fragmento.
+ *
+ * @constructor Crea una instancia de `StepperFragment`.
+ */
 
 class StepperFragment : Fragment() {
 
     private var param1: String? = null
     private var param2: String? = null
-
+    /**
+     * Se llama cuando se crea el fragmento. Inicializa los parámetros del fragmento.
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -27,7 +38,9 @@ class StepperFragment : Fragment() {
             param2 = it.getString(ARG_PARAM2)
         }
     }
-
+    /**
+     * Se llama para crear la vista del fragmento. Inicializa la vista, el StepperView y establece el oyente del StepperView.
+     */
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -89,7 +102,12 @@ class StepperFragment : Fragment() {
         return view
     }
 
-
+    /**
+     * Crea una nueva instancia de `StepperFragment` con el paso actual como argumento.
+     *
+     * @param currentStep El paso actual.
+     * @return Una nueva instancia de `StepperFragment`.
+     */
     companion object {
         @JvmStatic
         fun newInstance(currentStep: Int) =
@@ -102,7 +120,5 @@ class StepperFragment : Fragment() {
 
 }
 
-
-// ...
 
 

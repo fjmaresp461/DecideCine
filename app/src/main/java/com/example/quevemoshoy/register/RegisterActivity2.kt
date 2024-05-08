@@ -11,10 +11,23 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import java.lang.reflect.Type
 
+/**
+ * `RegisterActivity2` es una actividad que permite al usuario gestionar sus preferencias de género durante el proceso de registro.
+ *
+ * Esta actividad proporciona una interfaz para que el usuario ajuste sus preferencias de género y las guarda en las preferencias compartidas.
+ *
+ * @property binding Enlace de la actividad con su vista.
+ * @property userPreferences Las preferencias de género del usuario.
+ *
+ * @constructor Crea una instancia de `RegisterActivity2`.
+ */
 class RegisterActivity2 : AppCompatActivity() {
     private lateinit var binding: ActivityRegister2Binding
     private val userPreferences = UserPreferences()
 
+    /**
+     * Se llama cuando se crea la actividad. Inicializa la vista, establece los oyentes, carga las preferencias y carga el fragmento del stepper.
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityRegister2Binding.inflate(layoutInflater)
@@ -25,6 +38,9 @@ class RegisterActivity2 : AppCompatActivity() {
         supportActionBar?.hide()
     }
 
+    /**
+     * Carga las preferencias del usuario desde las preferencias compartidas y actualiza el progreso de las barras de búsqueda.
+     */
     private fun loadPreferences() {
         val preferences = getSharedPreferences("Registro", MODE_PRIVATE)
         val jsonString = preferences.getString("preferencias", "")
@@ -36,12 +52,18 @@ class RegisterActivity2 : AppCompatActivity() {
         }
     }
 
+    /**
+     * Actualiza el progreso de las barras de búsqueda basándose en las preferencias del usuario.
+     */
     private fun updateSeekBarProgress() {
         for ((genreId, progress) in userPreferences.genres) {
             findSeekBarByGenreId(genreId)?.progress = progress
         }
     }
 
+    /**
+     * Carga el fragmento del stepper en la actividad.
+     */
     private fun loadStepperFragment() {
         val fragmentManager = supportFragmentManager
         val fragmentTransaction = fragmentManager.beginTransaction()
@@ -50,9 +72,11 @@ class RegisterActivity2 : AppCompatActivity() {
         fragmentTransaction.commit()
     }
 
-
+    /**
+     * Establece los oyentes para los botones de la interfaz.
+     */
     private fun setListener() {
-        binding.btnBack.setOnClickListener{
+        binding.btnBack.setOnClickListener {
             startActivity(Intent(this, RegisterActivity1::class.java))
             checkAndSave()
             this.overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
@@ -66,6 +90,12 @@ class RegisterActivity2 : AppCompatActivity() {
 
     }
 
+    /**
+     * Encuentra una barra de búsqueda por el ID del género.
+     *
+     * @param genreId El ID del género.
+     * @return La barra de búsqueda correspondiente al ID del género.
+     */
     private fun findSeekBarByGenreId(genreId: String): SeekBar? {
         return when (genreId) {
             "28" -> binding.actionSeekBar
@@ -91,6 +121,9 @@ class RegisterActivity2 : AppCompatActivity() {
         }
     }
 
+    /**
+     * Comprueba los valores de las barras de búsqueda y los guarda en las preferencias del usuario.
+     */
     private fun checkAndSave() {
         val genresMap = mutableMapOf<String, Int>()
         genresMap["28"] = binding.actionSeekBar.progress
@@ -116,20 +149,25 @@ class RegisterActivity2 : AppCompatActivity() {
 
         val preferences = getSharedPreferences("Registro", MODE_PRIVATE)
         val editor = preferences.edit()
-        editor.putString("preferencias",  Gson().toJson(userPreferences.genres))
+        editor.putString("preferencias", Gson().toJson(userPreferences.genres))
         editor.apply()
 
 
     }
 
 
-
-
+    /**
+     * Se llama cuando se pausa la actividad. Comprueba y guarda las preferencias del usuario.
+     */
     override fun onPause() {
         super.onPause()
 
         checkAndSave()
     }
+
+    /**
+     * Se llama cuando se presiona el botón de retroceso. Redirige al usuario a la actividad `RegisterActivity1` y comprueba y guarda las preferencias del usuario.
+     */
     @Deprecated("deprecated")
     override fun onBackPressed() {
         super.onBackPressed()

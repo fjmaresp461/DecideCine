@@ -27,6 +27,19 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
+/**
+ * `DetailActivity` es una actividad que muestra los detalles de una película.
+ *
+ * Esta actividad proporciona una interfaz para que el usuario vea los detalles de una película, incluyendo el título, la descripción, la duración, los géneros y los proveedores. También permite al usuario añadir la película a sus favoritos.
+ *
+ * @property binding Enlace de la actividad con su vista.
+ * @property movieTitle El título de la película.
+ * @property dbManager El gestor de la base de datos para interactuar con la base de datos local.
+ * @property movieManager El gestor de películas para interactuar con la API de películas.
+ * @property genreNameToIdMap Un mapa de los nombres de los géneros a sus IDs.
+ *
+ * @constructor Crea una instancia de `DetailActivity`.
+ */
 class DetailActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDetailBinding
     private var movieTitle: String? = null
@@ -55,6 +68,9 @@ class DetailActivity : AppCompatActivity() {
         "Western" to "37"
     )
 
+    /**
+     * Se llama cuando se crea la actividad. Inicializa la vista, recupera el ID de la película del intento, recupera y muestra los detalles de la película, y establece los oyentes.
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityDetailBinding.inflate(layoutInflater)
@@ -66,6 +82,9 @@ class DetailActivity : AppCompatActivity() {
         setListeners(movieId)
     }
 
+    /**
+     * Establece los oyentes para los botones de la interfaz.
+     */
     private fun setListeners(movieId: Int) {
         binding.ibTmdb.setOnClickListener {
             val url = "https://www.themoviedb.org/movie/$movieId?language=es"
@@ -84,13 +103,17 @@ class DetailActivity : AppCompatActivity() {
 
     }
 
-
+    /**
+     * Actualiza las películas en caché.
+     */
     suspend fun updateMovies() {
         moviesCache = MoviesManager().fetchMoviesByGenreAndProvider()
         latestMoviesCache = MoviesManager().fetchMovies("latest")
     }
 
-
+    /**
+     * Recupera y muestra los detalles de una película.
+     */
     private fun fetchAndDisplayMovieDetails(movieId: Int) {
         lifecycleScope.launch(Dispatchers.Main) {
             val movie = withContext(Dispatchers.IO) { movieManager.fetchMovieById(movieId) }
@@ -110,7 +133,9 @@ class DetailActivity : AppCompatActivity() {
         }
     }
 
-
+    /**
+     * Muestra los proveedores de una película.
+     */
     private fun displayProviders(providers: List<Providers>?) {
         binding.providersLayout.removeAllViews()
         if (providers.isNullOrEmpty()) {
@@ -142,7 +167,9 @@ class DetailActivity : AppCompatActivity() {
     }
 
 
-
+    /**
+     * Muestra los detalles de una película.
+     */
     private fun displayMovieDetails(movie: Movie) {
         binding.movieTitle.text = movie.title
         binding.tvSummary.text = movie.overview
@@ -157,6 +184,9 @@ class DetailActivity : AppCompatActivity() {
         binding.tvGenres.text = spannableString
     }
 
+    /**
+     * Crea un texto seleccionable para los géneros de una película.
+     */
     private fun createSpannableGenres(genreNames: String, genres: List<Genre>): SpannableString {
         val spannableString = SpannableString(genreNames)
 
@@ -181,19 +211,27 @@ class DetailActivity : AppCompatActivity() {
         return spannableString
     }
 
-
+    /**
+     * Añade una película a los favoritos del usuario.
+     */
     private fun addMovieToFavorites(movieId: Int, movieTitle: String) {
         val dbManager = DatabaseManager()
         val movie = SimpleMovie(movieId, movieTitle)
         dbManager.create(movie)
     }
 
+    /**
+     * Elimina una película de los favoritos del usuario.
+     */
     private fun removeMoviefromFavorites(movieId: Int) {
         val dbManager = DatabaseManager()
         dbManager.delete(movieId)
         startActivity(Intent(this, MainActivity2::class.java))
     }
 
+    /**
+     * Se llama cuando se presiona el botón de retroceso. Finaliza la actividad.
+     */
     override fun onBackPressed() {
         super.onBackPressed()
         finish()

@@ -9,11 +9,22 @@ import com.example.quevemoshoy.LoginActivity
 import com.example.quevemoshoy.R
 import com.example.quevemoshoy.databinding.ActivityRegister1Binding
 import com.google.firebase.auth.FirebaseAuth
-
+/**
+ * `RegisterActivity1` es una actividad que permite al usuario introducir sus datos de usuario durante el proceso de registro.
+ *
+ * Esta actividad proporciona una interfaz para que el usuario introduzca su nombre de usuario, correo electrónico y contraseña, y las guarda en las preferencias compartidas.
+ *
+ * @property binding Enlace de la actividad con su vista.
+ * @property isGoogleSignIn Indica si el usuario está iniciando sesión con Google.
+ *
+ * @constructor Crea una instancia de `RegisterActivity1`.
+ */
 class RegisterActivity1 : AppCompatActivity() {
     private lateinit var binding: ActivityRegister1Binding
     private var isGoogleSignIn: Boolean = false
-
+    /**
+     * Se llama cuando se crea la actividad. Inicializa la vista, comprueba si el usuario está autenticado con Google, establece los oyentes, carga las preferencias y carga el fragmento del stepper.
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityRegister1Binding.inflate(layoutInflater)
@@ -27,7 +38,9 @@ class RegisterActivity1 : AppCompatActivity() {
         loadStepperFragment()
         supportActionBar?.hide()
     }
-
+    /**
+     * Oculta los campos de correo electrónico y contraseña si el usuario está autenticado con Google.
+     */
     private fun hideEmailAndPasswordFields() {
         binding.tvEmail.visibility = View.GONE
         binding.etEmail.visibility = View.GONE
@@ -36,7 +49,9 @@ class RegisterActivity1 : AppCompatActivity() {
         binding.tvRepeatPassword.visibility = View.GONE
         binding.etRepeatPassword.visibility = View.GONE
     }
-
+    /**
+     * Establece los oyentes para los botones de la interfaz.
+     */
     private fun setListeners() {
         binding.btnContinue.setOnClickListener {
             if (checkErrors()) {
@@ -52,7 +67,9 @@ class RegisterActivity1 : AppCompatActivity() {
             startActivity(Intent(this, LoginActivity::class.java))
         }
     }
-
+    /**
+     * Carga las preferencias del usuario desde las preferencias compartidas y actualiza los campos de texto.
+     */
     private fun loadPreferences() {
         val preferences = getSharedPreferences("Registro", MODE_PRIVATE)
         binding.etUser.setText(preferences.getString("user", ""))
@@ -60,7 +77,9 @@ class RegisterActivity1 : AppCompatActivity() {
         binding.etPassword.setText(preferences.getString("password", ""))
         binding.etRepeatPassword.setText(preferences.getString("repeatPassword", ""))
     }
-
+    /**
+     * Guarda las preferencias del usuario en las preferencias compartidas.
+     */
     private fun savePreferences() {
         val user = binding.etUser.text.toString().trim()
         val email = binding.etEmail.text.toString().trim()
@@ -82,7 +101,9 @@ class RegisterActivity1 : AppCompatActivity() {
             apply()
         }
     }
-
+    /**
+     * Comprueba si los campos de texto son válidos y, en caso afirmativo, guarda las preferencias del usuario.
+     */
     fun checkErrors(): Boolean {
         val user = binding.etUser.text.toString().trim()
         val email = binding.etEmail.text.toString().trim()
@@ -125,7 +146,9 @@ class RegisterActivity1 : AppCompatActivity() {
 
         return isValid
     }
-
+    /**
+     * Carga el fragmento del stepper en la actividad.
+     */
     private fun loadStepperFragment() {
         val fragmentManager = supportFragmentManager
         val fragmentTransaction = fragmentManager.beginTransaction()
@@ -133,12 +156,16 @@ class RegisterActivity1 : AppCompatActivity() {
         fragmentTransaction.add(R.id.fragmentContainerView, myFragment)
         fragmentTransaction.commit()
     }
-
+    /**
+     * Se llama cuando se pausa la actividad. Guarda las preferencias del usuario.
+     */
     override fun onPause() {
         super.onPause()
         savePreferences()
     }
-
+    /**
+     * Se llama cuando se presiona el botón de retroceso. Cierra la sesión del usuario y redirige al usuario a la actividad `LoginActivity`.
+     */
     @Deprecated("Deprecated")
     override fun onBackPressed() {
         super.onBackPressed()
