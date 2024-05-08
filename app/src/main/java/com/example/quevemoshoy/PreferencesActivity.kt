@@ -45,12 +45,12 @@ class PreferencesActivity : AppCompatActivity() {
             Toast.makeText(
                 this, R.string.preferences_saved, Toast.LENGTH_LONG
             ).show()
-            if (userId != null) {
-                savePreferencesToFirebase(userId, userName)
-            }
-            startActivity(Intent(this, MainActivity2::class.java))
+            val intent = Intent(this, MainActivity2::class.java)
+            intent.putExtra("preferencesChanged", true)
+            startActivity(intent)
         }
     }
+
 
     private fun savePreferencesToFirebase(userId: String, userName: String) {
         val database = FirebaseDatabase.getInstance()

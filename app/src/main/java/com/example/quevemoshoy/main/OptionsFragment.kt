@@ -40,11 +40,11 @@ class OptionsFragment : Fragment() {
 
     private fun mostrarSombra() {
         ibList.backgroundTintList =
-            ColorStateList.valueOf(Color.parseColor("#00000000")) // Transparente
+            ColorStateList.valueOf(Color.parseColor("#00000000"))
         ibUsers.backgroundTintList =
-            ColorStateList.valueOf(Color.parseColor("#00000000")) // Transparente
+            ColorStateList.valueOf(Color.parseColor("#00000000"))
         ibSettings.backgroundTintList =
-            ColorStateList.valueOf(Color.parseColor("#00000000")) // Transparente
+            ColorStateList.valueOf(Color.parseColor("#00000000"))
 
         if (this.activity is MainActivity2) {
             ibList.backgroundTintList =
@@ -66,35 +66,41 @@ class OptionsFragment : Fragment() {
             ibList.isClickable = false
 
             ibList.backgroundTintList =
-                ColorStateList.valueOf(Color.parseColor("#FFD4E4A4")) // Cambia el color cuando se pulsa
+                ColorStateList.valueOf(Color.parseColor("#FFD4E4A4"))
             ibUsers.backgroundTintList =
-                ColorStateList.valueOf(Color.parseColor("#00000000")) // Transparente
+                ColorStateList.valueOf(Color.parseColor("#00000000"))
             ibSettings.backgroundTintList =
-                ColorStateList.valueOf(Color.parseColor("#00000000")) // Transparente
+                ColorStateList.valueOf(Color.parseColor("#00000000"))
 
             startActivity(Intent(context, MainActivity2::class.java))
+
         }
 
         ibUsers.setOnClickListener {
             it.backgroundTintList =
-                ColorStateList.valueOf(Color.parseColor("#FFD4E4A4")) // Cambia el color cuando se pulsa
+                ColorStateList.valueOf(Color.parseColor("#FFD4E4A4"))
             ibList.backgroundTintList =
-                ColorStateList.valueOf(Color.parseColor("#00000000")) // Transparente
+                ColorStateList.valueOf(Color.parseColor("#00000000"))
             ibSettings.backgroundTintList =
-                ColorStateList.valueOf(Color.parseColor("#00000000")) // Transparente
+                ColorStateList.valueOf(Color.parseColor("#00000000"))
             it.isClickable = false
+
             startActivity(Intent(context, UsersActivity::class.java))
+
         }
 
         ibSettings.setOnClickListener {
             it.backgroundTintList =
-                ColorStateList.valueOf(Color.parseColor("#FFD4E4A4")) // Cambia el color cuando se pulsa
+                ColorStateList.valueOf(Color.parseColor("#FFD4E4A4"))
             ibUsers.backgroundTintList =
-                ColorStateList.valueOf(Color.parseColor("#00000000")) // Transparente
+                ColorStateList.valueOf(Color.parseColor("#00000000"))
             ibList.backgroundTintList =
-                ColorStateList.valueOf(Color.parseColor("#00000000")) // Transparente
+                ColorStateList.valueOf(Color.parseColor("#00000000"))
             it.isClickable = false
+
             startActivity(Intent(context, SettingsActivity::class.java))
+
         }
     }
+
 }

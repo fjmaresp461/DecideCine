@@ -27,10 +27,12 @@ class MoviesManager {
     private val apiService = ApiClient.retrofit.create(MovieInterface::class.java)
     val auth = FirebaseAuth.getInstance()
     val currentUser = auth.currentUser
+    val allGenres = listOf("28", "12", "16", "35", "80", "99", "18", "10751", "14", "36", "27", "10402", "9648", "10749", "878", "10770", "53", "10752", "37")
 
 
     companion object {
         var moviesCache: List<Movie>? = null
+
         var genrePreferencesCache: List<String>? = null
         var latestMoviesCache: List<Movie>? = null
     }
@@ -69,17 +71,21 @@ class MoviesManager {
                 Log.e("Firebase", "Error getting data:", e)
             }
 
-            // Ordena los géneros por puntuación en orden descendente
             val sortedGenrePreferences = allGenrePreferences.toList().sortedByDescending { it.second }.map { it.first }
             Log.d("Firebaserl", "Lista de preferencias de género ordenada: $sortedGenrePreferences")
-            sortedGenrePreferences
+
+            if (genrePreferencesCache != sortedGenrePreferences) {
+                genrePreferencesCache = sortedGenrePreferences
+            }
+
+            genrePreferencesCache!!
         }
+
 
     suspend fun getPreferredProviders(currentUser: FirebaseUser?): List<Int> =
         withContext(Dispatchers.IO) {
             val preferredProviderIds = mutableListOf<Int>()
 
-            // Mapeo de nombres de proveedores a IDs
             val providerNameToId = mapOf(
                 "amazonPrimeVideo" to 119,
                 "appleTv" to 2,
@@ -124,60 +130,42 @@ class MoviesManager {
         }
 
 
-    suspend fun fetchMoviesByGenre(): List<Movie> {
-        val currentUserGenrePreferences = getAllGenrePreferences(currentUser)
-        val preferredProviderIds = getPreferredProviders(currentUser)
+    suspend fun fetchMoviesByGenreAndProvider(): List<Movie> {
+        val currentUserGenrePreferences = getAllGenrePreferences(currentUser).toMutableList()
 
-        if (genrePreferencesCache == currentUserGenrePreferences && !moviesCache.isNullOrEmpty()) {
+        if (genrePreferencesCache != currentUserGenrePreferences) {
+            moviesCache = null
+        }
+
+        if (moviesCache != null && moviesCache!!.isNotEmpty()) {
             return moviesCache!!
         }
-        genrePreferencesCache = currentUserGenrePreferences
+
+        val preferredProviderIds = getPreferredProviders(currentUser)
+
+        if (currentUserGenrePreferences.isEmpty()) {
+            currentUserGenrePreferences.addAll(allGenres.shuffled().take(3))
+        }
+
         val allMovies = mutableListOf<Movie>()
         val genreMovies = mutableMapOf<String, MutableList<Movie>>()
 
-        // Primero, intenta llenar la lista con películas que coincidan con los géneros y proveedores preferidos
         for (genreId in currentUserGenrePreferences) {
             val response = apiService.getMoviesByGenres(genres = genreId)
-            val movies = response.movies.shuffled() // Mezcla las películas
+            val movies = response.movies
+
             for (movie in movies) {
                 val providers = fetchMovieProviders(movie.id)
                 if (providers?.any { it.providerId in preferredProviderIds } == true) {
-                    allMovies.add(movie)
-                    if (allMovies.size >= 2 * currentUserGenrePreferences.size) {
-                        break
-                    }
+                    genreMovies.getOrPut(genreId) { mutableListOf() }.add(movie)
                 }
             }
-            if (allMovies.size >= 2 * currentUserGenrePreferences.size) {
-                break
-            }
-        }
 
-        // Si la lista tiene menos de 12 películas, busca más películas que coincidan con los géneros preferidos
-        if (allMovies.size < 12) {
-            for (genreId in currentUserGenrePreferences) {
-                val response = apiService.getMoviesByGenres(genres = genreId)
-                val movies = response.movies.shuffled() // Mezcla las películas
+            if (allMovies.size < 12) {
                 for (movie in movies) {
-                    if (movie.id !in allMovies.map { it.id }) {
+                    if (movie !in allMovies) {
                         allMovies.add(movie)
-                        if (allMovies.size >= 12) {
-                            break
-                        }
                     }
-                }
-                if (allMovies.size >= 12) {
-                    break
-                }
-            }
-        }
-
-        // Si la lista todavía tiene menos de 12 películas, llena los huecos con películas aleatorias
-        if (allMovies.size < 12) {
-            val response = apiService.getLatestMovies()
-            for (movie in response.movies) {
-                if (movie.id !in allMovies.map { it.id }) {
-                    allMovies.add(movie)
                     if (allMovies.size >= 12) {
                         break
                     }
@@ -185,10 +173,16 @@ class MoviesManager {
             }
         }
 
+        allMovies.shuffle()
+
+
         moviesCache = allMovies
 
         return allMovies
     }
+
+
+
 
 
 
@@ -210,38 +204,33 @@ class MoviesManager {
                     val providers = fetchMovieProviders(movie.id)
                     if (providers?.any { it.providerId in getPreferredProviders(currentUser) } == true) {
                         allMovies.add(movie)
-                        if (allMovies.size == 12) {
+                        if (allMovies.size == 20) {
                             break
                         }
                     }
                 }
+
+                if (allMovies.size < 20) {
+                    val additionalMovies = response.movies.filter { it !in allMovies }.take(20 - allMovies.size)
+                    allMovies.addAll(additionalMovies)
+                }
+
+
+               allMovies.shuffle()
+                latestMoviesCache = allMovies.take(12)
             } else if (recommendationType == "myList") {
                 favMovies.addAll(MainActivity2.favoriteMoviesList.filterNotNull())
                 return favMovies
             }
 
-            if (allMovies.size < 12) {
-                val response = apiService.getLatestMovies()
-                for (movie in response.movies) {
-                    if (movie.id !in allMovies.map { it.id }) {
-                        allMovies.add(movie)
-                        if (allMovies.size == 12) {
-                            break
-                        }
-                    }
-                }
-            }
-
-            // Actualiza la caché de las últimas películas
-            latestMoviesCache = allMovies
-
-            allMovies.shuffle()
-            return allMovies
+            return latestMoviesCache ?: emptyList()
         } catch (e: Exception) {
             Log.e("MoviesManager", R.string.error_fetching.toString(), e)
             return emptyList()
         }
     }
+
+
 
 
     suspend fun fetchMovieProviders(movieId: Int): List<Providers>? {
@@ -253,6 +242,7 @@ class MoviesManager {
             null
         }
     }
+
 
 
     suspend fun fetchMovieById(movieId: Int): Movie? {
@@ -281,14 +271,13 @@ class MoviesManager {
 
     suspend fun fetchMoviesByOneGenre(genreId: String): List<Movie> {
         val response = apiService.getMoviesByGenres(genres = genreId)
-        return response.movies.take(20) // Toma solo las primeras 20 películas
+        return response.movies.take(20)
     }
+
+
 }
+
 
 data class UserPreferences(
     var genres: Map<String, Int> = mutableMapOf()
 )
-// empezar a buscar errores  testeando
-// la interfaz main estaria lista
-//empezar con las opciones
-//boton login sin email, da error

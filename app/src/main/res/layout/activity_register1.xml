@@ -5,16 +5,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FBFBFB"
-    android:padding="20dp"
-    tools:context=".authentication.RegisterActivity1">
+    android:paddingStart="20dp"
+    android:paddingEnd="20dp"
+    tools:context=".register.RegisterActivity1">
 
 
     <fragment
         android:id="@+id/fragmentContainerView"
-        android:name="com.example.quevemoshoy.authentication.StepperFragment"
+        android:name="com.example.quevemoshoy.register.StepperFragment"
         android:layout_width="match_parent"
-        android:layout_height="30dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -25,8 +29,10 @@
         android:text="@string/tv_register1_text"
         android:textColor="#9F9E9E"
         android:textSize="16sp"
-        app:layout_constraintTop_toBottomOf="@+id/fragmentContainerView"
-        tools:layout_editor_absoluteX="20dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/fragmentContainerView" />
 
     <TextView
         android:id="@+id/tv_user"
@@ -162,6 +168,7 @@
         android:background="@drawable/button"
         android:text="@string/btn_continue"
         android:textAllCaps="false"
+        android:textColor="#FF191A19"
         android:textSize="20sp"
         app:layout_constraintTop_toBottomOf="@+id/et_repeat_password"
         tools:layout_editor_absoluteX="20dp" />

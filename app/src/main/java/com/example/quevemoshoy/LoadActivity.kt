@@ -21,8 +21,7 @@ class LoadActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        // Post a delayed task to check login status after animation
-        handler.postDelayed({ checkUserLoginStatus() }, 3000) // 3 seconds delay
+        handler.postDelayed({ checkUserLoginStatus() }, 3000)
     }
 
     private fun checkUserLoginStatus() {

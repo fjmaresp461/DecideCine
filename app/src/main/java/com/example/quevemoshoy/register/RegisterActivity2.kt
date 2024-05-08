@@ -1,4 +1,4 @@
-package com.example.quevemoshoy.authentication
+package com.example.quevemoshoy.register
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity

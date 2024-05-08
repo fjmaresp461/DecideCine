@@ -5,7 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
-import com.example.quevemoshoy.authentication.RegisterActivity1
+import com.example.quevemoshoy.register.RegisterActivity1
 import com.example.quevemoshoy.databinding.ActivityLoginBinding
 import com.example.quevemoshoy.main.MainActivity2
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -91,6 +91,7 @@ class LoginActivity : AppCompatActivity() {
 
         binding.tvRegister.setOnClickListener{
             startActivity(Intent(this, RegisterActivity1::class.java))
+            finish()
         }
     }
 
@@ -145,14 +146,21 @@ class LoginActivity : AppCompatActivity() {
         val intent = Intent(this, RegisterActivity1::class.java)
         intent.putExtra("googleSignIn", true)
         startActivity(intent)
+        finish()
     }
 
     private fun goToMainActivity() {
-        startActivity(Intent(this, MainActivity2::class.java))
+        intent = Intent(this, MainActivity2::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        startActivity(intent)
     }
     override fun onResume() {
         super.onResume()
 
         getSharedPreferences("Registro", MODE_PRIVATE).edit().clear().apply()
+    }
+
+    override fun onBackPressed() {
+        finishAffinity()
     }
 }

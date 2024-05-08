@@ -163,6 +163,7 @@ class UsersActivity : AppCompatActivity() {
     private fun startPreferencesActivity(selectedUser: String) {
         val intent = Intent(this, PreferencesActivity::class.java)
         intent.putExtra("firstTime", false)
+        intent.putExtra("COMING_FROM", "UsersActivity")
         intent.putExtra("user", selectedUser)
         startActivity(intent)
     }

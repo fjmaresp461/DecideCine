@@ -55,7 +55,7 @@ class ProvidersActivity : AppCompatActivity() {
 
     private fun loadPreferencesFromFirebase() {
         val currentUser = FirebaseAuth.getInstance().currentUser
-        val uid = currentUser?.uid  // Reemplaza esto con el ID de usuario correspondiente
+        val uid = currentUser?.uid
         val database = FirebaseDatabase.getInstance()
         val myRef = database.getReference("users/$uid/proveedores")
 
@@ -73,7 +73,7 @@ class ProvidersActivity : AppCompatActivity() {
             }
 
             override fun onCancelled(error: DatabaseError) {
-                // Failed to read value
+
                 Log.w(TAG, "Failed to read value.", error.toException())
             }
         })
@@ -81,7 +81,7 @@ class ProvidersActivity : AppCompatActivity() {
 
     private fun saveProviderPreferencesToFirebase() {
         val currentUser = FirebaseAuth.getInstance().currentUser
-        val uid = currentUser?.uid  // Reemplaza esto con el ID de usuario correspondiente
+        val uid = currentUser?.uid
         val database = FirebaseDatabase.getInstance()
         val myRef = database.getReference("users/$uid/proveedores")
 
