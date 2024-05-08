@@ -1,4 +1,4 @@
-package com.example.quevemoshoy.authentication
+package com.example.quevemoshoy.register
 
 import android.content.Context
 import android.content.Intent
@@ -148,6 +148,7 @@ class RegisterActivity3 : AppCompatActivity() {
             savePreferencesToFirebaseWithGoogle(uid, preferences)
         }
         startActivity(Intent(this, LoginActivity::class.java))
+        finish()
     }
 
     private fun handleEmailPasswordSignIn(
@@ -159,23 +160,19 @@ class RegisterActivity3 : AppCompatActivity() {
         auth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
-                    // User registration successful
                     val user = auth.currentUser
                     user?.sendEmailVerification()?.addOnCompleteListener { emailTask ->
                         if (emailTask.isSuccessful) {
-                            // Email sent successfully
                             Toast.makeText(this, "Registro exitoso. Por favor, revisa tu correo electrónico para verificar tu cuenta.", Toast.LENGTH_LONG).show()
                             val uid = user.uid
                             savePreferencesToFirebaseWithEmail(uid, preferences)
                             preferences.edit().clear().apply()
                             startActivity(Intent(this, LoginActivity::class.java))
                         } else {
-                            // Failed to send verification email
                             Log.d("RegisterActivity", "Error al enviar el correo de verificación", emailTask.exception)
                         }
                     }
                 } else {
-                    // User registration failed
                     when (task.exception) {
                         is FirebaseAuthUserCollisionException -> {
                             Toast.makeText(this, "Este correo electrónico ya está en uso.", Toast.LENGTH_SHORT).show()

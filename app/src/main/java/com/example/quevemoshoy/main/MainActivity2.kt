@@ -30,6 +30,8 @@ import com.example.quevemoshoy.database.DatabaseManager
 import com.example.quevemoshoy.databinding.ActivityMain2Binding
 import com.example.quevemoshoy.model.Movie
 import com.example.quevemoshoy.model.MoviesManager
+import com.example.quevemoshoy.model.MoviesManager.Companion.genrePreferencesCache
+import com.example.quevemoshoy.model.MoviesManager.Companion.moviesCache
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
@@ -150,7 +152,7 @@ class MainActivity2 : AppCompatActivity() {
                     favoriteMoviesList
                 }
                 else -> {
-                    moviesManager.fetchMoviesByGenre()
+                    moviesManager.fetchMoviesByGenreAndProvider()
                 }
             }
 
@@ -231,7 +233,7 @@ class MainActivity2 : AppCompatActivity() {
         lifecycleScope.launch(Dispatchers.IO) {
             val movies = when (type) {
                 "recommended" -> {
-                    moviesManager.fetchMoviesByGenre()
+                    moviesManager.fetchMoviesByGenreAndProvider()
                 }
 
                 "latest" -> {
@@ -288,7 +290,22 @@ class MainActivity2 : AppCompatActivity() {
         super.onResume()
 
         lifecycleScope.launch(Dispatchers.Main) {
+            val currentUserGenrePreferences = MoviesManager().getAllGenrePreferences(currentUser).toMutableList()
+            if (genrePreferencesCache != currentUserGenrePreferences) {
+                moviesCache = null
+            }
+        }
+
+
+        initRecommendations()
+        lifecycleScope.launch(Dispatchers.Main) {
             loadFavoriteMovies()
         }
+    }
+
+
+
+    override fun onBackPressed() {
+
     }
 }

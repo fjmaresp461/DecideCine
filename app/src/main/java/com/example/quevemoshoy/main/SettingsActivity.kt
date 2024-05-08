@@ -2,6 +2,7 @@ package com.example.quevemoshoy.main
 
 import android.content.ContentValues.TAG
 import android.content.Intent
+import android.content.Intent.FLAG_ACTIVITY_CLEAR_TASK
 import android.os.Bundle
 import android.util.Log
 import android.widget.ImageButton
@@ -31,8 +32,9 @@ class SettingsActivity : AppCompatActivity() {
         binding.cntLogout.setOnClickListener{
             auth.signOut()
             finish()
-            startActivity(Intent(this, LoginActivity::class.java))
-        }
+            val intent = Intent(this, LoginActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or FLAG_ACTIVITY_CLEAR_TASK
+            startActivity(intent)        }
         binding.cntAbout.setOnClickListener {
             startActivity(Intent(this, AboutAppActivity::class.java))
 
@@ -75,7 +77,9 @@ class SettingsActivity : AppCompatActivity() {
         val optionsFragment =
             supportFragmentManager.findFragmentById(R.id.fragmentContainerView2) as OptionsFragment
         optionsFragment.view?.findViewById<ImageButton>(R.id.ib_list)?.setOnClickListener {
-            startActivity(Intent(this, MainActivity2::class.java))
+            intent = Intent(this, MainActivity2::class.java)
+
+            startActivity(intent)
             this.overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
         }
         optionsFragment.view?.findViewById<ImageButton>(R.id.ib_users)?.setOnClickListener {

@@ -20,7 +20,7 @@ class GenreAdapter
         val resourceId = holder.itemView.context.resources.getIdentifier(genre, "drawable", holder.itemView.context.packageName)
         holder.imageView.setImageResource(resourceId)
         holder.imageView.setOnClickListener {
-            // Aquí puedes manejar el clic en la imagen
+
         }
     }
 

@@ -1,8 +1,7 @@
 package com.example.quevemoshoy
 
-import android.content.Context
+
 import android.content.Intent
-import android.content.res.Resources
 import android.os.Bundle
 import android.text.SpannableString
 import android.text.Spanned
@@ -10,10 +9,8 @@ import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
 import android.view.View
 import android.widget.ImageView
-import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.marginEnd
 import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
 import com.example.quevemoshoy.database.DatabaseManager
@@ -26,7 +23,6 @@ import com.example.quevemoshoy.model.MoviesManager.Companion.latestMoviesCache
 import com.example.quevemoshoy.model.MoviesManager.Companion.moviesCache
 import com.example.quevemoshoy.model.Providers
 import com.example.quevemoshoy.model.SimpleMovie
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -89,10 +85,10 @@ class DetailActivity : AppCompatActivity() {
     }
 
 
-        suspend fun updateMovies() {
-            moviesCache = MoviesManager().fetchMoviesByGenre()
-            latestMoviesCache = MoviesManager().fetchMovies("latest")
-        }
+    suspend fun updateMovies() {
+        moviesCache = MoviesManager().fetchMoviesByGenreAndProvider()
+        latestMoviesCache = MoviesManager().fetchMovies("latest")
+    }
 
 
     private fun fetchAndDisplayMovieDetails(movieId: Int) {
@@ -198,5 +194,9 @@ class DetailActivity : AppCompatActivity() {
         startActivity(Intent(this, MainActivity2::class.java))
     }
 
+    override fun onBackPressed() {
+        super.onBackPressed()
+        finish()
+    }
 }
 

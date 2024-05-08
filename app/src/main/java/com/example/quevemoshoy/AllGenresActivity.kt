@@ -2,24 +2,13 @@ package com.example.quevemoshoy
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.example.quevemoshoy.adapter.GenreAdapter
 import com.example.quevemoshoy.databinding.ActivityAllGenresBinding
 import com.example.quevemoshoy.main.MainActivity2
-import com.example.quevemoshoy.model.Movie
 import com.example.quevemoshoy.model.MoviesManager
 import com.example.quevemoshoy.provider.ApiClient
 import com.example.quevemoshoy.provider.MovieInterface
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+
 
 class AllGenresActivity : AppCompatActivity() {
     private lateinit var binding:ActivityAllGenresBinding

@@ -6,13 +6,13 @@
     android:layout_height="match_parent"
     android:background="#FBFBFB"
     android:padding="20dp"
-    tools:context=".authentication.RegisterActivity2">
+    tools:context=".register.RegisterActivity2">
 
     <fragment
         android:id="@+id/fragmentContainerView"
-        android:name="com.example.quevemoshoy.authentication.StepperFragment"
+        android:name="com.example.quevemoshoy.register.StepperFragment"
         android:layout_width="match_parent"
-        android:layout_height="30dp"
+        android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -60,8 +60,9 @@
                 android:layout_marginBottom="20dp"
                 android:max="10"
                 android:progress="5"
-                android:progressTint="#09ACF1"
-                android:scrollbarStyle="outsideInset" />
+                android:progressTint="#FFD7E8A7"
+                android:scrollbarStyle="outsideInset"
+                android:thumb="@drawable/thumb" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -69,7 +70,8 @@
                 android:paddingStart="5dp"
                 android:text="@string/gen_adventure"
                 android:textColor="#292727"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                />
 
             <SeekBar
                 android:id="@+id/adventureSeekBar"
@@ -79,8 +81,9 @@
                 android:layout_marginBottom="20dp"
                 android:max="10"
                 android:progress="5"
-                android:progressTint="#09ACF1"
-                android:scrollbarStyle="outsideInset" />
+                android:progressTint="#FFD7E8A7"
+                android:scrollbarStyle="outsideInset"
+                android:thumb="@drawable/thumb"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -98,8 +101,9 @@
                 android:layout_marginBottom="20dp"
                 android:max="10"
                 android:progress="5"
-                android:progressTint="#09ACF1"
-                android:scrollbarStyle="outsideInset" />
+                android:progressTint="#FFD7E8A7"
+                android:scrollbarStyle="outsideInset"
+                android:thumb="@drawable/thumb"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -117,8 +121,9 @@
                 android:layout_marginBottom="20dp"
                 android:max="10"
                 android:progress="5"
-                android:progressTint="#09ACF1"
-                android:scrollbarStyle="outsideInset" />
+                android:progressTint="#FFD7E8A7"
+                android:scrollbarStyle="outsideInset"
+                android:thumb="@drawable/thumb"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -136,8 +141,9 @@
                 android:layout_marginBottom="20dp"
                 android:max="10"
                 android:progress="5"
-                android:progressTint="#09ACF1"
-                android:scrollbarStyle="outsideInset" />
+                android:progressTint="#FFD7E8A7"
+                android:scrollbarStyle="outsideInset"
+                android:thumb="@drawable/thumb"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -155,8 +161,9 @@
                 android:layout_marginBottom="20dp"
                 android:max="10"
                 android:progress="5"
-                android:progressTint="#09ACF1"
-                android:scrollbarStyle="outsideInset" />
+                android:progressTint="#FFD7E8A7"
+                android:scrollbarStyle="outsideInset"
+                android:thumb="@drawable/thumb"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -174,8 +181,9 @@
                 android:layout_marginBottom="20dp"
                 android:max="10"
                 android:progress="5"
-                android:progressTint="#09ACF1"
-                android:scrollbarStyle="outsideInset" />
+                android:progressTint="#FFD7E8A7"
+                android:scrollbarStyle="outsideInset"
+                android:thumb="@drawable/thumb"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -193,8 +201,9 @@
                 android:layout_marginBottom="20dp"
                 android:max="10"
                 android:progress="5"
-                android:progressTint="#09ACF1"
-                android:scrollbarStyle="outsideInset" />
+                android:progressTint="#FFD7E8A7"
+                android:scrollbarStyle="outsideInset"
+                android:thumb="@drawable/thumb"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -212,8 +221,9 @@
                 android:layout_marginBottom="20dp"
                 android:max="10"
                 android:progress="5"
-                android:progressTint="#09ACF1"
-                android:scrollbarStyle="outsideInset" />
+                android:progressTint="#FFD7E8A7"
+                android:scrollbarStyle="outsideInset"
+                android:thumb="@drawable/thumb"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -231,8 +241,9 @@
                 android:layout_marginBottom="20dp"
                 android:max="10"
                 android:progress="5"
-                android:progressTint="#09ACF1"
-                android:scrollbarStyle="outsideInset" />
+                android:progressTint="#FFD7E8A7"
+                android:scrollbarStyle="outsideInset"
+                android:thumb="@drawable/thumb"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -250,8 +261,9 @@
                 android:layout_marginBottom="20dp"
                 android:max="10"
                 android:progress="5"
-                android:progressTint="#09ACF1"
-                android:scrollbarStyle="outsideInset" />
+                android:progressTint="#FFD7E8A7"
+                android:scrollbarStyle="outsideInset"
+                android:thumb="@drawable/thumb"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -269,8 +281,9 @@
                 android:layout_marginBottom="20dp"
                 android:max="10"
                 android:progress="5"
-                android:progressTint="#09ACF1"
-                android:scrollbarStyle="outsideInset" />
+                android:progressTint="#FFD7E8A7"
+                android:scrollbarStyle="outsideInset"
+                android:thumb="@drawable/thumb"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -288,8 +301,9 @@
                 android:layout_marginBottom="20dp"
                 android:max="10"
                 android:progress="5"
-                android:progressTint="#09ACF1"
-                android:scrollbarStyle="outsideInset" />
+                android:progressTint="#FFD7E8A7"
+                android:scrollbarStyle="outsideInset"
+                android:thumb="@drawable/thumb"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -307,8 +321,9 @@
                 android:layout_marginBottom="20dp"
                 android:max="10"
                 android:progress="5"
-                android:progressTint="#09ACF1"
-                android:scrollbarStyle="outsideInset" />
+                android:progressTint="#FFD7E8A7"
+                android:scrollbarStyle="outsideInset"
+                android:thumb="@drawable/thumb"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -326,8 +341,9 @@
                 android:layout_marginBottom="20dp"
                 android:max="10"
                 android:progress="5"
-                android:progressTint="#09ACF1"
-                android:scrollbarStyle="outsideInset" />
+                android:progressTint="#FFD7E8A7"
+                android:scrollbarStyle="outsideInset"
+                android:thumb="@drawable/thumb"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -345,8 +361,9 @@
                 android:layout_marginBottom="20dp"
                 android:max="10"
                 android:progress="5"
-                android:progressTint="#09ACF1"
-                android:scrollbarStyle="outsideInset" />
+                android:progressTint="#FFD7E8A7"
+                android:scrollbarStyle="outsideInset"
+                android:thumb="@drawable/thumb"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -364,8 +381,9 @@
                 android:layout_marginBottom="20dp"
                 android:max="10"
                 android:progress="5"
-                android:progressTint="#09ACF1"
-                android:scrollbarStyle="outsideInset" />
+                android:progressTint="#FFD7E8A7"
+                android:scrollbarStyle="outsideInset"
+                android:thumb="@drawable/thumb"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -383,8 +401,9 @@
                 android:layout_marginBottom="20dp"
                 android:max="10"
                 android:progress="5"
-                android:progressTint="#09ACF1"
-                android:scrollbarStyle="outsideInset" />
+                android:progressTint="#FFD7E8A7"
+                android:scrollbarStyle="outsideInset"
+                android:thumb="@drawable/thumb"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -402,8 +421,9 @@
                 android:layout_marginBottom="20dp"
                 android:max="10"
                 android:progress="5"
-                android:progressTint="#09ACF1"
-                android:scrollbarStyle="outsideInset" />
+                android:progressTint="#FFD7E8A7"
+                android:scrollbarStyle="outsideInset"
+                android:thumb="@drawable/thumb"/>
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -418,6 +438,7 @@
                     android:paddingEnd="10dp"
                     android:text="@string/prev"
                     android:textAllCaps="false"
+                    android:textColor="#FF191A19"
                     android:textSize="18sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -432,6 +453,7 @@
                     android:paddingEnd="10dp"
                     android:text="@string/next"
                     android:textAllCaps="false"
+                    android:textColor="#FF191A19"
                     android:textSize="18sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"

@@ -5,11 +5,11 @@
     android:layout_height="match_parent"
     android:background="#FBFBFB"
     android:padding="20dp"
-    tools:context=".authentication.RegisterActivity3">
+    tools:context=".register.RegisterActivity3">
 
     <fragment
         android:id="@+id/fragmentContainerView"
-        android:name="com.example.quevemoshoy.authentication.StepperFragment"
+        android:name="com.example.quevemoshoy.register.StepperFragment"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -172,6 +172,7 @@
                 android:background="@drawable/button"
                 android:text="@string/prev"
                 android:textAllCaps="false"
+                android:textColor="#FF191A19"
                 android:textSize="18sp"
                 app:layout_constraintBottom_toBottomOf="@+id/btn_finish"
                 app:layout_constraintStart_toStartOf="parent"
@@ -186,6 +187,7 @@
                 android:background="@drawable/button"
                 android:text="@string/finish"
                 android:textAllCaps="false"
+                android:textColor="#FF191A19"
                 android:textSize="18sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
