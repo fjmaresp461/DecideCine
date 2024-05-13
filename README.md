@@ -1,4 +1,4 @@
-# README para QueVemosHoy
+# README 
 
 ## Tabla de Contenidos
 1. Introducción
@@ -29,4 +29,4 @@ Para empezar con QueVemosHoy, clona el repositorio y abre el proyecto en Android
 - Glide
 
 ## Capturas de pantalla
-(Aquí puedes añadir capturas de pantalla de tu aplicación. Para añadir una imagen a un archivo markdown, puedes usar la siguiente sintaxis: `!texto alternativo`. Reemplaza `url_imagen` con la URL de tu imagen. Si la imagen está almacenada en tu repositorio de GitHub, puedes usar una ruta relativa.)
+
