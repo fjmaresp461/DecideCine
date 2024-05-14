@@ -81,6 +81,8 @@ class MainActivity2 : AppCompatActivity() {
     /**
      * Se llama cuando se crea la actividad. Inicializa la vista, la autenticación de Firebase,
      * las preferencias compartidas, los oyentes y las animaciones. También inicia las recomendaciones y la base de datos.
+     *
+     * @param savedInstanceState El estado guardado de la actividad, si está disponible.
      */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

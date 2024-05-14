@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="Theme.QueVemosHoy" parent="Theme.MaterialComponents.Light.NoActionBar">
+    <style name="Base.Theme.DecideCine" parent="Theme.MaterialComponents.Light.NoActionBar">
     </style>
 
 
