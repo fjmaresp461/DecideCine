@@ -29,4 +29,4 @@ Para empezar con QueVemosHoy, clona el repositorio y abre el proyecto en Android
 - Glide
 
 ## Capturas de pantalla
-
+![Descripción de la imagen](screenshots/1.png)
