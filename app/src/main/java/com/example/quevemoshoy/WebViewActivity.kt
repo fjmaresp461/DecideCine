@@ -1,5 +1,6 @@
 package com.example.quevemoshoy
 
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.webkit.WebView
 import android.webkit.WebViewClient
@@ -28,6 +29,7 @@ class WebViewActivity : AppCompatActivity() {
         supportActionBar?.hide()
         binding = ActivityWebViewBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
         webView = findViewById(R.id.webview)
         webView.webViewClient = WebViewClient()
         val url = intent.getStringExtra("url")

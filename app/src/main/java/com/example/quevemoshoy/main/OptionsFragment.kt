@@ -26,6 +26,7 @@ class OptionsFragment : Fragment() {
     private lateinit var ibList: ImageButton
     private lateinit var ibUsers: ImageButton
     private lateinit var ibSettings: ImageButton
+    private lateinit var ibGenres: ImageButton
 
     /**
      * Se llama cuando se crea el fragmento. Inicializa cualquier dato necesario.
@@ -57,6 +58,7 @@ class OptionsFragment : Fragment() {
         ibList = view.findViewById(R.id.ib_list)
         ibUsers = view.findViewById(R.id.ib_users)
         ibSettings = view.findViewById(R.id.ib_settings)
+        ibGenres = view.findViewById(R.id.ib_genres)
         mostrarSombra()
         setListeners()
     }
@@ -68,6 +70,7 @@ class OptionsFragment : Fragment() {
         ibList.backgroundTintList = ColorStateList.valueOf(Color.parseColor("#00000000"))
         ibUsers.backgroundTintList = ColorStateList.valueOf(Color.parseColor("#00000000"))
         ibSettings.backgroundTintList = ColorStateList.valueOf(Color.parseColor("#00000000"))
+        ibGenres.backgroundTintList = ColorStateList.valueOf(Color.parseColor("#00000000"))
 
         if (this.activity is MainActivity2) {
             ibList.backgroundTintList = ColorStateList.valueOf(Color.parseColor("#FFD4E4A4"))
@@ -77,6 +80,9 @@ class OptionsFragment : Fragment() {
         }
         if (this.activity is SettingsActivity) {
             ibSettings.backgroundTintList = ColorStateList.valueOf(Color.parseColor("#FFD4E4A4"))
+        }
+        if (this.activity is AllGenresActivity) {
+            ibGenres.backgroundTintList = ColorStateList.valueOf(Color.parseColor("#FFD4E4A4"))
         }
     }
 
@@ -95,11 +101,21 @@ class OptionsFragment : Fragment() {
             startActivity(Intent(context, MainActivity2::class.java))
 
         }
+        ibGenres.setOnClickListener {
+            it.backgroundTintList = ColorStateList.valueOf(Color.parseColor("#FFD4E4A4"))
+            ibList.backgroundTintList = ColorStateList.valueOf(Color.parseColor("#00000000"))
+            ibSettings.backgroundTintList = ColorStateList.valueOf(Color.parseColor("#00000000"))
+            ibUsers.backgroundTintList = ColorStateList.valueOf(Color.parseColor("#00000000"))
+            it.isClickable = false
 
+            startActivity(Intent(context, AllGenresActivity::class.java))
+
+        }
         ibUsers.setOnClickListener {
             it.backgroundTintList = ColorStateList.valueOf(Color.parseColor("#FFD4E4A4"))
             ibList.backgroundTintList = ColorStateList.valueOf(Color.parseColor("#00000000"))
             ibSettings.backgroundTintList = ColorStateList.valueOf(Color.parseColor("#00000000"))
+            ibGenres.backgroundTintList = ColorStateList.valueOf(Color.parseColor("#00000000"))
             it.isClickable = false
 
             startActivity(Intent(context, UsersActivity::class.java))
@@ -110,6 +126,7 @@ class OptionsFragment : Fragment() {
             it.backgroundTintList = ColorStateList.valueOf(Color.parseColor("#FFD4E4A4"))
             ibUsers.backgroundTintList = ColorStateList.valueOf(Color.parseColor("#00000000"))
             ibList.backgroundTintList = ColorStateList.valueOf(Color.parseColor("#00000000"))
+            ibGenres.backgroundTintList = ColorStateList.valueOf(Color.parseColor("#00000000"))
             it.isClickable = false
 
             startActivity(Intent(context, SettingsActivity::class.java))

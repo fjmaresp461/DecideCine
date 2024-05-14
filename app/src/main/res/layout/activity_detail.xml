@@ -23,7 +23,6 @@
                 android:layout_height="618dp"
                 android:background="@drawable/fade_gradient_dark"
                 android:scaleType="centerCrop"
-                android:src="@drawable/ejemplo"
                 app:layout_collapseMode="parallax" />
             <View
                 android:layout_width="match_parent"

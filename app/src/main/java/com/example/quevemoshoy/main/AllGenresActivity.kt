@@ -1,10 +1,12 @@
-package com.example.quevemoshoy
+package com.example.quevemoshoy.main
 
 import android.content.Intent
+import android.content.pm.ActivityInfo
 import android.os.Bundle
+import android.widget.ImageButton
 import androidx.appcompat.app.AppCompatActivity
+import com.example.quevemoshoy.R
 import com.example.quevemoshoy.databinding.ActivityAllGenresBinding
-import com.example.quevemoshoy.main.MainActivity2
 import com.example.quevemoshoy.model.MoviesManager
 import com.example.quevemoshoy.provider.ApiClient
 import com.example.quevemoshoy.provider.MovieInterface
@@ -32,8 +34,29 @@ class AllGenresActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityAllGenresBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
         supportActionBar?.hide()
         setListeners()
+        setAnimations()
+
+    }
+    private fun setAnimations() {
+        val optionsFragment =
+            supportFragmentManager.findFragmentById(R.id.fragmentContainerView) as OptionsFragment
+
+        optionsFragment.view?.findViewById<ImageButton>(R.id.ib_settings)?.setOnClickListener {
+            startActivity(Intent(this, SettingsActivity::class.java))
+            this.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+        }
+        optionsFragment.view?.findViewById<ImageButton>(R.id.ib_users)?.setOnClickListener {
+            startActivity(Intent(this, UsersActivity::class.java))
+            this.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+        }
+        optionsFragment.view?.findViewById<ImageButton>(R.id.ib_list)?.setOnClickListener {
+            startActivity(Intent(this, MainActivity2::class.java))
+            this.overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
+        }
+        optionsFragment.view?.findViewById<ImageButton>(R.id.ib_genres)?.isClickable = false
 
     }
 
@@ -101,8 +124,6 @@ class AllGenresActivity : AppCompatActivity() {
      * Se llama cuando se presiona el botón de retroceso. Inicia la actividad `MainActivity2`.
      */
     override fun onBackPressed() {
-        super.onBackPressed()
-        startActivity(Intent(this, MainActivity2::class.java))
 
     }
 

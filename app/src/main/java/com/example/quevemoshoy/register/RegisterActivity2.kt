@@ -4,12 +4,17 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.SeekBar
+import androidx.core.graphics.drawable.toBitmap
+import com.airbnb.lottie.LottieCompositionFactory
+import com.airbnb.lottie.LottieDrawable
 import com.example.quevemoshoy.R
 import com.example.quevemoshoy.databinding.ActivityRegister2Binding
 import com.example.quevemoshoy.model.UserPreferences
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import java.lang.reflect.Type
+
+
 
 /**
  * `RegisterActivity2` es una actividad que permite al usuario gestionar sus preferencias de género durante el proceso de registro.
@@ -36,6 +41,7 @@ class RegisterActivity2 : AppCompatActivity() {
         loadPreferences()
         loadStepperFragment()
         supportActionBar?.hide()
+
     }
 
     /**

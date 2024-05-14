@@ -3,6 +3,7 @@ package com.example.quevemoshoy.main
 import android.content.ContentValues.TAG
 import android.content.Intent
 import android.content.Intent.FLAG_ACTIVITY_CLEAR_TASK
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.util.Log
 import android.widget.ImageButton
@@ -36,6 +37,7 @@ class SettingsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivitySettingsBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
         auth = FirebaseAuth.getInstance()
         supportActionBar?.hide()
         setAnimations()
@@ -112,6 +114,16 @@ class SettingsActivity : AppCompatActivity() {
             startActivity(Intent(this, UsersActivity::class.java))
             this.overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
         }
+        optionsFragment.view?.findViewById<ImageButton>(R.id.ib_genres)?.setOnClickListener {
+            startActivity(Intent(this, AllGenresActivity::class.java))
+            this.overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
+        }
         optionsFragment.view?.findViewById<ImageButton>(R.id.ib_settings)?.isClickable = false
+    }
+    /**
+     * Se llama cuando se presiona el botón de retroceso. Inicia la actividad `MainActivity2`.
+     */
+    override fun onBackPressed() {
+
     }
 }

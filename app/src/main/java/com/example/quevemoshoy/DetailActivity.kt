@@ -2,6 +2,7 @@ package com.example.quevemoshoy
 
 
 import android.content.Intent
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.text.SpannableString
 import android.text.Spanned
@@ -75,6 +76,7 @@ class DetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
         supportActionBar?.hide()
         val movieId = intent.getIntExtra("MOVIE_ID", -1)
         fetchAndDisplayMovieDetails(movieId)

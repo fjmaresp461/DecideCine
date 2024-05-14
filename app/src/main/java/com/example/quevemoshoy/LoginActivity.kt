@@ -1,6 +1,7 @@
 package com.example.quevemoshoy
 
 import android.content.Intent
+import android.content.pm.ActivityInfo
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
@@ -47,7 +48,7 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
+        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
         auth = Firebase.auth
         setListeners()
         getSharedPreferences("Registro", MODE_PRIVATE).edit().clear().apply()

@@ -20,7 +20,19 @@
             android:backgroundTint="#00C6CABA"
             android:padding="10dp"
             android:scaleType="fitCenter"
-            android:src="@drawable/list_icon" />
+            android:src="@drawable/clapper" />
+
+        <ImageButton
+            android:id="@+id/ib_genres"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="1dp"
+            android:layout_weight="1"
+            android:background="@drawable/rounded_button"
+            android:backgroundTint="#00C6CABA"
+            android:padding="10dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/mask" />
 
         <ImageButton
             android:id="@+id/ib_users"
@@ -30,6 +42,7 @@
             android:layout_weight="1"
             android:background="@drawable/rounded_button"
             android:backgroundTint="#00D4E4A4"
+            android:outlineSpotShadowColor="#509C3D"
             android:padding="10dp"
             android:scaleType="fitCenter"
             android:src="@drawable/users_icon" />

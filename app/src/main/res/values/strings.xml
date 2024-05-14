@@ -1,7 +1,7 @@
 <resources>
-    <string name="app_name">No se que ver hoy</string>
+    <string name="app_name">DecideCine</string>
     <string name="login">Iniciar sesión</string>
-    <string name="title_text">Bienvenido a ¿Qué vemos hoy? Introduce tus credenciales para iniciar sesión</string>
+    <string name="title_text">Bienvenido a DecideCine Introduce tus credenciales para iniciar sesión</string>
     <string name="tv_email">Correo electrónico</string>
     <string name="hint_email">Tu correo ...</string>
     <string name="tv_password">Contraseña</string>
@@ -9,7 +9,7 @@
     <string name="tv_not_account">¿Aún no tienes cuenta? </string>
     <string name="tv_register"> Regístrate</string>
     <string name="tv_register1"> 1/3. Crear cuenta </string>
-    <string name="tv_register1_text"> Bienvenido a "Que vemos hoy", vamos a registrarte, para ello
+    <string name="tv_register1_text"> Bienvenido a DecideCine!, vamos a registrarte, para ello
     completa el siguiente formulario, tan sólo te tomará unos minutos</string>
     <string name="tv_user">Nombre de usuario</string>
     <string name="hint_user">Tu usuario ...</string>
@@ -87,7 +87,7 @@
     <string name="invalid_username">Not a valid username</string>
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
-    <string name="tv_users">Usuarios</string>
+    <string name="tv_users">App</string>
     <string name="tv_add">Añadir usuario</string>
     <string name="tv_del">Eliminar usuario</string>
     <string name="tv_prefs">Preferencias</string>

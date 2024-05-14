@@ -3,27 +3,22 @@ package com.example.quevemoshoy.main
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.util.Log
-import android.view.Menu
-import android.view.MenuItem
 import android.view.View
 import android.widget.ImageButton
 import android.widget.ImageView
-import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.example.quevemoshoy.AllGenresActivity
 import com.example.quevemoshoy.DetailActivity
-import com.example.quevemoshoy.LoginActivity
 import com.example.quevemoshoy.R
 import com.example.quevemoshoy.RecyclerActivity
 import com.example.quevemoshoy.adapter.FavAdapter
-import com.example.quevemoshoy.adapter.MovieAdapter
 import com.example.quevemoshoy.database.DBStarter
 import com.example.quevemoshoy.database.DatabaseHelper
 import com.example.quevemoshoy.database.DatabaseManager
@@ -81,11 +76,14 @@ class MainActivity2 : AppCompatActivity() {
     /**
      * Se llama cuando se crea la actividad. Inicializa la vista, la autenticación de Firebase,
      * las preferencias compartidas, los oyentes y las animaciones. También inicia las recomendaciones y la base de datos.
+     *
+     * @param savedInstanceState El estado guardado de la actividad, si está disponible.
      */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMain2Binding.inflate(layoutInflater)
         setContentView(binding.root)
+        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
         supportActionBar?.hide()
         auth = Firebase.auth
         sharedPreferences = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
@@ -231,6 +229,10 @@ class MainActivity2 : AppCompatActivity() {
             startActivity(Intent(this, UsersActivity::class.java))
             this.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
         }
+        optionsFragment.view?.findViewById<ImageButton>(R.id.ib_genres)?.setOnClickListener {
+            startActivity(Intent(this, AllGenresActivity::class.java))
+            this.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+        }
         optionsFragment.view?.findViewById<ImageButton>(R.id.ib_list)?.isClickable = false
 
     }
@@ -249,26 +251,8 @@ class MainActivity2 : AppCompatActivity() {
         binding.cntList.setOnClickListener {
             intentRecycler("myList")
         }
-        binding.cntAllGenres.setOnClickListener {
-            startActivity(Intent(this, AllGenresActivity::class.java))
 
-        }
-        binding.ivActionMain.setOnClickListener {
-            movieManager.fetchAndStartActivity(this, "28")
-            Toast.makeText(this, R.string.action, Toast.LENGTH_SHORT).show()
-        }
-        binding.ivAnimationMain.setOnClickListener {
-            movieManager.fetchAndStartActivity(this, "16")
-            Toast.makeText(this, R.string.animation, Toast.LENGTH_SHORT).show()
-        }
-        binding.ivMysteryMain.setOnClickListener {
-            movieManager.fetchAndStartActivity(this, "9648")
-            Toast.makeText(this, R.string.mistery, Toast.LENGTH_SHORT).show()
-        }
-        binding.ivWesterMain.setOnClickListener {
-            movieManager.fetchAndStartActivity(this, "37")
-            Toast.makeText(this, R.string.western, Toast.LENGTH_SHORT).show()
-        }
+
     }
 
     /**

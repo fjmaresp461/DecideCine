@@ -3,6 +3,7 @@ package com.example.quevemoshoy.main
 
 import android.content.DialogInterface
 import android.content.Intent
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.widget.EditText
 import android.widget.ImageButton
@@ -43,6 +44,7 @@ class UsersActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityUsersBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
         database = FirebaseDatabase.getInstance()
         user = FirebaseAuth.getInstance().currentUser
         uid = user?.uid
@@ -259,6 +261,10 @@ class UsersActivity : AppCompatActivity() {
             supportFragmentManager.findFragmentById(R.id.fragmentContainerView2) as OptionsFragment
         optionsFragment.view?.findViewById<ImageButton>(R.id.ib_list)?.setOnClickListener {
             startActivity(Intent(this, MainActivity2::class.java))
+            this.overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
+        }
+        optionsFragment.view?.findViewById<ImageButton>(R.id.ib_genres)?.setOnClickListener {
+            startActivity(Intent(this, AllGenresActivity::class.java))
             this.overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
         }
         optionsFragment.view?.findViewById<ImageButton>(R.id.ib_settings)?.setOnClickListener {

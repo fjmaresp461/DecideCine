@@ -202,7 +202,7 @@ class RegisterActivity3 : AppCompatActivity() {
                         if (emailTask.isSuccessful) {
                             Toast.makeText(
                                 this,
-                                "Registro exitoso. Por favor, revisa tu correo electrónico para verificar tu cuenta.",
+                                "Registro exitoso.",
                                 Toast.LENGTH_LONG
                             ).show()
                             val uid = user.uid
