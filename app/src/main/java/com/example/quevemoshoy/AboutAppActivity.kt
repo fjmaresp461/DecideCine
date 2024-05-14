@@ -1,7 +1,6 @@
 package com.example.quevemoshoy
 
 
-import android.content.pm.ActivityInfo
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.quevemoshoy.databinding.ActivityAboutAppBinding
@@ -26,7 +25,6 @@ class AboutAppActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityAboutAppBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
         supportActionBar?.hide()
         setListener()
     }
