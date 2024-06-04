@@ -20,8 +20,6 @@ import com.example.quevemoshoy.main.MainActivity2
 import com.example.quevemoshoy.model.Genre
 import com.example.quevemoshoy.model.Movie
 import com.example.quevemoshoy.model.MoviesManager
-import com.example.quevemoshoy.model.MoviesManager.Companion.latestMoviesCache
-import com.example.quevemoshoy.model.MoviesManager.Companion.moviesCache
 import com.example.quevemoshoy.model.Providers
 import com.example.quevemoshoy.model.SimpleMovie
 import kotlinx.coroutines.Dispatchers
@@ -105,13 +103,7 @@ class DetailActivity : AppCompatActivity() {
 
     }
 
-    /**
-     * Actualiza las películas en caché.
-     */
-    suspend fun updateMovies() {
-        moviesCache = MoviesManager().fetchMoviesByGenreAndProvider()
-        latestMoviesCache = MoviesManager().fetchMovies("latest")
-    }
+
 
     /**
      * Recupera y muestra los detalles de una película.

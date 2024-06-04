@@ -7,7 +7,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.quevemoshoy.adapter.MovieAdapter
 import com.example.quevemoshoy.databinding.ActivityRecyclerBinding
-import com.example.quevemoshoy.main.AllGenresActivity
 import com.example.quevemoshoy.main.MainActivity2
 import com.example.quevemoshoy.model.Movie
 

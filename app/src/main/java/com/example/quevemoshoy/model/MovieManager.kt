@@ -5,7 +5,6 @@ import android.content.Intent
 import android.util.Log
 import com.example.quevemoshoy.R
 import com.example.quevemoshoy.RecyclerActivity
-import com.example.quevemoshoy.database.DatabaseManager
 import com.example.quevemoshoy.main.MainActivity2
 import com.example.quevemoshoy.provider.ApiClient
 import com.example.quevemoshoy.provider.MovieInterface
@@ -14,7 +13,6 @@ import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.FirebaseDatabase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
@@ -40,7 +38,7 @@ class MoviesManager {
     private val apiService = ApiClient.retrofit.create(MovieInterface::class.java)
     val auth = FirebaseAuth.getInstance()
     val currentUser = auth.currentUser
-    val allGenres = listOf(
+    private val allGenres = listOf(
         "28",
         "12",
         "16",
@@ -289,12 +287,7 @@ class MoviesManager {
     suspend fun fetchMovieProviders(movieId: Int): List<Providers>? {
         return try {
             val response = apiService.getMovieProviders(movieId)
-            if (response.results.es != null) {
-                response.results.es.providers
-            } else {
-                Log.w("MoviesManager", "No provider data for 'es' region for movie ID: $movieId")
-                null
-            }
+            response.results.es.providers
         } catch (e: Exception) {
             Log.e("MoviesManager", R.string.error_providers.toString(), e)
             null
@@ -344,7 +337,7 @@ class MoviesManager {
      * @param genreId El ID del género.
      * @return Una lista de películas del género proporcionado.
      */
-    suspend fun fetchMoviesByOneGenre(genreId: String): List<Movie> {
+    private suspend fun fetchMoviesByOneGenre(genreId: String): List<Movie> {
         val response = apiService.getMoviesByGenres(genres = genreId)
         return response.movies.take(20)
     }

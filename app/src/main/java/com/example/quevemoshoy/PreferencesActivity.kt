@@ -80,7 +80,7 @@ class PreferencesActivity : AppCompatActivity() {
     /**
      * Actualiza las películas en caché.
      */
-    suspend fun updateMovies() {
+    private suspend fun updateMovies() {
         MoviesManager.moviesCache = MoviesManager().fetchMoviesByGenreAndProvider()
         MoviesManager.latestMoviesCache = MoviesManager().fetchMovies("latest")
     }

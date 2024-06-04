@@ -205,6 +205,7 @@ class LoginActivity : AppCompatActivity() {
      * Se llama cuando se presiona el botón de retroceso. Finaliza la actividad.
      */
     override fun onBackPressed() {
+        super.onBackPressed()
         finishAffinity()
     }
 }

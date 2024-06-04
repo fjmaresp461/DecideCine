@@ -13,7 +13,7 @@ import com.example.quevemoshoy.model.Movie
 /**
  * FavMovieHolder muestra los detalles de una película favorita.
  *
- * @property v La vista que se utilizará para mostrar los detalles de la película.
+ * @property 'v' La vista que se utilizará para mostrar los detalles de la película.
  * @property context El entorno donde se usa este adaptador.
  */
 class FavMovieHolder(v: View, private val context: Context) : RecyclerView.ViewHolder(v) {
