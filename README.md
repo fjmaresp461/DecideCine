@@ -1,6 +1,5 @@
-# README 
-
-## Tabla de Contenidos
+  <img src="screenshots/titulo.png" alt="Titulo"  /> <br><br>
+  <br><img src="screenshots/contenido.png" alt="Titulo" width="300" /> <br><br>
 1. Introducción
 2. Características
 3. Capturas de pantalla
@@ -9,10 +8,10 @@
 6. Instalación desde APK
 
 
-## Introducción
+<br><img src="screenshots/introduccion.png" alt="Introducción" width="300" /> <br><br>
 QueVemosHoy es una aplicación Android que proporciona recomendaciones de películas basadas en las preferencias del usuario. Permite a los usuarios gestionar sus preferencias de género y proveedor, ver una lista de películas recomendadas y más recientes, y añadir películas favoritas a una lista personal.
 
-## Características
+<br><img src="screenshots/caracteristicas.png" alt="Característcas" width="300" /> <br><br>
 - **Gestión de Usuarios**: Los usuarios pueden añadir y eliminar usuarios, y editar las preferencias de los usuarios.
 - **Recomendaciones de Películas**: La aplicación recomienda películas basadas en las preferencias de género y proveedor del usuario.
 - **Películas Favoritas**: Los usuarios pueden añadir películas a una lista personal de favoritos.
@@ -20,7 +19,7 @@ QueVemosHoy es una aplicación Android que proporciona recomendaciones de pelíc
 - **Preferencias de Género**: Los usuarios pueden gestionar sus preferencias de género.
 - **Preferencias de Proveedor**: Los usuarios pueden gestionar sus preferencias de proveedor.
 
-## Capturas de pantalla
+<br><img src="screenshots/capturas.png" alt="Capturas de pantalla" width="300" /> <br><br>
 <p float="left">
   <img src="screenshots/splash.png" alt="Pantalla de carga" width="150" />
   <img src="screenshots/login.png" alt="Pantalla de login" width="150" /> 
@@ -29,7 +28,7 @@ QueVemosHoy es una aplicación Android que proporciona recomendaciones de pelíc
 </p>
 
 
- ## Instalación desde Android Studio
+<br><img src="screenshots/instalacion1.png" alt="Instalación desde Android Studio" width="400" /> <br><br>
  -Lo primero es **clonar** el repositorio y tenerlo en tu android Studio
 Una vez lo tengas clonado, podrás conectar un dispositivo.
  -Asegúrate de tener las **opciones de desarrollador** activadas (cada dispositivo tiene su método de activarlas, puedes consultar cómo hacerlo fácilmente en internet)y el modo depuración en tu dispositivo antes de conectarlo por USB a tu PC.
@@ -42,7 +41,7 @@ Una vez lo tengas clonado, podrás conectar un dispositivo.
  Simplemente presiona play en Android Studio y espera a que se instale.
  Algunos dispositivos quizás requieran que les otorgues ciertos permisos adicionales en ese momento.
 
-## Instalación desde APK
+<br><img src="screenshots/instalacion2.png" alt="Instalaciónd desde APK" width="300" /> <br><br>
 -Para poder realizar la instalación desde el APK, dependiendo de la **versión** de Android que tengas, deberás dar permisos para poder instalarlo, o en el momento de su instalación.
 #Versiones de Android inferiores a 8.0
 Deberás habilitar en tus ajustes/seguridad, la instalación de origenes desconocidos. La instalación se hará normal.
