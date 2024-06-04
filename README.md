@@ -29,4 +29,8 @@ Para empezar con QueVemosHoy, clona el repositorio y abre el proyecto en Android
 - Glide
 
 ## Capturas de pantalla
-![Descripción de la imagen](screenshots/1.png)
+![Pantalla de carga](screenshots/splash.png)
+![Pantalla de login](screenshots/login.png)
+![Pantalla principala](screenshots/main.png)
+![Pantalla don los generos](screenshots/genres.png)
+![Parte de la pantalla de detalle](screenshots/splash.png)
