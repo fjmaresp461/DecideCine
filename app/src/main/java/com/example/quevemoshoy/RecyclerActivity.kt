@@ -61,13 +61,10 @@ class RecyclerActivity : AppCompatActivity() {
      */
     override fun onBackPressed() {
         super.onBackPressed()
-        val isFromAllGenres = intent.getBooleanExtra("isFromAllGenres", false)
-        if (isFromAllGenres) {
-            startActivity(Intent(this, AllGenresActivity::class.java))
-        } else {
+
             startActivity(Intent(this, MainActivity2::class.java))
 
-        }
+
 
     }
 }

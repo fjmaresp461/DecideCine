@@ -178,54 +178,55 @@ class MoviesManager {
      * @return Una lista de películas.
      */
     suspend fun fetchMoviesByGenreAndProvider(): List<Movie> {
-        val currentUserGenrePreferences = getAllGenrePreferences(currentUser).toMutableList()
+        var currentUserGenrePreferences =
+            getAllGenrePreferences(currentUser).toMutableList() // Obtiene preferencias de género del usuario
 
+        // Si se cambian las preferencias, se elimina la lista para actualizarse
         if (genrePreferencesCache != currentUserGenrePreferences) {
             moviesCache = null
         }
-
+        // Si la lista cache de peliculas no esta vacia, las devuelve directamente
         if (moviesCache != null && moviesCache!!.isNotEmpty()) {
             return moviesCache!!
         }
-
+        // Se obtienen proveedores preferidos
         val preferredProviderIds = getPreferredProviders(currentUser)
-
-        if (currentUserGenrePreferences.isEmpty()) {
-            currentUserGenrePreferences.addAll(allGenres.shuffled().take(3))
-        }
-
-        val allMovies = mutableListOf<Movie>()
+        val allMoviesWithProviders = mutableListOf<Movie>()
+        val allMoviesWithoutProviders = mutableListOf<Movie>()
         val genreMovies = mutableMapOf<String, MutableList<Movie>>()
 
+        // Si el usuario no ha seleccionado un genero mayor a 7 minimo, escogemos generos aleatorios de la lista
+        if (currentUserGenrePreferences.isEmpty()) {
+            val numRandomGenres = (1..5).random()
+            currentUserGenrePreferences = allGenres.shuffled().take(numRandomGenres).toMutableList()
+        }
+        // Itera sobre los generos preferidos del usuario
         for (genreId in currentUserGenrePreferences) {
             val response = apiService.getMoviesByGenres(genres = genreId)
             val movies = response.movies
 
             for (movie in movies) {
                 val providers = fetchMovieProviders(movie.id)
+                // Añadimos peliculas que tienen proveedores preferidos
                 if (providers?.any { it.providerId in preferredProviderIds } == true) {
                     genreMovies.getOrPut(genreId) { mutableListOf() }.add(movie)
-                }
-            }
-
-            if (allMovies.size < 12) {
-                for (movie in movies) {
-                    if (movie !in allMovies) {
-                        allMovies.add(movie)
-                    }
-                    if (allMovies.size >= 12) {
-                        break
-                    }
+                    allMoviesWithProviders.add(movie)
+                } else {
+                    // Añadimos peliculas que no tienen proveedores a la lista
+                    allMoviesWithoutProviders.add(movie)
                 }
             }
         }
 
-        allMovies.shuffle()
-Log.d("prueba",allMovies.toString())
+        // combina las dos listas, priorizando primero las peliculas con proveedores
 
-        moviesCache = allMovies
+        val finalMovieList = allMoviesWithProviders + allMoviesWithoutProviders.take(
+            (12 - allMoviesWithProviders.size).coerceAtLeast(0)
+        )
+        // Se actualiza la lista cache
+        moviesCache = finalMovieList
 
-        return allMovies
+        return finalMovieList
     }
 
     /**
@@ -292,7 +293,7 @@ Log.d("prueba",allMovies.toString())
                 response.results.es.providers
             } else {
                 Log.w("MoviesManager", "No provider data for 'es' region for movie ID: $movieId")
-                null  // Or return an empty list: emptyList()
+                null
             }
         } catch (e: Exception) {
             Log.e("MoviesManager", R.string.error_providers.toString(), e)

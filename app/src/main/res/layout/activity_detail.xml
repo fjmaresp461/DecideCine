@@ -57,7 +57,6 @@
                 android:layout_marginBottom="8dp"
                 android:fontFamily="sans-serif-light"
                 android:text="La historia interminable"
-
                 android:textSize="30sp"
                 android:textStyle="bold"
                 app:layout_collapseMode="parallax" />
@@ -90,10 +89,8 @@
                 android:id="@+id/providersLayout"
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
-
-
                 android:gravity="end"
-                android:orientation="horizontal"></LinearLayout>
+                android:orientation="horizontal"/>
 
 
             <TextView
@@ -111,7 +108,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="end"
-                android:text="Añadir a tu lista"
+                android:text="@string/add_list"
                 android:verticalScrollbarPosition="defaultPosition"
                 app:layout_collapseMode="parallax"
                 android:fontFamily="@font/comfortaa_bold"
@@ -125,7 +122,7 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
                 android:fontFamily="@font/comfortaa_bold"
-                android:text="Sinopsis"
+                android:text="@string/summary"
 
                 android:textColor="#D7E7A6"
                 android:textSize="26sp"

@@ -202,7 +202,7 @@ class RegisterActivity3 : AppCompatActivity() {
                         if (emailTask.isSuccessful) {
                             Toast.makeText(
                                 this,
-                                "Registro exitoso.",
+                                R.string.registration_successful,
                                 Toast.LENGTH_LONG
                             ).show()
                             val uid = user.uid
@@ -212,7 +212,7 @@ class RegisterActivity3 : AppCompatActivity() {
                         } else {
                             Log.d(
                                 "RegisterActivity",
-                                "Error al enviar el correo de verificación",
+                                getString(R.string.error_sending_verification_email),
                                 emailTask.exception
                             )
                         }
@@ -221,18 +221,18 @@ class RegisterActivity3 : AppCompatActivity() {
                     when (task.exception) {
                         is FirebaseAuthUserCollisionException -> {
                             Toast.makeText(
-                                this, "Este correo electrónico ya está en uso.", Toast.LENGTH_SHORT
+                                this, R.string.email_already_in_use, Toast.LENGTH_SHORT
                             ).show()
                         }
 
                         is FirebaseAuthInvalidCredentialsException -> {
                             Toast.makeText(
-                                this, "El correo electrónico está mal formado.", Toast.LENGTH_SHORT
+                                this, getString(R.string.email_is_malformed), Toast.LENGTH_SHORT
                             ).show()
                         }
 
                         else -> {
-                            Log.d("RegisterActivity", "Registro fallido", task.exception)
+                            Log.d("RegisterActivity", getString(R.string.registration_failed), task.exception)
                         }
                     }
                 }

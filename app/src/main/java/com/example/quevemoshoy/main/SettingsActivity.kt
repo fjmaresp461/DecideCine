@@ -70,15 +70,15 @@ class SettingsActivity : AppCompatActivity() {
     private fun showDeleteAccountDialog() {
         val userId = FirebaseAuth.getInstance().currentUser?.uid
         if (userId != null) {
-            AlertDialog.Builder(this).setTitle("Eliminar cuenta")
-                .setMessage("¿Estás seguro de que quieres eliminar tu cuenta? Esta acción no se puede deshacer.")
-                .setPositiveButton("Sí") { _, _ ->
+            AlertDialog.Builder(this).setTitle(R.string.delete_account_title)
+                .setMessage(R.string.delete_account_message)
+                .setPositiveButton(R.string.yes) { _, _ ->
                     deleteUserAccount(userId)
                     auth.signOut()
                     startActivity(Intent(this, LoginActivity::class.java))
-                }.setNegativeButton("No", null).show()
+                }.setNegativeButton(R.string.no, null).show()
         } else {
-            Log.e(TAG, "Usuario no autenticado")
+            Log.e(TAG, getString(R.string.user_not_authenticated))
         }
 
     }
@@ -92,9 +92,9 @@ class SettingsActivity : AppCompatActivity() {
         val database = FirebaseDatabase.getInstance()
         val userRef = database.getReference("users/$userId")
         userRef.removeValue().addOnSuccessListener {
-            Log.d(TAG, "Usuario eliminado exitosamente")
+            Log.d(TAG, R.string.user_deleted_success.toString())
         }.addOnFailureListener { e ->
-            Log.e(TAG, "Error al eliminar usuario", e)
+            Log.e(TAG, R.string.user_deleted_error.toString(), e)
         }
     }
 

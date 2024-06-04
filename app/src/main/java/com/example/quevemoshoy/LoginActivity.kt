@@ -78,7 +78,7 @@ class LoginActivity : AppCompatActivity() {
 
             if (email.isEmpty()) {
                 Toast.makeText(
-                    this, "Por favor, introduce el correo electrónico.", Toast.LENGTH_SHORT
+                    this, getString(R.string.please_enter_email), Toast.LENGTH_SHORT
                 ).show()
             } else {
                 auth.signInWithEmailAndPassword(email, pass).addOnCompleteListener { task ->
@@ -86,7 +86,7 @@ class LoginActivity : AppCompatActivity() {
                         val user = auth.currentUser
                         checkPreferences(user)
                     } else {
-                        Toast.makeText(this, "Authentication failed.", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this, R.string.authentication_failed, Toast.LENGTH_SHORT).show()
                     }
                 }
             }
@@ -96,11 +96,11 @@ class LoginActivity : AppCompatActivity() {
         binding.tvForgottenPass.setOnClickListener {
             val email = binding.etEmail.text.toString().trim()
             if (email.isEmpty()) {
-                Toast.makeText(this, "Ingresa un email por favor", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, R.string.please_enter_email, Toast.LENGTH_SHORT).show()
             } else {
                 auth.sendPasswordResetEmail(email).addOnCompleteListener { task ->
                     if (task.isSuccessful) {
-                        Toast.makeText(this, "Email Enviado, revisa tu correo", Toast.LENGTH_SHORT)
+                        Toast.makeText(this, getString(R.string.email_sent), Toast.LENGTH_SHORT)
                             .show()
                     } else {
                         Toast.makeText(this, "Error.", Toast.LENGTH_SHORT).show()
@@ -156,7 +156,7 @@ class LoginActivity : AppCompatActivity() {
         user?.let {
             if (!it.isEmailVerified) {
                 Toast.makeText(
-                    this, "Por favor, verifica tu correo electrónico.", Toast.LENGTH_SHORT
+                    this, getString(R.string.verify_email), Toast.LENGTH_SHORT
                 ).show()
                 auth.signOut()
                 return

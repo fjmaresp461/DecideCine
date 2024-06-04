@@ -6,9 +6,8 @@ import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.quevemoshoy.DetailActivity
-import com.example.quevemoshoy.RecyclerActivity
 import com.example.quevemoshoy.databinding.CardviewHorizontalBinding
-import com.example.quevemoshoy.databinding.SeeMoreBinding
+
 import com.example.quevemoshoy.model.Movie
 
 /**

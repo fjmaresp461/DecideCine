@@ -144,7 +144,7 @@ class DetailActivity : AppCompatActivity() {
             Toast.makeText(this, R.string.movie_dont_available, Toast.LENGTH_SHORT).show()
         } else {
             val stringBuilder = StringBuilder()
-            stringBuilder.append("Plataformas disponibles: ")
+            stringBuilder.append(R.string.available_platforms.toString())
             providers.forEach { provider ->
                 stringBuilder.append(provider.providerName).append(", ")
                 val imageView = ImageView(this)

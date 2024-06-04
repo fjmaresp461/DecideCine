@@ -464,16 +464,6 @@
                 android:scrollbarStyle="outsideInset"
                 android:thumb="@drawable/thumb"/>
 
-            <Button
-                android:id="@+id/btnSave"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/button"
-                android:text="@string/finish"
-                android:textAllCaps="false"
-                android:textColor="#FF191A19"
-                />
-
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">

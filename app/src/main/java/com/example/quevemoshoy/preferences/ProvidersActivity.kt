@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.quevemoshoy.R
 import com.example.quevemoshoy.databinding.ActivityProvidersBinding
 import com.example.quevemoshoy.main.MainActivity2
+import com.example.quevemoshoy.model.MoviesManager
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -65,6 +66,7 @@ class ProvidersActivity : AppCompatActivity() {
 
         binding.btnFinish.setOnClickListener {
             saveProviderPreferencesToFirebase()
+            MoviesManager.moviesCache = null
             startActivity(Intent(this, MainActivity2::class.java))
             this.overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
         }
@@ -94,7 +96,7 @@ class ProvidersActivity : AppCompatActivity() {
 
             override fun onCancelled(error: DatabaseError) {
 
-                Log.w(TAG, "Failed to read value.", error.toException())
+                Log.w(TAG, getString(R.string.failed_to_read_value), error.toException())
             }
         })
     }

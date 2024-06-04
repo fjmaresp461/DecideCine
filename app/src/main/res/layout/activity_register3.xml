@@ -196,6 +196,6 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 
-    <!-- Aquí puedes poner tus elementos fuera del ScrollView -->
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

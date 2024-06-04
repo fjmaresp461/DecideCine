@@ -59,7 +59,7 @@ class RegisterActivity1 : AppCompatActivity() {
                 startActivity(Intent(this, RegisterActivity2::class.java))
                 this.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
             } else {
-                Toast.makeText(this, "Parece que falta algo", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, R.string.missing_fields_message, Toast.LENGTH_SHORT).show()
             }
         }
         binding.tvLogin.setOnClickListener {
@@ -87,7 +87,7 @@ class RegisterActivity1 : AppCompatActivity() {
         val repeatPassword = binding.etRepeatPassword.text.toString().trim()
 
         if (password != repeatPassword) {
-            binding.etRepeatPassword.error = "Las contraseñas no coinciden"
+            binding.etRepeatPassword.error = getString(R.string.passwords_do_not_match)
             return
         }
 
@@ -113,36 +113,39 @@ class RegisterActivity1 : AppCompatActivity() {
 
         if (FirebaseAuth.getInstance().currentUser != null) {
             if (user.isBlank()) {
-                binding.etUser.error = "El usuario es obligatorio"
+                binding.etUser.error =  getString(R.string.user_is_required)
                 isValid = false
             }
 
         } else {
             if (user.isBlank()) {
-                binding.etUser.error = "El usuario es obligatorio"
+                binding.etUser.error = getString(R.string.user_is_required)
                 isValid = false
             }
             if (email.isBlank()) {
-                binding.etEmail.error = "El email es obligatorio"
+                binding.etEmail.error = getString(R.string.email_is_required)
+                isValid = false
+            }else if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+                binding.etEmail.error =  getString(R.string.invalid_email)
                 isValid = false
             }else if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
                 binding.etEmail.error = "El email no es válido"
                 isValid = false
             }
             if (password.isBlank()) {
-                binding.etPassword.error = "La contraseña es obligatoria"
+                binding.etPassword.error = getString(R.string.password_is_required)
                 isValid = false
             }
             if (password.length < 8) {
-                binding.etPassword.error = "Contraseña minimo 8 caracteres"
+                binding.etPassword.error =  getString(R.string.password_min_length)
                 isValid = false
             }
             if (binding.etRepeatPassword.text.isNullOrBlank()) {
-                binding.etRepeatPassword.error = "Debes repetir la contraseña"
+                binding.etRepeatPassword.error = getString(R.string.repeat_password_is_required)
                 isValid = false
             }
             if (password != repeatPassword) {
-                binding.etRepeatPassword.error = "Las contraseñas no coinciden"
+                binding.etRepeatPassword.error = getString(R.string.passwords_do_not_match)
                 isValid = false
             }
         }
