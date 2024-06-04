@@ -32,22 +32,22 @@ QueVemosHoy es una aplicación Android que proporciona recomendaciones de pelíc
 <br><img src="screenshots/instalacion1.png" alt="Instalación desde Android Studio" width="400" /> <br><br>
  -Lo primero es **clonar** el repositorio y tenerlo en tu android Studio
 Una vez lo tengas clonado, podrás conectar un dispositivo.
- -Asegúrate de tener las **opciones de desarrollador** activadas (cada dispositivo tiene su método de activarlas, puedes consultar cómo hacerlo fácilmente en internet)y el modo depuración en tu dispositivo antes de conectarlo por USB a tu PC.
-
+ -Asegúrate de tener las **opciones de desarrollador** activadas (cada dispositivo tiene su método de activarlas, puedes consultar cómo hacerlo fácilmente en internet) y el modo depuración en tu dispositivo antes de conectarlo por USB a tu PC.
 
  Cuando lo conectes, estando tu proyecto abierto en Android Studio, en tu dispositivo, te pedirá que des acceso al dispositivo, aceptalos.
- Si todo ha ido de forma correcta, aparecerá tu modelo, donde antes estaba el dispositivo virtualizado
+ Si todo ha ido de forma correcta, aparecerá tu modelo, donde antes estaba el dispositivo virtualizado.
+ <br><img src="screenshots/dipositivos.png" alt="Dispositivos" width="300" /> <br><br>
 
  
  Simplemente presiona play en Android Studio y espera a que se instale.
  Algunos dispositivos quizás requieran que les otorgues ciertos permisos adicionales en ese momento.
 
 <br><img src="screenshots/instalacion2.png" alt="Instalaciónd desde APK" width="300" /> <br><br>
--Para poder realizar la instalación desde el APK, dependiendo de la **versión** de Android que tengas, deberás dar permisos para poder instalarlo, o en el momento de su instalación.
-#Versiones de Android inferiores a 8.0
+-Para poder realizar la instalación desde el APK, dependiendo de la **versión** de Android que tengas, deberás dar permisos para poder instalarlo, o en el momento de su instalación.<br>
+## Versiones de Android inferiores a 8.0
 Deberás habilitar en tus ajustes/seguridad, la instalación de origenes desconocidos. La instalación se hará normal.
 
-#Versiones de Android **superiores** a 8.0
+## Versiones de Android **superiores** a 8.0
 
 En el momento de la instalación, se te pedirá otorgar permisos de instalación al sistema.
 <br><img src="screenshots/permisos.png" alt="Aviso de permisos necesarios" width="200"><br>
