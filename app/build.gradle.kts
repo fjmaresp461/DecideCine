@@ -81,8 +81,8 @@ dependencies {
     //galeria imagenes
     implementation("androidx.activity:activity-ktx:1.9.0")
     //Para autenticacion con google aparte del sdk
-    implementation("com.google.android.gms:play-services-auth-base:18.0.12")
-    implementation("com.google.android.gms:play-services-auth:21.1.1")
+    implementation("com.google.android.gms:play-services-auth-base:18.0.13")
+    implementation("com.google.android.gms:play-services-auth:21.2.0")
     //Retrofit
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")

@@ -40,6 +40,7 @@
         android:layout_height="0dp"
         android:layout_marginTop="18dp"
         android:text="@string/tv_user"
+
         android:textColor="#000000"
         android:textSize="20sp"
         android:textStyle="bold"
@@ -50,6 +51,7 @@
 
     <EditText
         android:id="@+id/et_user"
+        android:fontFamily="@font/comfortaa_bold"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
@@ -83,6 +85,7 @@
 
     <EditText
         android:id="@+id/et_email"
+        android:fontFamily="@font/comfortaa_bold"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
@@ -114,6 +117,7 @@
 
     <EditText
         android:id="@+id/et_password"
+        android:fontFamily="@font/comfortaa_bold"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
@@ -145,6 +149,7 @@
 
     <EditText
         android:id="@+id/et_repeat_password"
+        android:fontFamily="@font/comfortaa_bold"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
@@ -180,6 +185,7 @@
         android:layout_marginTop="50dp"
         android:text="@string/have_account"
         android:textColor="#4C4949"
+        android:fontFamily="@font/comfortaa_bold"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="@+id/btn_continue"
         app:layout_constraintTop_toBottomOf="@+id/btn_continue" />
@@ -191,6 +197,7 @@
         android:layout_marginTop="50dp"
         android:clickable="true"
         android:text="@string/tv_login"
+        android:fontFamily="@font/comfortaa_bold"
         android:textColor="#64B6CD"
         android:textSize="20sp"
         android:textStyle="bold"

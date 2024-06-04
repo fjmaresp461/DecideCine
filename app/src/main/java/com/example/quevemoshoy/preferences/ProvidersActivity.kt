@@ -2,6 +2,7 @@ package com.example.quevemoshoy.preferences
 
 import android.content.ContentValues.TAG
 import android.content.Intent
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.util.Log
 import android.widget.ImageButton
@@ -35,6 +36,7 @@ class ProvidersActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityProvidersBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
         setListeners()
         loadPreferencesFromFirebase()
         supportActionBar?.hide()

@@ -40,17 +40,20 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="16dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+
                 android:paddingStart="5dp"
                 android:text="@string/gen_action"
                 android:textColor="#292727"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                android:fontFamily="@font/comfortaa_bold"
+                android:textStyle="bold" />
 
             <SeekBar
                 android:id="@+id/actionSeekBar"
@@ -69,6 +72,8 @@
                 android:layout_height="wrap_content"
                 android:paddingStart="5dp"
                 android:text="@string/gen_adventure"
+                android:fontFamily="@font/comfortaa_bold"
+                android:textStyle="bold"
                 android:textColor="#292727"
                 android:textSize="20sp"
                 />
@@ -91,7 +96,9 @@
                 android:paddingStart="5dp"
                 android:text="@string/gen_animation"
                 android:textColor="#292727"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                android:fontFamily="@font/comfortaa_bold"
+                android:textStyle="bold"/>
 
             <SeekBar
                 android:id="@+id/animationSeekBar"
@@ -111,7 +118,9 @@
                 android:paddingStart="5dp"
                 android:text="@string/gen_comedy"
                 android:textColor="#292727"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                android:fontFamily="@font/comfortaa_bold"
+                android:textStyle="bold"/>
 
             <SeekBar
                 android:id="@+id/comedySeekBar"
@@ -131,7 +140,9 @@
                 android:paddingStart="5dp"
                 android:text="@string/gen_crime"
                 android:textColor="#292727"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                android:fontFamily="@font/comfortaa_bold"
+                android:textStyle="bold"/>
 
             <SeekBar
                 android:id="@+id/crimeSeekBar"
@@ -151,7 +162,9 @@
                 android:paddingStart="5dp"
                 android:text="@string/gen_documentary"
                 android:textColor="#292727"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                android:fontFamily="@font/comfortaa_bold"
+                android:textStyle="bold"/>
 
             <SeekBar
                 android:id="@+id/documentarySeekBar"
@@ -171,7 +184,9 @@
                 android:paddingStart="5dp"
                 android:text="@string/gen_drama"
                 android:textColor="#292727"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                android:fontFamily="@font/comfortaa_bold"
+                android:textStyle="bold"/>
 
             <SeekBar
                 android:id="@+id/dramaSeekBar"
@@ -191,7 +206,9 @@
                 android:paddingStart="5dp"
                 android:text="@string/gen_family"
                 android:textColor="#292727"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                android:fontFamily="@font/comfortaa_bold"
+                android:textStyle="bold"/>
 
             <SeekBar
                 android:id="@+id/familySeekBar"
@@ -211,7 +228,9 @@
                 android:paddingStart="5dp"
                 android:text="@string/gen_fantasy"
                 android:textColor="#292727"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                android:fontFamily="@font/comfortaa_bold"
+                android:textStyle="bold"/>
 
             <SeekBar
                 android:id="@+id/fantasySeekBar"
@@ -231,7 +250,9 @@
                 android:paddingStart="5dp"
                 android:text="@string/gen_history"
                 android:textColor="#292727"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                android:fontFamily="@font/comfortaa_bold"
+                android:textStyle="bold"/>
 
             <SeekBar
                 android:id="@+id/historySeekBar"
@@ -251,7 +272,9 @@
                 android:paddingStart="5dp"
                 android:text="@string/gen_horror"
                 android:textColor="#292727"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                android:fontFamily="@font/comfortaa_bold"
+                android:textStyle="bold"/>
 
             <SeekBar
                 android:id="@+id/horrorSeekBar"
@@ -271,7 +294,9 @@
                 android:paddingStart="5dp"
                 android:text="@string/gen_music"
                 android:textColor="#292727"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                android:fontFamily="@font/comfortaa_bold"
+                android:textStyle="bold"/>
 
             <SeekBar
                 android:id="@+id/musicSeekBar"
@@ -291,7 +316,9 @@
                 android:paddingStart="5dp"
                 android:text="@string/gen_mystery"
                 android:textColor="#292727"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                android:fontFamily="@font/comfortaa_bold"
+                android:textStyle="bold"/>
 
             <SeekBar
                 android:id="@+id/mysterySeekBar"
@@ -311,7 +338,9 @@
                 android:paddingStart="5dp"
                 android:text="@string/gen_romance"
                 android:textColor="#292727"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                android:fontFamily="@font/comfortaa_bold"
+                android:textStyle="bold"/>
 
             <SeekBar
                 android:id="@+id/romanceSeekBar"
@@ -331,7 +360,9 @@
                 android:paddingStart="5dp"
                 android:text="@string/gen_scifi"
                 android:textColor="#292727"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                android:fontFamily="@font/comfortaa_bold"
+                android:textStyle="bold"/>
 
             <SeekBar
                 android:id="@+id/scifiSeekBar"
@@ -351,7 +382,9 @@
                 android:paddingStart="5dp"
                 android:text="@string/gen_tv_movie"
                 android:textColor="#292727"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                android:fontFamily="@font/comfortaa_bold"
+                android:textStyle="bold"/>
 
             <SeekBar
                 android:id="@+id/tvMovieSeekBar"
@@ -371,7 +404,9 @@
                 android:paddingStart="5dp"
                 android:text="@string/gen_thriller"
                 android:textColor="#292727"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                android:fontFamily="@font/comfortaa_bold"
+                android:textStyle="bold"/>
 
             <SeekBar
                 android:id="@+id/thrillerSeekBar"
@@ -391,7 +426,9 @@
                 android:paddingStart="5dp"
                 android:text="@string/gen_war"
                 android:textColor="#292727"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                android:fontFamily="@font/comfortaa_bold"
+                android:textStyle="bold"/>
 
             <SeekBar
                 android:id="@+id/warSeekBar"
@@ -411,7 +448,9 @@
                 android:paddingStart="5dp"
                 android:text="@string/gen_western"
                 android:textColor="#292727"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                android:fontFamily="@font/comfortaa_bold"
+                android:textStyle="bold"/>
 
             <SeekBar
                 android:id="@+id/westernSeekBar"
@@ -424,6 +463,16 @@
                 android:progressTint="#FFD7E8A7"
                 android:scrollbarStyle="outsideInset"
                 android:thumb="@drawable/thumb"/>
+
+            <Button
+                android:id="@+id/btnSave"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/button"
+                android:text="@string/finish"
+                android:textAllCaps="false"
+                android:textColor="#FF191A19"
+                />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"

@@ -1,11 +1,13 @@
 package com.example.quevemoshoy
 
 import android.content.Intent
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.quevemoshoy.adapter.MovieAdapter
 import com.example.quevemoshoy.databinding.ActivityRecyclerBinding
+import com.example.quevemoshoy.main.AllGenresActivity
 import com.example.quevemoshoy.main.MainActivity2
 import com.example.quevemoshoy.model.Movie
 
@@ -32,6 +34,7 @@ class RecyclerActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityRecyclerBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
         moviesList = (intent.getSerializableExtra("movies") as? ArrayList<Movie>)!!
         supportActionBar?.hide()
         setRecyclerView(moviesList)

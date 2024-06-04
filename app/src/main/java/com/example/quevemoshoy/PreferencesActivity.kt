@@ -1,6 +1,7 @@
 package com.example.quevemoshoy
 
 import android.content.Intent
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.widget.SeekBar
 import android.widget.Toast
@@ -42,6 +43,7 @@ class PreferencesActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityPreferencesBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
         supportActionBar?.hide()
         setListener()
         val isFirstTime = intent.getBooleanExtra("firstTime", false)
