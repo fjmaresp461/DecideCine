@@ -125,6 +125,9 @@ class RegisterActivity1 : AppCompatActivity() {
             if (email.isBlank()) {
                 binding.etEmail.error = "El email es obligatorio"
                 isValid = false
+            }else if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+                binding.etEmail.error = "El email no es válido"
+                isValid = false
             }
             if (password.isBlank()) {
                 binding.etPassword.error = "La contraseña es obligatoria"

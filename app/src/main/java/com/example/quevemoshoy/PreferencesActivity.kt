@@ -70,6 +70,7 @@ class PreferencesActivity : AppCompatActivity() {
             CoroutineScope(Dispatchers.IO).launch {
                 updateMovies()
             }
+            MoviesManager.moviesCache = null
             val intent = Intent(this, MainActivity2::class.java)
             intent.putExtra("preferencesChanged", true)
             startActivity(intent)

@@ -65,7 +65,6 @@ class MoviesManager {
 
     companion object {
         var moviesCache: List<Movie>? = null
-
         var genrePreferencesCache: List<String>? = null
         var latestMoviesCache: List<Movie>? = null
     }
@@ -222,7 +221,7 @@ class MoviesManager {
         }
 
         allMovies.shuffle()
-
+Log.d("prueba",allMovies.toString())
 
         moviesCache = allMovies
 
@@ -289,7 +288,12 @@ class MoviesManager {
     suspend fun fetchMovieProviders(movieId: Int): List<Providers>? {
         return try {
             val response = apiService.getMovieProviders(movieId)
-            response.results.es.providers
+            if (response.results.es != null) {
+                response.results.es.providers
+            } else {
+                Log.w("MoviesManager", "No provider data for 'es' region for movie ID: $movieId")
+                null  // Or return an empty list: emptyList()
+            }
         } catch (e: Exception) {
             Log.e("MoviesManager", R.string.error_providers.toString(), e)
             null
