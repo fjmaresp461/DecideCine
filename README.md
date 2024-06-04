@@ -6,6 +6,7 @@
 4. Análisis de código
 5. Instalación desde Android Studio
 6. Instalación desde APK
+7. Descarga de archivo apk
 
 
 <br><img src="screenshots/introduccion.png" alt="Introducción" width="300" /> <br><br>
@@ -59,3 +60,10 @@ En este punto se nos **preguntará** si queremos instalarlo.
 
 Y ya estaria **instalado**.
 <br><img src="screenshots/instalado.png" alt="Aplicación instalada" width="200"><br>
+
+
+<br><img src="screenshots/descarga.png" alt="DEscarga el APK" width="200"><br><br>
+
+<a href="https://github.com/fjmaresp461/DecideCine/raw/master/APK/decidecine1.0.apk" download>Descargar APK</a>
+
+
