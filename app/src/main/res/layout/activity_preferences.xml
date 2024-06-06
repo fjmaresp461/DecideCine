@@ -444,8 +444,7 @@
                 android:background="@drawable/button"
                 android:text="@string/finish"
                 android:textAllCaps="false"
-                android:textColor="#FF191A19"
-                />
+                android:textColor="#FF191A19" />
 
         </LinearLayout>
 
