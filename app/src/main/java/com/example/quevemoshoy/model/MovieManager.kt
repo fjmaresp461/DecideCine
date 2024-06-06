@@ -236,7 +236,8 @@ class MoviesManager {
 
 
     suspend fun fetchMovies(recommendationType: String): List<Movie> {
-        val allMovies = mutableListOf<Movie>()
+        val allMoviesWithProviders = mutableListOf<Movie>()
+        val allMoviesWithoutProviders = mutableListOf<Movie>()
         val favMovies = mutableListOf<Movie>()
 
         try {
@@ -245,26 +246,23 @@ class MoviesManager {
                     return latestMoviesCache!!
                 }
 
+                val preferredProviderIds = getPreferredProviders(currentUser)
                 val response = apiService.getLatestMovies()
+
                 for (movie in response.movies) {
                     val providers = fetchMovieProviders(movie.id)
-                    if (providers?.any { it.providerId in getPreferredProviders(currentUser) } == true) {
-                        allMovies.add(movie)
-                        if (allMovies.size == 20) {
-                            break
-                        }
+                    if (providers?.any { it.providerId in preferredProviderIds } == true) {
+                        allMoviesWithProviders.add(movie)
+                    } else {
+                        allMoviesWithoutProviders.add(movie)
                     }
                 }
 
-                if (allMovies.size < 20) {
-                    val additionalMovies =
-                        response.movies.filter { it !in allMovies }.take(20 - allMovies.size)
-                    allMovies.addAll(additionalMovies)
-                }
+                val finalMovieList = allMoviesWithProviders + allMoviesWithoutProviders.take(
+                    (12 - allMoviesWithProviders.size).coerceAtLeast(0)
+                )
 
-
-                allMovies.shuffle()
-                latestMoviesCache = allMovies.take(12)
+                latestMoviesCache = finalMovieList.take(12)
             } else if (recommendationType == "myList") {
                 favMovies.addAll(MainActivity2.favoriteMoviesList.filterNotNull())
                 return favMovies
