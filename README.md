@@ -10,7 +10,8 @@
 
 
 
-<br><a href="#introduccion"><img src="screenshots/introduccion.png" alt="Introducción" width="300" /></a><br><br>
+<br><img src="screenshots/introduccion.png" alt="Introducción" width="300" id="introduccion" /> <br><br> <a name="introduccion"></a>
+ 
 QueVemosHoy es una aplicación Android que proporciona recomendaciones de películas basadas en las preferencias del usuario. Permite a los usuarios gestionar sus preferencias de género y proveedor, ver una lista de películas recomendadas y más recientes, y añadir películas favoritas a una lista personal.
 
 <br><img src="screenshots/caracteristicas.png" alt="Característcas" width="300" /> <br><br>
