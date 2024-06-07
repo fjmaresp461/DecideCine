@@ -1,15 +1,16 @@
   <img src="screenshots/titulo.png" alt="Titulo"  /> <br><br>
   <br><img src="screenshots/contenido.png" alt="Titulo" width="300" /> <br><br>
 1. [Introducción](#introduccion)
-2. Características
-3. Capturas de pantalla
-4. Análisis de código
-5. Instalación desde Android Studio
-6. Instalación desde APK
-7. Descarga de archivo apk
+2. [Características](#caracteristicas)
+3. [Capturas de pantalla](#capturas-de-pantalla)
+4. [Análisis de código](#analisis-de-codigo)
+5. [Instalación desde Android Studio](#instalacion-desde-android-studio)
+6. [Instalación desde APK](#instalacion-desde-apk)
+7. [Descarga de archivo apk](#descarga-de-archivo-apk)
 
 
-<br><img src="screenshots/introduccion.png" alt="Introducción" width="300" /> <br><br>
+
+<br><a href="#introduccion"><img src="screenshots/introduccion.png" alt="Introducción" width="300" /></a><br><br>
 QueVemosHoy es una aplicación Android que proporciona recomendaciones de películas basadas en las preferencias del usuario. Permite a los usuarios gestionar sus preferencias de género y proveedor, ver una lista de películas recomendadas y más recientes, y añadir películas favoritas a una lista personal.
 
 <br><img src="screenshots/caracteristicas.png" alt="Característcas" width="300" /> <br><br>
