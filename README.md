@@ -3,10 +3,9 @@
 1. [Introducción](#introduccion)
 2. [Características](#caracteristicas)
 3. [Capturas de pantalla](#capturas-de-pantalla)
-4. [Análisis de código](#analisis-de-codigo)
-5. [Instalación desde Android Studio](#instalacion-desde-android-studio)
-6. [Instalación desde APK](#instalacion-desde-apk)
-7. [Descarga de archivo apk](#descarga-de-archivo-apk)
+4. [Instalación desde Android Studio](#instalacion-desde-android-studio)
+5. [Instalación desde APK](#instalacion-desde-apk)
+6. [Descarga de archivo apk](#descarga-de-archivo-apk)
 
 
 
@@ -14,7 +13,7 @@
  
 QueVemosHoy es una aplicación Android que proporciona recomendaciones de películas basadas en las preferencias del usuario. Permite a los usuarios gestionar sus preferencias de género y proveedor, ver una lista de películas recomendadas y más recientes, y añadir películas favoritas a una lista personal.
 
-<br><img src="screenshots/caracteristicas.png" alt="Característcas" width="300" /> <br><br>
+<br><img src="screenshots/caracteristicas.png" alt="Característcas" width="300" /> <br><br><a name="caracteristicas"></a>
 - **Gestión de Usuarios**: Los usuarios pueden añadir y eliminar usuarios, y editar las preferencias de los usuarios.
 - **Recomendaciones de Películas**: La aplicación recomienda películas basadas en las preferencias de género y proveedor del usuario.
 - **Películas Favoritas**: Los usuarios pueden añadir películas a una lista personal de favoritos.
@@ -22,7 +21,7 @@ QueVemosHoy es una aplicación Android que proporciona recomendaciones de pelíc
 - **Preferencias de Género**: Los usuarios pueden gestionar sus preferencias de género.
 - **Preferencias de Proveedor**: Los usuarios pueden gestionar sus preferencias de proveedor.
 
-<br><img src="screenshots/capturas.png" alt="Capturas de pantalla" width="300" /> <br><br>
+<br><img src="screenshots/capturas.png" alt="Capturas de pantalla" width="300" /> <br><br><a name="capturas-de-pantalla"></a>
 <p float="left">
   <img src="screenshots/splash.png" alt="Pantalla de carga" width="150" />
   <img src="screenshots/login.png" alt="Pantalla de login" width="150" /> 
@@ -31,7 +30,7 @@ QueVemosHoy es una aplicación Android que proporciona recomendaciones de pelíc
 </p>
 
 
-<br><img src="screenshots/instalacion1.png" alt="Instalación desde Android Studio" width="400" /> <br><br>
+<br><img src="screenshots/instalacion1.png" alt="Instalación desde Android Studio" width="400" /> <br><br><a name="instalacion-desde-android-studio"></a>
  -Lo primero es **clonar** el repositorio y tenerlo en tu android Studio
 Una vez lo tengas clonado, podrás conectar un dispositivo.
  -Asegúrate de tener las **opciones de desarrollador** activadas (cada dispositivo tiene su método de activarlas, puedes consultar cómo hacerlo fácilmente en internet) y el modo depuración en tu dispositivo antes de conectarlo por USB a tu PC.
@@ -44,7 +43,7 @@ Una vez lo tengas clonado, podrás conectar un dispositivo.
  Simplemente presiona play en Android Studio y espera a que se instale.
  Algunos dispositivos quizás requieran que les otorgues ciertos permisos adicionales en ese momento.
 
-<br><img src="screenshots/instalacion2.png" alt="Instalaciónd desde APK" width="300" /> <br><br>
+<br><img src="screenshots/instalacion2.png" alt="Instalaciónd desde APK" width="300" /> <br><br><a name="instalacion-desde-apk"></a>
 -Para poder realizar la instalación desde el APK, dependiendo de la **versión** de Android que tengas, deberás dar permisos para poder instalarlo, o en el momento de su instalación.<br>
 ## Versiones de Android inferiores a 8.0
 Deberás habilitar en tus ajustes/seguridad, la instalación de origenes desconocidos. La instalación se hará normal.
@@ -66,6 +65,6 @@ Y ya estaria **instalado**.
 
 <br><img src="screenshots/descarga.png" alt="DEscarga el APK" width="200"><br><br>
 
-<a href="https://github.com/fjmaresp461/DecideCine/raw/master/APK/decidecine1.0.apk" download>Descargar APK</a>
+<a href="https://github.com/fjmaresp461/DecideCine/raw/master/APK/decidecine1.0.apk" download>Descargar APK</a><a name="descarga-de-archivo-apk"></a>
 
 
