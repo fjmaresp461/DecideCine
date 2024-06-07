@@ -21,12 +21,16 @@ QueVemosHoy es una aplicación Android que proporciona recomendaciones de pelíc
 - **Preferencias de Género**: Los usuarios pueden gestionar sus preferencias de género.
 - **Preferencias de Proveedor**: Los usuarios pueden gestionar sus preferencias de proveedor.
 
-<br><img src="screenshots/capturas.png" alt="Capturas de pantalla" width="300" /> <br><br><a name="capturas-de-pantalla"></a>
+<br><img src="screenshots/capturas.png" alt="Capturas de pantalla" style="width: 100%;" /> <br><br><a name="capturas-de-pantalla"></a>
 <p float="left">
-  <img src="screenshots/splash.png" alt="Pantalla de carga" width="150" />
-  <img src="screenshots/login.png" alt="Pantalla de login" width="150" /> 
-  <img src="screenshots/main.png" alt="Pantalla principal" width="150" />
-  <img src="screenshots/genres.png" alt="Pantalla de generos" width="150" />
+  <img src="screenshots/splash.png" alt="Pantalla de carga" style="width: 20%;" />
+  <img src="screenshots/login.png" alt="Pantalla de login" style="width: 20%;" /> 
+  <img src="screenshots/main.png" alt="Pantalla principal" style="width: 20%;" />
+  <img src="screenshots/recycler.png" alt="Recycler peliculas" style="width: 20%;" />
+  <img src="screenshots/detail.png" alt="Detalle pelicula" style="width: 20%;" />
+  <img src="screenshots/genres.png" alt="Pantalla de generos" style="width: 20%;" />
+  <img src="screenshots/users.png" alt="Pantalla de configuracion de usuario" style="width: 20%;" />
+  <img src="screenshots/settings.png" alt="Pantalla configuracion de sistema" style="width: 20%;" />
 </p>
 
 
