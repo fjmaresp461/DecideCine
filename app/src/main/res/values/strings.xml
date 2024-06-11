@@ -181,5 +181,6 @@
     <string name="television">Televisión</string>
     <string name="horror">Terror</string>
     <string name="thriller">Suspense</string>
+    <string name="password_required">La contraseña no puede estar vacia\n</string>
 
 </resources>

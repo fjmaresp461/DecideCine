@@ -4,6 +4,7 @@ import android.content.Intent
 import android.content.pm.ActivityInfo
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Patterns
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import com.example.quevemoshoy.register.RegisterActivity1
@@ -93,21 +94,24 @@ class LoginActivity : AppCompatActivity() {
         }
 
 
-        binding.tvForgottenPass.setOnClickListener {
+        binding.btnLogin.setOnClickListener {
             val email = binding.etEmail.text.toString().trim()
-            if (email.isEmpty()) {
-                Toast.makeText(this, R.string.please_enter_email, Toast.LENGTH_SHORT).show()
+            val pass = binding.etPassword.text.toString().trim()
+
+            if (!isValidEmail(email)) {
+                binding.etEmail.error = getString(R.string.invalid_email)
+            } else if (pass.isEmpty()) {
+                binding.etPassword.error = getString(R.string.password_required)
             } else {
-                auth.sendPasswordResetEmail(email).addOnCompleteListener { task ->
+                auth.signInWithEmailAndPassword(email, pass).addOnCompleteListener { task ->
                     if (task.isSuccessful) {
-                        Toast.makeText(this, getString(R.string.email_sent), Toast.LENGTH_SHORT)
-                            .show()
+                        val user = auth.currentUser
+                        checkPreferences(user)
                     } else {
-                        Toast.makeText(this, "Error.", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this, R.string.authentication_failed, Toast.LENGTH_SHORT).show()
                     }
                 }
             }
-
         }
 
         binding.tvRegister.setOnClickListener {
@@ -115,7 +119,9 @@ class LoginActivity : AppCompatActivity() {
             finish()
         }
     }
-
+    private fun isValidEmail(email: String): Boolean {
+        return Patterns.EMAIL_ADDRESS.matcher(email).matches()
+    }
     /**
      * Inicia la autenticación con Google.
      */
