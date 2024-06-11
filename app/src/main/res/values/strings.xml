@@ -182,5 +182,8 @@
     <string name="horror">Terror</string>
     <string name="thriller">Suspense</string>
     <string name="password_required">La contraseña no puede estar vacia\n</string>
+    <string name="email_required">El email no puede estar vacio</string>
+    <string name="check_email_reset_password">Por favor, revisa tu email\n</string>
+    <string name="error_sending_reset_email">Ha habido un error al enviar el email\n</string>
 
 </resources>

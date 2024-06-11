@@ -98,7 +98,9 @@ class LoginActivity : AppCompatActivity() {
             val email = binding.etEmail.text.toString().trim()
             val pass = binding.etPassword.text.toString().trim()
 
-            if (!isValidEmail(email)) {
+            if (email.isEmpty()) {
+                binding.etEmail.error = getString(R.string.email_required)
+            } else if (!isValidEmail(email)) {
                 binding.etEmail.error = getString(R.string.invalid_email)
             } else if (pass.isEmpty()) {
                 binding.etPassword.error = getString(R.string.password_required)
@@ -118,7 +120,29 @@ class LoginActivity : AppCompatActivity() {
             startActivity(Intent(this, RegisterActivity1::class.java))
             finish()
         }
+        binding.tvForgottenPass.setOnClickListener {
+            val email = binding.etEmail.text.toString().trim()
+
+            if (email.isEmpty()) {
+                binding.etEmail.error = getString(R.string.email_required)
+            } else if (!isValidEmail(email)) {
+                binding.etEmail.error = getString(R.string.invalid_email)
+            } else {
+                sendPasswordResetEmail(email)
+            }
+        }
     }
+    private fun sendPasswordResetEmail(email: String) {
+        auth.sendPasswordResetEmail(email)
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    Toast.makeText(this, getString(R.string.check_email_reset_password), Toast.LENGTH_SHORT).show()
+                } else {
+                    Toast.makeText(this, getString(R.string.error_sending_reset_email), Toast.LENGTH_SHORT).show()
+                }
+            }
+    }
+
     private fun isValidEmail(email: String): Boolean {
         return Patterns.EMAIL_ADDRESS.matcher(email).matches()
     }
